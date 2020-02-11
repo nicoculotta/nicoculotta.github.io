@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="main.css">
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+
+    <title>Case Manager</title>
+</head>
+<body>
+
+    <div class="aside--fixed">
+        <div class="aside__container">
+            <h2 class="brand">CaseManager</h2>
+            <div class="form__container">
+
+                    <div class="field">
+                        <label for="caseTitle">Case title</label>
+                        <input type="text" id="caseTitle" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="caseId">Case Id</label>
+                        <input type="number" id="caseId" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="caseNote">Note/Description</label>
+                        <textarea name="note" id="caseNote" autocomplete="off"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="status">Status</label>
+                        <select id="caseStatus">
+                            <option value="Development">Development</option>
+                            <option value="Sent to case owner">Sent to case owner</option>
+                            <option value="In Qa">In QA</option>
+                            <option value="Changes and Feedback">Changes and Feedback</option>
+                            <option value="Bugfixing">Bugfixing</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="date">Due Date</label>
+                        <input type="date" id="caseDate" autocomplete="off">
+                    </div>
+                    <button id="addCase" class="btn" value="Add Case">Add Case</button>
+                    <button id="editCase" class="btn dNone" value="edit">Save</button>
+                    <button id="cancelEdit" class="btn btn-cancel dNone" value="cancel">Cancel</button>
+
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="grid-layout">
+        <div class="empty-div"></div>  
+<!-- YESTERDAY -->
+        <div class="yesterday-section">
+            <h3>Yesterday</h3>
+        </div>
+
+<!-- TODAY -->
+        <div class="today-section">
+            <h3>Today</h3> 
+        </div>
+
+    </div>
+
+
+        <!-- JS -->
+        <script src="scripts.js"></script>
+</body>
+</html>
