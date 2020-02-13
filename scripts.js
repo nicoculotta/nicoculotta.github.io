@@ -294,11 +294,15 @@ function toggleButtons() {
 
 function getStatusClass(status) {
     switch (status) {
-        case 'Development' :  return 'btn-green'
-        case 'Sent to case owner' : return 'btn-pink'
-        case 'In QA' : return 'btn-blue'
-        case 'Changes and Feedback' : return 'btn-blue'
-        case 'Bugfixing' : return 'btn-blue'
+        case 'Queue for Dev' :  return 'btn-grey'
+        case 'Sent to Case Owner' :  return 'btn-pink'
+        case 'Development' :  return 'btn-blue'
+        case 'Code Review' :  return 'btn-purple'
+        case 'First Review' :  return 'btn-green'
+        case 'In QA' : return 'btn-orange'
+        case 'Changes and Feedback' : return 'btn-primary'
+        case 'Bugfixing' : return 'btn-error'
+        case 'Merged' : return 'btn-green'
         default : return 'btn-orange'
     }
 }
