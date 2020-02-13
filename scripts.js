@@ -8,7 +8,6 @@ const titleCaseInput = document.getElementById('caseTitle')
 const idCaseInput = document.getElementById('caseId')
 const noteCaseInput = document.getElementById('caseNote')
 const statusCaseInput = document.getElementById('caseStatus')
-const dateCaseInput = document.getElementById('caseDate')
 const iconClose = document.querySelector('icon-close')
 const iconChange = document.querySelector('icon-change')
 const iconEdit = document.querySelector('icon-edit')
@@ -91,7 +90,6 @@ titleCaseInput.addEventListener('focus', removeError )
 idCaseInput.addEventListener('focus', removeError )
 noteCaseInput.addEventListener('focus', removeError)
 statusCaseInput.addEventListener('focus', removeError)
-dateCaseInput.addEventListener('focus', removeError)
 
 
 //BOTON PARA AGREGAR CASO A LA LISTA
@@ -102,7 +100,6 @@ buttonAdd.addEventListener('click', function () {
         id: idCaseInput.value,
         description:  noteCaseInput.value,
         status: statusCaseInput.value,
-        date: dateCaseInput.value
     }
 
     
@@ -129,9 +126,15 @@ function agregarCaso(caseInfo, sectionName) {
         <div class="card-header">
             <h4 class="card-title"><a class="link" href="https://teg.avature.net/#Case/${caseInfo.id}" target="_blank">${caseInfo.title}</a></h4>
             <div class="card-actions">
-                <span class="icon-action icon-edit" data-id="${caseInfo.id}"></span>
-                <span class="icon-action icon-change" data-id="${caseInfo.id}"></span>
-                <span class="icon-action icon-close" data-id="${caseInfo.id}"></span>
+                <span class="icon-action icon-edit tooltip" data-id="${caseInfo.id}">
+                    <span class="tooltiptext">Edit case</span>
+                </span>
+                <span class="icon-action icon-change tooltip" data-id="${caseInfo.id}">
+                    <span class="tooltiptext">Move case</span>
+                </span>
+                <span class="icon-action icon-close tooltip" data-id="${caseInfo.id}">
+                    <span class="tooltiptext">Delete</span>
+                </span>
             </div>
         </div>
         <div class="card-content">
@@ -139,7 +142,6 @@ function agregarCaso(caseInfo, sectionName) {
         </div>
         <div class="card-footer">
             <div class="btn-status ${statusButton}">${caseInfo.status}</div>
-            <span class="card-footer--date">${caseInfo.date}</span>
         </div>
         `
     if (sectionName === 'today'){
@@ -160,7 +162,6 @@ function mostrarCasos() {
             id : todayCasesArray[i].id,
             description : todayCasesArray[i].description,
             status : todayCasesArray[i].status,
-            date : todayCasesArray[i].date
         }
 
         agregarCaso(caseInfo, 'today')
@@ -173,7 +174,6 @@ function mostrarCasos() {
             id : yesterdayCasesArray[i].id,
             description : yesterdayCasesArray[i].description,
             status : yesterdayCasesArray[i].status,
-            date : yesterdayCasesArray[i].date
         }
 
         agregarCaso(caseInfo, 'yesterday')
@@ -191,7 +191,6 @@ function editCase(id, array){
             idCaseInput.value = array[i].id
             noteCaseInput.value = array[i].description
             statusCaseInput.value = array[i].status
-            dateCaseInput.value = array[i].date
             break;
         }
     }
@@ -210,7 +209,6 @@ buttonEdit.addEventListener('click', function(){
         id: idCaseInput.value,
         description:  noteCaseInput.value,
         status: statusCaseInput.value,
-        date: dateCaseInput.value
     }
 
     const esValido = caseValidator(caseObject)
@@ -227,9 +225,15 @@ buttonEdit.addEventListener('click', function(){
                     <div class="card-header">
                         <h4 class="card-title"><a class="link" href="https://teg.avature.net/#Case/${caseObject.id}" target="_blank">${caseObject.title}</a></h4>
                         <div class="card-actions">
-                            <span class="icon-action icon-edit" data-id="${caseObject.id}"></span>
-                            <span class="icon-action icon-change" data-id="${caseObject.id}"></span>
-                            <span class="icon-action icon-close" data-id="${caseObject.id}"></span>
+                            <span class="icon-action icon-edit tooltip" data-id="${caseObject.id}">
+                                <span class="tooltiptext">Edit case</span>
+                            </span>
+                            <span class="icon-action icon-change tooltip" data-id="${caseObject.id}">
+                                <span class="tooltiptext">Move case</span>
+                            </span>
+                            <span class="icon-action icon-close tooltip" data-id="${caseObject.id}">
+                                <span class="tooltiptext">Delete</span>
+                            </span>
                         </div>
                     </div>
                     <div class="card-content">
@@ -237,7 +241,6 @@ buttonEdit.addEventListener('click', function(){
                     </div>
                     <div class="card-footer">
                         <div class="btn-status ${statusButton}">${caseObject.status}</div>
-                        <span class="card-footer--date">${caseObject.date}</span>
                     </div>
                     ` 
 

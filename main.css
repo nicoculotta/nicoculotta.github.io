@@ -2,10 +2,12 @@
 /* Variables */
 :root{
     --c-primary: #3F4F6D;
+    --c-hover-blue: #e0effa;
     --c-bg: #F1F5F8;
     --c-blue:  #4584EF;
     --c-purple:  #6a3adb;
     --c-green: #3ECFAB;
+    --c-green-hover: #14b6b6;
     --c-orange: #F89060;
     --c-pink: #FC5889;
     --c-grey: #868686;
@@ -39,7 +41,7 @@ body {
 /* Custom Scrollbar Chrome */
 /* width */
 ::-webkit-scrollbar {
-    width: 2px;
+    width: 5px;
     border-radius: 8px;
 }
 /* Track */
@@ -114,7 +116,8 @@ background: #dbe0e4;
 }
 .field textarea {
     height: 100px;
-    padding: 20px;   
+    padding: 20px;
+    resize: none;   
 }
 
 .field input.error,
@@ -134,12 +137,28 @@ background: #dbe0e4;
     font-family: 'Poppins', sans-serif;
     line-height: 34px;
     cursor: pointer;
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: var(--c-green-hover);
+    border: 2px solid var(--c-green-hover);
 }
 
 .btn-cancel {
     background-color: #fff;
     border: 2px solid var(--c-green);
     color: var(--c-green);
+}
+
+.btn-cancel:hover {
+    background-color: #fff;
+    border: 2px solid var(--c-green-hover);
+    color: var(--c-green-hover);
 }
 
 .dNone {
@@ -153,7 +172,7 @@ button.btn {
 .yesterday-section,
 .today-section {
     padding: 0 24px;
-    margin: 40px 0 0;
+    margin: 30px 0 0;
     overflow: auto;
     scrollbar-color: #dbe0e4 #fff;
     scrollbar-width: thin;
@@ -162,7 +181,7 @@ button.btn {
 .yesterday-section h3,
 .today-section h3 {
     font-size: var(--title-section);
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     animation: opacity 2s ease-in-out;
     -webkit-animation: opacity 2s ease-in-out;
 }
@@ -188,6 +207,7 @@ button.btn {
     -o-transition: all 0.3s ease-in-out ;
     animation: opacity .8s ease-in-out ;
     -webkit-animation: opacity .8s ease-in-out ;
+    box-shadow: 0px 0px 0px var(--c-shadow);
 }
 
 .card:hover {
@@ -203,7 +223,7 @@ button.btn {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8spx;
+    margin-bottom: 8px;
 }
 .card-title {
     font-size: var(--title-card);
@@ -233,6 +253,7 @@ button.btn {
     -o-border-radius: 100%;
     cursor: pointer;
 }
+
 .icon-action:not(:last-of-type){
     margin-right: 5px;
 }
@@ -252,6 +273,20 @@ button.btn {
     -o-transform: rotateY(180deg);
 }
 
+.yesterday-section .icon-change .tooltiptext {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+}
+
+.icon-action:hover,
+.today-section .icon-change:hover,
+.yesterday-section .icon-change:hover {
+    background-color: var(--c-hover-blue);
+}
+
 .icon-close {
     background: var(--c-bg) url('assets/close-outline.svg') no-repeat center;
     background-size: 20px;
@@ -263,7 +298,7 @@ button.btn {
 }
 
 .card-content {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .card-footer {
@@ -317,11 +352,6 @@ button.btn {
 }
 
 
-
-.card-footer--date {
-    font-weight: 600;
-}
-
 /* END CARDS */
 
 /* blur effect */
@@ -352,6 +382,51 @@ button.btn {
 }
 
 
+/* TOOLTIPS */
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 80px;
+    background-color: var(--c-primary);
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -40px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px;
+  }
+  
+  /* Tooltip arrow */
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--c-primary) transparent transparent transparent;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+
+
 /* MEDIAQUERIES  */
 
 @media all and (max-width: 1366px){
@@ -374,4 +449,19 @@ button.btn {
         padding: 8px 10px;
         height: 36px;
     }
+
+    .yesterday-section h3,
+    .today-section h3 {
+        font-size: var(--title-card);
+        margin-bottom: 25px;
+    }
+
+    .icon-edit {
+        background-size: 18px;
+    }
+    .icon-action {
+        width: 28px;
+        height: 28px;
+    }
+
 }
