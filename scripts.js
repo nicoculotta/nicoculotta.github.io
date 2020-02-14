@@ -15,6 +15,9 @@ const buttonCancel = document.getElementById('cancelEdit')
 const buttonEdit = document.getElementById('editCase')
 const buttonAdd = document.getElementById('addCase')
 
+const oldCasesBtn = document.querySelector('.old-cases__button')
+const oldCasesContainer = document.querySelector('.old-cases__container')
+
 
 let todayCasesArray = []
 let yesterdayCasesArray = []
@@ -104,9 +107,11 @@ buttonAdd.addEventListener('click', function () {
 
     
     const esValido = caseValidator(caseObject)
+    const idExiste = existeId(caseObject.id)
+    
 
     //SI VALIDO ES "TRUE" EJECUTO LA FUNCION Q AGREGA LA INFO DEL CASO EN EL ARRAY DE CASOS
-    if (esValido) {
+    if (esValido && !idExiste) {
         todayCasesArray.push(caseObject)
         agregarCaso(caseObject, 'today')
         clearForm()
@@ -287,6 +292,11 @@ function caseValidator(caseObject){
     return esValido
 }
 
+oldCasesBtn.addEventListener('click', showOldCases)
+function showOldCases(){
+    oldCasesContainer.classList.toggle('open')
+}
+
 function toggleButtons() {
     buttonCancel.classList.toggle('dNone')
     buttonEdit.classList.toggle('dNone')
@@ -368,6 +378,23 @@ function loadLocalStorage(){
     if (yesterdayCasesArray === null){
         yesterdayCasesArray = []
     }
+}
+
+function existeId(id){
+    for (let i=0; i < todayCasesArray.length; i++){
+        if (todayCasesArray[i].id === id ){
+            idCaseInput.classList.add('error')
+            return true
+        }
+    }
+    
+    for (let i=0; i < yesterdayCasesArray.length; i++){
+        if (yesterdayCasesArray[i].id === id ){
+            idCaseInput.classList.add('error')
+            return true
+        }
+    }
+    return false
 }
 
 loadLocalStorage()

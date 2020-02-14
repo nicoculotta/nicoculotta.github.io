@@ -114,9 +114,17 @@ background: #dbe0e4;
     -ms-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
 }
+
+.field select {
+    background: url(assets/chevron-down-outline.svg) no-repeat right var(--c-bg);
+    -webkit-appearance: none;
+    background-position-x: 181px;
+    background-size: 24px;
+}
+
 .field textarea {
     height: 100px;
-    padding: 20px;
+    padding: 16px;
     resize: none;   
 }
 
@@ -124,6 +132,14 @@ background: #dbe0e4;
 .field textarea.error {
     border: 1px solid var(--c-error);
     box-shadow: 0px 0px 5px var(--c-error-shadow);
+}
+
+.field input:focus {
+    border: 1px solid var(--c-green-hover);
+}
+
+.field textarea:focus {
+    border: 1px solid var(--c-green-hover);
 }
 
 .btn {
@@ -408,8 +424,8 @@ button.btn {
     font-size: 12px;
   }
   
-  /* Tooltip arrow */
-  .tooltip .tooltiptext::after {
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -418,13 +434,90 @@ button.btn {
     border-width: 5px;
     border-style: solid;
     border-color: var(--c-primary) transparent transparent transparent;
-  }
-  
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .tooltip:hover .tooltiptext {
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-  }
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+-moz-appearance:textfield;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #c8d4dd;
+    opacity: 1; /* Firefox */
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #c8d4dd;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #c8d4dd;
+}
+
+input[disabled] {
+    opacity: 0.3;
+}
+
+
+/* OLD CASES */
+/* .old-cases__button {
+    position: absolute;
+    bottom: 25px;
+    border-bottom: 1px solid;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.old-cases__container{
+    position: absolute;
+    height: 100%;
+    background-color: #fff;
+    width: 249px;
+    top: 0;
+    transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    -o-transform: translateY(100%);
+    transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -ms-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    border-top: 5px solid var(--c-green-hover);
+    padding: 16px;
+}
+
+.old-cases__container.open {
+    transform: translateY(0%);
+    -webkit-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+}
+
+.old-case {
+    border: 1px solid var(--c-primary);
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.old-case .card-title {
+    font-size: var(--text);
+} */
 
 
 /* MEDIAQUERIES  */
@@ -443,7 +536,7 @@ button.btn {
 
     .field textarea {
         height: 65px;
-        padding: 20px;
+        padding: 12px;
     }
     .field input, .field select {
         padding: 8px 10px;

@@ -19,39 +19,49 @@
         <div class="aside__container">
             <h2 class="brand">DailyCases</h2>
             <div class="form__container">
-
-                    <div class="field">
-                        <label for="caseTitle">Case title</label>
-                        <input type="text" id="caseTitle" autocomplete="off">
-                    </div>
-                    <div class="field">
-                        <label for="caseId">Case Id</label>
-                        <input type="number" id="caseId" autocomplete="off">
-                    </div>
-                    <div class="field">
-                        <label for="caseNote">Note/Description</label>
-                        <textarea name="note" id="caseNote" autocomplete="off"></textarea>
-                    </div>
-                    <div class="field">
-                        <label for="status">Status</label>
-                        <select id="caseStatus">
-                            <option value="Queue for Dev">Queue for Dev</option>
-                            <option value="Sent to Case Owner">Sent to Case Owner</option>
-                            <option value="Development">Development</option>
-                            <option value="Code Review">Code Review</option>
-                            <option value="First Review">First Review</option>
-                            <option value="In Qa">In QA</option>
-                            <option value="Changes and Feedback">Changes and Feedback</option>
-                            <option value="Bugfixing">Bugfixing</option>
-                            <option value="Merged">Merged</option>
-                        </select>
-                    </div>
-                    <button id="addCase" class="btn" value="Add Case">Add Case</button>
-                    <button id="editCase" class="btn dNone" value="edit">Save</button>
-                    <button id="cancelEdit" class="btn btn-cancel dNone" value="cancel">Cancel</button>
-
+                <div class="field">
+                    <label for="caseTitle">Case title</label>
+                    <input type="text" id="caseTitle" autocomplete="off" placeholder="Deloitte - HM">
+                </div>
+                <div class="field">
+                    <label for="caseId">Case Id</label>
+                    <input type="number" id="caseId" autocomplete="off" placeholder="432455">
+                </div>
+                <div class="field">
+                    <label for="caseNote">Note/Description</label>
+                    <textarea name="note" id="caseNote" autocomplete="off" placeholder="I have to do..."></textarea>
+                </div>
+                <div class="field">
+                    <label for="status">Status</label>
+                    <select id="caseStatus">
+                        <option value="Queue for Dev" selected>Queue for Dev</option>
+                        <option value="Sent to Case Owner">Sent to Case Owner</option>
+                        <option value="Development">Development</option>
+                        <option value="Code Review">Code Review</option>
+                        <option value="First Review">First Review</option>
+                        <option value="In Qa">In QA</option>
+                        <option value="Changes and Feedback">Changes and Feedback</option>
+                        <option value="Bugfixing">Bugfixing</option>
+                        <option value="Merged">Merged</option>
+                    </select>
+                </div>
+                <button id="addCase" class="btn" value="Add Case">Add Case</button>
+                <button id="editCase" class="btn dNone" value="edit">Save</button>
+                <button id="cancelEdit" class="btn btn-cancel dNone" value="cancel">Cancel</button>
             </div>
-            
+
+<!--             <div class="old-cases__button">Cases History</div>
+            <div class="old-cases__container">
+                <div class="old-case">
+                    <h4 class="card-title">Title card</h4>
+                </div>
+                <div class="old-case">
+                    <h4 class="card-title">Title card</h4>
+                </div>
+                <div class="old-case">
+                    <h4 class="card-title">Title card</h4>
+                </div>
+            </div> -->
         </div>
     </div>
 
