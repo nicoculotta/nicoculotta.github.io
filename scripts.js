@@ -15,9 +15,6 @@ const buttonCancel = document.getElementById('cancelEdit')
 const buttonEdit = document.getElementById('editCase')
 const buttonAdd = document.getElementById('addCase')
 
-const oldCasesBtn = document.querySelector('.old-cases__button')
-const oldCasesContainer = document.querySelector('.old-cases__container')
-
 
 let todayCasesArray = []
 let yesterdayCasesArray = []
@@ -290,11 +287,6 @@ function caseValidator(caseObject){
     }
 
     return esValido
-}
-
-oldCasesBtn.addEventListener('click', showOldCases)
-function showOldCases(){
-    oldCasesContainer.classList.toggle('open')
 }
 
 function toggleButtons() {
