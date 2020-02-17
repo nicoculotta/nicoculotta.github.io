@@ -281,10 +281,6 @@ function caseValidator(caseObject){
         esValido = false
         noteCaseInput.classList.add('error');    
     }
-    if (caseObject.date === ''){
-        esValido = false
-        dateCaseInput.classList.add('error');    
-    }
 
     return esValido
 }
@@ -352,7 +348,6 @@ function clearForm(){
     idCaseInput.value = null
     noteCaseInput.value = null
     statusCaseInput.value = null
-    dateCaseInput.value = null
 }
 
 function saveInLocalStorage(){
