@@ -14,6 +14,7 @@ const iconEdit = document.querySelector('icon-edit')
 const buttonCancel = document.getElementById('cancelEdit')
 const buttonEdit = document.getElementById('editCase')
 const buttonAdd = document.getElementById('addCase')
+const dateCase = new Date().toLocaleDateString("es-AR")
 
 
 let todayCasesArray = []
@@ -100,6 +101,7 @@ buttonAdd.addEventListener('click', function () {
         id: idCaseInput.value,
         description:  noteCaseInput.value,
         status: statusCaseInput.value,
+        date: dateCase
     }
 
     
@@ -144,6 +146,7 @@ function agregarCaso(caseInfo, sectionName) {
         </div>
         <div class="card-footer">
             <div class="btn-status ${statusButton}">${caseInfo.status}</div>
+            <div class="">${dateCase}</div>
         </div>
         `
     if (sectionName === 'today'){
@@ -164,6 +167,7 @@ function mostrarCasos() {
             id : todayCasesArray[i].id,
             description : todayCasesArray[i].description,
             status : todayCasesArray[i].status,
+            date: todayCasesArray[i].date
         }
 
         agregarCaso(caseInfo, 'today')
@@ -176,6 +180,7 @@ function mostrarCasos() {
             id : yesterdayCasesArray[i].id,
             description : yesterdayCasesArray[i].description,
             status : yesterdayCasesArray[i].status,
+            date: todayCasesArray[i].date
         }
 
         agregarCaso(caseInfo, 'yesterday')
@@ -211,6 +216,7 @@ buttonEdit.addEventListener('click', function(){
         id: idCaseInput.value,
         description:  noteCaseInput.value,
         status: statusCaseInput.value,
+        date: dateCase
     }
 
     const esValido = caseValidator(caseObject)
@@ -243,6 +249,7 @@ buttonEdit.addEventListener('click', function(){
                     </div>
                     <div class="card-footer">
                         <div class="btn-status ${statusButton}">${caseObject.status}</div>
+                        <div class="">${dateCase}</div>
                     </div>
                     ` 
 
