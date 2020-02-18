@@ -14,7 +14,7 @@ const iconEdit = document.querySelector('icon-edit')
 const buttonCancel = document.getElementById('cancelEdit')
 const buttonEdit = document.getElementById('editCase')
 const buttonAdd = document.getElementById('addCase')
-const dateCase = new Date().toLocaleDateString("es-AR")
+
 
 
 let todayCasesArray = []
@@ -96,6 +96,8 @@ statusCaseInput.addEventListener('focus', removeError)
 //BOTON PARA AGREGAR CASO A LA LISTA
 buttonAdd.addEventListener('click', function () {
 
+    let dateCase = new Date().toLocaleDateString("es-AR")
+
     const caseObject = {
         title: titleCaseInput.value,
         id: idCaseInput.value,
@@ -146,7 +148,7 @@ function agregarCaso(caseInfo, sectionName) {
         </div>
         <div class="card-footer">
             <div class="btn-status ${statusButton}">${caseInfo.status}</div>
-            <div class="">${dateCase}</div>
+            <div class="">${caseInfo.date}</div>
         </div>
         `
     if (sectionName === 'today'){
@@ -211,6 +213,8 @@ buttonCancel.addEventListener('click', function(){
 
 buttonEdit.addEventListener('click', function(){
 
+    let dateCase = new Date().toLocaleDateString("es-AR")
+
     const caseObject = {
         title: titleCaseInput.value,
         id: idCaseInput.value,
@@ -249,7 +253,7 @@ buttonEdit.addEventListener('click', function(){
                     </div>
                     <div class="card-footer">
                         <div class="btn-status ${statusButton}">${caseObject.status}</div>
-                        <div class="">${dateCase}</div>
+                        <div class="">${caseObject.date}</div>
                     </div>
                     ` 
 
