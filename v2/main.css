@@ -208,6 +208,7 @@ header {
 }
 .case__container:hover {
     border-left: 4px solid var(--c-accent);
+    margin-left: -3px;
 }
 .case {
     display: flex;
@@ -216,6 +217,29 @@ header {
 
 [class^="case__item"] {
     padding-right: 1em;
+}
+
+[class^="case__item"] input,
+.case__note input {
+    border:none;
+    cursor: pointer;
+    padding: 7px;
+    transition: all .2s ease-in-out;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+.case__note input {
+    width: 100%;
+}
+
+[class^="case__item"] input:focus,
+.case__note input:focus {
+    background-color: var(--c-lightblue);
+    cursor: text;
 }
 .case__item--client {
     flex: 0 0 25%;

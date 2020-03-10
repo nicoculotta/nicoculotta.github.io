@@ -9,13 +9,18 @@
     <!-- CSS -->
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="remodal/remodal.css">
+    <link rel="stylesheet" href="remodal/remodal-default-theme.css">
     <!-- GOOGLE FONT -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:500,600,700&display=swap" rel="stylesheet">
+
+   <!-- JQUERY CDN -->
+   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
     <title>Case Manager</title>
 </head>
 <body>
-
+    <div class="remodal-bg">
     <header>
         <div class="container header__container">
             <div class="brand">CaseManager</div>
@@ -25,7 +30,7 @@
                 <li class="filter__list--item">All cases</li>
             </ul>
             <div class="button__modal">
-                <a href="#">New Case</a>
+                <a href="#" data-remodal-target="modal">New Case</a>
             </div>
         </div>
     </header>
@@ -40,8 +45,12 @@
             </div>
             <div class="case__container">
                 <div class="case">
-                    <div class="case__item--client">Deloitte</div>
-                    <div class="case__item--type" contenteditable="true">Hiring Manager</div>
+                    <div class="case__item--client">
+                        <input type="text" name="client" id="clientInput" value="Deloitte">
+                    </div>
+                    <div class="case__item--type">
+                        <input type="text" name="type" id="typeInput" value="Hiring Manager">
+                    </div>
                     <div class="case__item--date">03/04</div>
                     <div class="case__item--status">
                         <select id="caseStatus">
@@ -57,7 +66,7 @@
                         </select>
                     </div>
                     <div class="case__buttons">
-                        <div class="case__buttons--icon--note has-note">
+                        <div class="case__buttons--icon--note">
                             <img src="../assets/file-text-outline.svg" alt="note">
                         </div>
                         <div class="case__buttons--icon--link">
@@ -71,12 +80,23 @@
                     </div>     
                 </div>
                 <div class="case__note">
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore asperiores rerum voluptas tempo</p>
+                    <input type="text" name="type" id="typeInput" value="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore asperiores"></p>
                 </div>
             </div>
         </div>
     </section>
 
+        <!-- MODAL CREATE CASE -->
+        <div class="remodal" data-remodal-id="modal">
+            <h1>Create a new case</h1>
+            <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+            <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
+        </div>
+
+    </div>
+
+        <!-- JS REMODAL -->
+        <script src="remodal/remodal.min.js"></script>
         <!-- JS -->
         <script src="scripts.js"></script>
 </body>
