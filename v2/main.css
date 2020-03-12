@@ -238,12 +238,13 @@ header {
 
 [class^="case__item"] {
     padding-right: 1em;
+    position: relative;
 }
 
 [class^="case__item"] input,
 .case__note input {
     border:none;
-    cursor: pointer;
+    cursor: url(assets/edit-outline.png), auto;
     padding: 7px;
     transition: all .2s ease-in-out;
     border-radius: 4px;
@@ -422,6 +423,16 @@ header {
     margin-top: 20px;
     padding-top: 14px;
     border-top: 1px solid var(--c-border);
+}
+
+.button-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-bar button:first-child {
+    margin-right: 8px;
 }
 
 
