@@ -80,7 +80,7 @@
                     </div>     
                 </div>
                 <div class="case__note">
-                    <input type="text" name="type" id="typeInput" value="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore asperiores"></p>
+                    <input type="text" name="type" id="noteInput" value="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore asperiores"></p>
                 </div>
             </div>
         </div>
@@ -89,8 +89,44 @@
         <!-- MODAL CREATE CASE -->
         <div class="remodal" data-remodal-id="modal">
             <h1>Create a new case</h1>
-            <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
-            <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
+            <div class="form-col2">
+                <div class="field">
+                    <label for="clientNameInput">Client</label>
+                    <input type="text" id="clientNameInput" autocomplete="off" placeholder="Deloitte">
+                </div>
+                <div class="field">
+                    <label for="typeNameInput">Portal Type</label>
+                    <input type="text" id="typeNameInput" autocomplete="off" placeholder="External Careers">
+                </div>
+                <div class="field">
+                    <label for="idCaseInput">Id Case</label>
+                    <input type="number" id="idCaseInput" autocomplete="off" placeholder="435679">
+                </div>
+                <div class="field">
+                    <label for="caseStatusInput">Status</label>
+                    <select id="caseStatusInput">
+                        <option value="Queue for Dev" selected>Queue for Dev</option>
+                        <option value="Sent to Case Owner">Sent to Case Owner</option>
+                        <option value="Development">Development</option>
+                        <option value="Code Review">Code Review</option>
+                        <option value="First Review">First Review</option>
+                        <option value="In Qa">In QA</option>
+                        <option value="Changes and Feedback">Changes and Feedback</option>
+                        <option value="Bugfixing">Bugfixing</option>
+                        <option value="Merged">Merged</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-col1">
+                <div class="field">
+                    <label for="caseNoteInput">Notes</label>
+                    <textarea name="note" id="noteInput" value="Write a note here...">
+                </div>
+            </div>
+            
+
+            <button data-remodal-action="cancel" class="button--cancel">Cancel</button>
+            <button data-remodal-action="confirm" class="button--confirm">OK</button>
         </div>
 
     </div>
