@@ -26,6 +26,7 @@ $(document).ready(function () {
         if (isValid) {
             modal.close()
             caseContainer.append(printCase(caseInfo))
+            recoverStatusCase()
         }
     })
 
@@ -59,6 +60,8 @@ $(document).ready(function () {
 
     function printCase(caseInfo){
 
+        /* let caseStatusSelected = caseStatusInput */
+
         let caseTemplate = `<div class="case__container"><div class="case">
                                 <div class="case__item--client">
                                     <input type="text" name="client" id="clientInput" value="${caseInfo.client}">
@@ -69,15 +72,15 @@ $(document).ready(function () {
                                 <div class="case__item--date">${caseInfo.date}</div>
                                 <div class="case__item--status">
                                     <select id="caseStatus">
-                                        <option value="Queue for Dev" selected>Queue for Dev</option>
-                                        <option value="Sent to Case Owner">Sent to Case Owner</option>
-                                        <option value="Development">Development</option>
-                                        <option value="Code Review">Code Review</option>
-                                        <option value="First Review" selected>First Review</option>
-                                        <option value="In Qa">In QA</option>
-                                        <option value="Changes and Feedback">Changes and Feedback</option>
-                                        <option value="Bugfixing">Bugfixing</option>
-                                        <option value="Merged">Merged</option>
+                                        <option value="A">Queue for Dev</option>
+                                        <option value="B">Sent to Case Owner</option>
+                                        <option value="C">Development</option>
+                                        <option value="D">Code Review</option>
+                                        <option value="E">First Review</option>
+                                        <option value="F">In QA</option>
+                                        <option value="G">Changes and Feedback</option>
+                                        <option value="H">Bugfixing</option>
+                                        <option value="I">Merged</option>
                                     </select>
                                 </div>
                                 <div class="case__buttons">
@@ -85,12 +88,12 @@ $(document).ready(function () {
                                         <img src="../assets/file-text-outline.svg" alt="note">
                                     </div>
                                     <div class="case__buttons--icon--link">
-                                        <a href="case.id">
-                                            <img src="../assets/link-2-outline.svg" alt="note">
+                                        <a href="https://teg.avature.net/Case#/${caseInfo.id}">
+                                            <img src="../assets/link-2-outline.svg" alt="link">
                                         </a>
                                     </div>
                                     <div class="case__buttons--icon--remove">
-                                        <img src="../assets/trash-2-outline.svg" alt="note">
+                                        <img src="../assets/trash-2-outline.svg" alt="remove">
                                     </div>
                                 </div>     
                             </div>
@@ -99,7 +102,29 @@ $(document).ready(function () {
                             </div></div>`;
         
         return caseTemplate
+    }
 
+    function recoverStatusCase(){
+        
+        let caseStatusCard = $('#caseStatus')
+        statusValue = caseStatusInput.val()
+
+        if (statusValue === "A"){
+            caseStatusCard.attr("selected","selected");
+            console.log('seleccionaste a A' + caseStatusCard)
+        } else if (statusValue === "B"){
+            caseStatusCard.attr("selected","selected"); 
+            console.log('seleccionaste a B' + caseStatusCard)
+        }
+        else if (statusValue === "C"){
+            caseStatusCard.attr("selected","selected"); 
+            console.log('seleccionaste a A'  + caseStatusCard)
+        }
+        else if (statusValue === "D"){
+            caseStatusCard.attr("selected","selected"); 
+        }
+        
+        
     }
 
 });
