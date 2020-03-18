@@ -7,6 +7,7 @@ $(document).ready(function () {
     let caseNoteInput = $('#caseNoteInput')
     let caseContainer = $('.cases__container--all')
 
+    
     let modal = $('.remodal').remodal()
 
    
@@ -25,6 +26,17 @@ $(document).ready(function () {
         if (isValid) {
             modal.close()
             caseContainer.append(printCase(caseInfo))
+        }
+    })
+
+
+    $('body').on('click', function(e) {
+        let caseNoteContainer = $('.case__note')
+        for (let i = 0; i < caseNoteContainer.length; i++){
+            if ($(e.target).hasClass('case__buttons--icon--note') || $(e.target)[0].tagName === 'IMG' ){
+
+                caseNoteContainer[i].toggle('slow', 'swing')
+            }
         }
     })
 
@@ -48,16 +60,15 @@ $(document).ready(function () {
         if (caseNoteInput.val() === ''){
             isValid = false
             addErrorClass(caseNoteInput)
-        }
+        } 
         return isValid
-    }
+    }  
 
     function addErrorClass(e){
         e.addClass('error');
     }
 
     function printCase(caseInfo){
-
 
         let caseTemplate = `<div class="case__container">
                                 <div class="case">
@@ -82,7 +93,7 @@ $(document).ready(function () {
                                         </select>
                                     </div>
                                     <div class="case__buttons">
-                                        <div class="case__buttons--icon--note">
+                                        <div class="case__buttons--icon--note has-note">
                                             <img src="../assets/file-text-outline.svg" alt="note">
                                         </div>
                                         <div class="case__buttons--icon--link">
@@ -99,12 +110,8 @@ $(document).ready(function () {
                                     <input type="text" name="type" id="noteInput" value="${caseInfo.note}"></p>
                                 </div>
                             </div>`;
-
+        
         return caseTemplate
     }
 
-    function printNote(caseInfo){
-
-        let noteTemplate = 
-    }
 });
