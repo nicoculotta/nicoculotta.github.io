@@ -1,4 +1,5 @@
 let casesArray = []
+
 $(document).ready(function () {
 
     let clientNameInput = $('#clientNameInput')
@@ -32,18 +33,14 @@ $(document).ready(function () {
             modal.close()
             casesArray.push(caseInfo)
             caseContainer.append(printCase(caseInfo))
-            dataCounter++ 
         }
     })
 
 
     caseContainer.on('click', '.case__buttons--icon--note', function(){
-        console.log($(this).data("counter"))
-        console.log($('.case__note').data("counter"))
-
-        if($(this).data("counter") === $('.case__note').data("counter") ) {
-            $('.case__note').toggle()
-        }
+        let target = $(this).attr("data-id")
+        let noteContainer = $(`.case__note[data-id=${target}]`)
+        noteContainer.toggle()
     })
 
 
@@ -86,15 +83,15 @@ $(document).ready(function () {
 
     function printCase(caseInfo){
 
-        let iconNoteTemplate = `<div class="case__buttons--icon--note has-note" data-counter="${dataCounter}">
+        let iconNoteTemplate = `<div  class="case__buttons--icon--note has-note" data-id="${caseInfo.id}">
                                     <img src="../assets/file-text-outline.svg" alt="note">
                                 </div>`
 
-        let noteTemplate = `<div class="case__note" style="display:none;" data-counter="${dataCounter}">
+        let noteTemplate = `<div class="case__note" style="display:none;" data-id="${caseInfo.id}">
                                 <input type="text" name="type" id="noteInput" value="${caseInfo.note}"></input>
                             </div>`
 
-        let caseTemplate = `<div class="case__container" data-counter="${dataCounter}">
+        let caseTemplate = `<div class="case__container">
                                 <div class="case">
                                     <div class="case__item--client">
                                         <input type="text" name="client" id="clientInput" value="${caseInfo.client}">
