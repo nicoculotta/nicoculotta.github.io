@@ -8,6 +8,8 @@ $(document).ready(function () {
     let caseNoteInput = $('#caseNoteInput')
     let caseContainer = $('.cases__container--all')
 
+
+    let noteContainer = $('.case__note')
     
     let modal = $('.remodal').remodal()
 
@@ -35,11 +37,12 @@ $(document).ready(function () {
     })
 
 
-     $('body').on('click', function(e) {
-        
-        if ($(e.target).hasClass('case__buttons--icon--note') || $(e.target)[0].tagName === 'IMG' ){
-            
-            $(this).find(".case__note").toggle()
+    caseContainer.on('click', '.case__buttons--icon--note', function(){
+        console.log($(this).data("counter"))
+        console.log($('.case__note').data("counter"))
+
+        if($(this).data("counter") === $('.case__note').data("counter") ) {
+            $('.case__note').toggle()
         }
     })
 
@@ -84,8 +87,9 @@ $(document).ready(function () {
     function printCase(caseInfo){
 
         let iconNoteTemplate = `<div class="case__buttons--icon--note has-note" data-counter="${dataCounter}">
-                                    <img src="../assets/file-text-outline.svg" alt="note" data-counter="${dataCounter}">
-                                </div>`;
+                                    <img src="../assets/file-text-outline.svg" alt="note">
+                                </div>`
+
         let noteTemplate = `<div class="case__note" style="display:none;" data-counter="${dataCounter}">
                                 <input type="text" name="type" id="noteInput" value="${caseInfo.note}"></input>
                             </div>`
