@@ -7,14 +7,11 @@ $(document).ready(function () {
     let idCaseInput = $('#idCaseInput')
     let caseStatusInput = $('#caseStatusInput')
     let caseNoteInput = $('#caseNoteInput')
-    let caseContainer = $('.cases__container--all')
+    let caseContainerAll = $('.cases__container--all')
 
-
-    let noteContainer = $('.case__note')
     
     let modal = $('.remodal').remodal()
 
-    let dataCounter = 0
 
    
     $('#buttonCreate').click( function(){
@@ -32,15 +29,22 @@ $(document).ready(function () {
         if (isValid) {
             modal.close()
             casesArray.push(caseInfo)
-            caseContainer.append(printCase(caseInfo))
+            caseContainerAll.append(printCase(caseInfo))
         }
     })
 
-
-    caseContainer.on('click', '.case__buttons--icon--note', function(){
+    // SHOW/HIDE NOTE
+    caseContainerAll.on('click', '.case__buttons--icon--note', function(){
         let target = $(this).attr("data-id")
         let noteContainer = $(`.case__note[data-id=${target}]`)
-        noteContainer.toggle()
+        noteContainer.toggle("swing")
+    })
+
+    // DELETE CASE
+    caseContainerAll.on('click', '.case__buttons--icon--remove', function(){
+        let target = $(this).attr("data-id")
+        let caseToRemove = caseContainerAll.children(`.case__container[data-id=${target}]`)
+        caseToRemove.remove()
     })
 
 
@@ -72,14 +76,6 @@ $(document).ready(function () {
         e.addClass('error');
     }
 
-/*     function hasSameId(id){
-        for (let i=0; i < casesArray.length; i++){
-            if (casesArray[i].id === id ){
-                addErrorClass(idCaseInput)
-                return true
-            }
-        }
-    } */
 
     function printCase(caseInfo){
 
@@ -91,7 +87,7 @@ $(document).ready(function () {
                                 <input type="text" name="type" id="noteInput" value="${caseInfo.note}"></input>
                             </div>`
 
-        let caseTemplate = `<div class="case__container">
+        let caseTemplate = `<div class="case__container" data-id="${caseInfo.id}">
                                 <div class="case">
                                     <div class="case__item--client">
                                         <input type="text" name="client" id="clientInput" value="${caseInfo.client}">
@@ -116,11 +112,11 @@ $(document).ready(function () {
                                     <div class="case__buttons">
                                         ${iconNoteTemplate}
                                         <div class="case__buttons--icon--link">
-                                            <a href="https://teg.avature.net/Case#/${caseInfo.id}">
+                                            <a href="https://teg.avature.net/Case#/${caseInfo.id}" target="_blank">
                                                 <img src="../assets/link-2-outline.svg" alt="link">
                                             </a>
                                         </div>
-                                        <div class="case__buttons--icon--remove">
+                                        <div class="case__buttons--icon--remove" data-id="${caseInfo.id}">
                                             <img src="../assets/trash-2-outline.svg" alt="remove">
                                         </div>
                                     </div>     
