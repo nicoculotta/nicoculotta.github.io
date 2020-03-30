@@ -47,6 +47,39 @@ $(document).ready(function () {
         caseToRemove.remove()
     })
 
+    // ACTUALIZAR CLIENTE
+    caseContainerAll.on('change', '#clientInput', function(){
+        let target = $(this).attr("data-id")
+        let newClient = $(this).val()
+        updateClientInArray(target, newClient, null)
+    })
+
+    // ACTUALIZAR PORTAL TYPE
+    caseContainerAll.on('change', '#typeInput', function(){
+        let target = $(this).attr("data-id")
+        let newType = $(this).val()
+        updateTypeInArray(target, newType)
+    })
+
+    function updateClientInArray(target, client) {
+        for ( let i = 0; i < casesArray.length; i++){
+            if(casesArray[i].id === target) {
+                casesArray[i].client = client
+                console.log(casesArray[i].client)
+                break;
+            }
+        }
+    }
+    function updateTypeInArray(target, type) {
+        for ( let i = 0; i < casesArray.length; i++){
+            if(casesArray[i].id === target) {
+                casesArray[i].type = type
+                console.log(casesArray[i].type)
+                break;
+            }
+        }
+    }
+
 
 
     function validateForm(){
@@ -90,10 +123,10 @@ $(document).ready(function () {
         let caseTemplate = `<div class="case__container" data-id="${caseInfo.id}">
                                 <div class="case">
                                     <div class="case__item--client">
-                                        <input type="text" name="client" id="clientInput" value="${caseInfo.client}">
+                                        <input type="text" name="client" id="clientInput" value="${caseInfo.client}" data-id="${caseInfo.id}">
                                     </div>
                                     <div class="case__item--type">
-                                        <input type="text" name="type" id="typeInput" value="${caseInfo.type}">
+                                        <input type="text" name="type" id="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
                                     </div>
                                     <div class="case__item--date">${caseInfo.date}</div>
                                     <div class="case__item--status">
