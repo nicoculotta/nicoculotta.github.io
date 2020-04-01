@@ -13,7 +13,7 @@ $(document).ready(function () {
     let modal = $('.remodal').remodal()
 
 
-   
+   // WHEN CLICK CREATE A CASE FROM MODAL
     $('#buttonCreate').click( function(){
 
         let caseInfo = {
@@ -30,6 +30,7 @@ $(document).ready(function () {
             modal.close()
             casesArray.push(caseInfo)
             caseContainerAll.append(printCase(caseInfo))
+            saveInLocalStorage()
         }
     })
 
@@ -47,34 +48,52 @@ $(document).ready(function () {
         caseToRemove.remove()
     })
 
-    // ACTUALIZAR CLIENTE
+    // UPADATE CLIENTE
     caseContainerAll.on('change', '#clientInput', function(){
         let target = $(this).attr("data-id")
         let newClient = $(this).val()
-        updateClientInArray(target, newClient, null)
+        updateClientInArray(target, newClient)
+        saveInLocalStorage()
     })
 
-    // ACTUALIZAR PORTAL TYPE
+    // UPADATE PORTAL TYPE
     caseContainerAll.on('change', '#typeInput', function(){
         let target = $(this).attr("data-id")
         let newType = $(this).val()
         updateTypeInArray(target, newType)
+        saveInLocalStorage()
+    })
+
+    // UPDATE NOTE
+    caseContainerAll.on('change','#noteInput', function(){
+        let target = $(this).attr("data-id")
+        let newNote = $(this).val()
+        updateNoteInArray(target, newNote)
+        saveInLocalStorage()
     })
 
     function updateClientInArray(target, client) {
         for ( let i = 0; i < casesArray.length; i++){
             if(casesArray[i].id === target) {
                 casesArray[i].client = client
-                console.log(casesArray[i].client)
                 break;
             }
         }
     }
+
     function updateTypeInArray(target, type) {
         for ( let i = 0; i < casesArray.length; i++){
             if(casesArray[i].id === target) {
                 casesArray[i].type = type
-                console.log(casesArray[i].type)
+                break;
+            }
+        }
+    }
+
+    function updateNoteInArray(target, note) {
+        for ( let i = 0; i < casesArray.length; i++){
+            if(casesArray[i].id === target) {
+                casesArray[i].note = note
                 break;
             }
         }
@@ -117,7 +136,7 @@ $(document).ready(function () {
                                 </div>`
 
         let noteTemplate = `<div class="case__note" style="display:none;" data-id="${caseInfo.id}">
-                                <input type="text" name="type" id="noteInput" value="${caseInfo.note}"></input>
+                                <input type="text" name="type" id="noteInput" value="${caseInfo.note}" data-id="${caseInfo.id}"></input>
                             </div>`
 
         let caseTemplate = `<div class="case__container" data-id="${caseInfo.id}">
@@ -159,5 +178,40 @@ $(document).ready(function () {
         
         return caseTemplate
     }
+
+
+
+
+    // LOCAL STORAGE
+    function saveInLocalStorage(){
+        localStorage.setItem('casesList', JSON.stringify(casesArray))
+    }
+
+    function loadLocalStorage(){
+        casesArray = JSON.parse(localStorage.getItem('casesList'))     
+        if (casesArray === null){
+            casesArray = []
+        }
+    }
+
+    function showCases() {
+    
+        for (let i = 0; i < casesArray.length; i++) {
+            
+            const caseInfo = {
+                client : casesArray[i].client,
+                status : casesArray[i].status,
+                type : casesArray[i].type,
+                id : casesArray[i].id,
+                note: casesArray[i].note,
+                date: casesArray[i].date
+            }
+            
+            caseContainerAll.append(printCase(caseInfo))
+        }
+    }
+  
+    loadLocalStorage()
+    showCases()
 
 });
