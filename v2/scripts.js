@@ -46,6 +46,8 @@ $(document).ready(function () {
         let target = $(this).attr("data-id")
         let caseToRemove = caseContainerAll.children(`.case__container[data-id=${target}]`)
         caseToRemove.remove()
+
+        removeElementFromArray(target, casesArray)
     })
 
     // UPADATE CLIENTE
@@ -179,8 +181,16 @@ $(document).ready(function () {
         return caseTemplate
     }
 
-
-
+    
+    function removeElementFromArray(id, array) {
+        for (let i=0; i < array.length; i++){
+            if (array[i].id === id ){
+                array.splice( i, 1)
+                break
+            }
+        }
+        saveInLocalStorage()
+    }
 
     // LOCAL STORAGE
     function saveInLocalStorage(){
