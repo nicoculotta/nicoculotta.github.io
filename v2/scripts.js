@@ -258,7 +258,9 @@ $(document).ready(function () {
         
     if (casesArray.length === 0){
         casesHeaderSpan.addClass('dNone')
-    }  
+    } else {
+        noCasesContainer.addClass('dNone')
+    }
 
 
     // ANIMATION CASES
