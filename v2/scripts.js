@@ -2,14 +2,14 @@ let casesArray = []
 
 $(document).ready(function () {
 
+    /* ELEMENT FORM */
     let clientNameInput = $('#clientNameInput')
     let typeNameInput = $('#typeNameInput')
     let idCaseInput = $('#idCaseInput')
     let caseStatusInput = $('#caseStatusInput')
     let caseNoteInput = $('#caseNoteInput')
-    let caseContainerAll = $('.cases__container--all')
 
-    
+    let caseContainerAll = $('.cases__container--all')
     let modal = $('.remodal').remodal()
 
 
@@ -51,7 +51,7 @@ $(document).ready(function () {
     })
 
     // UPADATE CLIENTE
-    caseContainerAll.on('change', '#clientInput', function(){
+    caseContainerAll.on('change', '.clientInput', function(){
         let target = $(this).attr("data-id")
         let newClient = $(this).val()
         updateClientInArray(target, newClient)
@@ -59,7 +59,7 @@ $(document).ready(function () {
     })
 
     // UPADATE PORTAL TYPE
-    caseContainerAll.on('change', '#typeInput', function(){
+    caseContainerAll.on('change', '.typeInput', function(){
         let target = $(this).attr("data-id")
         let newType = $(this).val()
         updateTypeInArray(target, newType)
@@ -67,10 +67,21 @@ $(document).ready(function () {
     })
 
     // UPDATE NOTE
-    caseContainerAll.on('change','#noteInput', function(){
+    caseContainerAll.on('change','.noteInput', function(){
         let target = $(this).attr("data-id")
         let newNote = $(this).val()
         updateNoteInArray(target, newNote)
+        saveInLocalStorage()
+    })
+
+    // UPDATE DATE
+    caseContainerAll.on('click','.case__item--date', function(){
+        let targetData = $(this).attr('data-id')
+        let target = $(this)
+        updateDate(target)
+
+        let targetTextValue = target.text()
+        updateDateInArray(targetData, targetTextValue)
         saveInLocalStorage()
     })
 
@@ -100,8 +111,18 @@ $(document).ready(function () {
             }
         }
     }
-
-
+    
+    function updateDateInArray(target, date) {
+        for ( let i = 0; i < casesArray.length; i++){
+            if(casesArray[i].id === target) {
+                casesArray[i].date = date
+                break;
+            }
+        }
+    }
+    function updateDate(e){
+        e.text(moment().format("DD/MM"))
+    }
 
     function validateForm(){
 
@@ -138,18 +159,18 @@ $(document).ready(function () {
                                 </div>`
 
         let noteTemplate = `<div class="case__note" style="display:none;" data-id="${caseInfo.id}">
-                                <input type="text" name="type" id="noteInput" value="${caseInfo.note}" data-id="${caseInfo.id}"></input>
+                                <input type="text" name="type" class="noteInput" value="${caseInfo.note}" data-id="${caseInfo.id}"></input>
                             </div>`
 
         let caseTemplate = `<div class="case__container" data-id="${caseInfo.id}">
                                 <div class="case">
                                     <div class="case__item--client">
-                                        <input type="text" name="client" id="clientInput" value="${caseInfo.client}" data-id="${caseInfo.id}">
+                                        <input type="text" name="client" class="clientInput" value="${caseInfo.client}" data-id="${caseInfo.id}">
                                     </div>
                                     <div class="case__item--type">
-                                        <input type="text" name="type" id="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
+                                        <input type="text" name="type" class="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
                                     </div>
-                                    <div class="case__item--date">${caseInfo.date}</div>
+                                    <div class="case__item--date" data-id="${caseInfo.id}">${caseInfo.date}</div>
                                     <div class="case__item--status">
                                         <select id="caseStatus">
                                             <option value="A">Queue for Dev</option>
@@ -224,4 +245,12 @@ $(document).ready(function () {
     loadLocalStorage()
     showCases()
 
+
+    let caseContainer = $('.case__container')
+    $.each(caseContainer, function(key){
+        let counter = key / 5
+        $(this).css('animation-delay', `${counter}` + 's')
+        console.log(counter)
+    })
+   
 });
