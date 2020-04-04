@@ -469,6 +469,42 @@ header {
     margin-right: 8px;
 }
 
+.dNone {
+    display: none !important;
+}
+
+.no__cases--container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.no__cases--container .ilus-emptyCase{
+    animation: showCasesAnimation .5s ease-in-out;
+    -webkit-animation: showCasesAnimation .5s ease-in-out;
+    animation-fill-mode: backwards;
+}
+.no__cases--container h2,
+.no__cases--container p{
+    animation: showCasesAnimation .5s ease-in-out;
+    -webkit-animation: showCasesAnimation .5s ease-in-out;
+    animation-fill-mode: backwards;
+    animation-delay: .1s;
+}
+.no__cases--container .button__modal {
+    animation: showCasesAnimation .5s ease-in-out;
+    -webkit-animation: showCasesAnimation .5s ease-in-out;
+    animation-fill-mode: backwards;
+    animation-delay: .2s;
+    margin-top: 10px;
+}
+
+.ilus-emptyCase {
+    display: block;
+    width: 380px;
+    margin-bottom: -50px;
+}
 
 @keyframes showCasesAnimation {
     0% {

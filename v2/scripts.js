@@ -10,9 +10,11 @@ $(document).ready(function () {
     let caseNoteInput = $('#caseNoteInput')
 
     let caseContainerAll = $('.cases__container--all')
+    let casesHeaderSpan = $('.cases__header span')
+    let noCasesContainer = $('.no__cases--container')
     let modal = $('.remodal').remodal()
 
-
+    
    // WHEN CLICK CREATE A CASE FROM MODAL
     $('#buttonCreate').click( function(){
 
@@ -30,7 +32,11 @@ $(document).ready(function () {
             modal.close()
             casesArray.push(caseInfo)
             caseContainerAll.append(printCase(caseInfo))
+            noCasesContainer.addClass('dNone')
             saveInLocalStorage()
+        }
+        if (casesArray.length > 0) {
+            casesHeaderSpan.removeClass('dNone')
         }
     })
 
@@ -48,6 +54,10 @@ $(document).ready(function () {
         caseToRemove.remove()
 
         removeElementFromArray(target, casesArray)
+        if (casesArray.length === 0){
+            noCasesContainer.removeClass('dNone')
+            casesHeaderSpan.addClass('dNone')
+        }  
     })
 
     // UPADATE CLIENTE
@@ -245,12 +255,18 @@ $(document).ready(function () {
     loadLocalStorage()
     showCases()
 
+        
+    if (casesArray.length === 0){
+        casesHeaderSpan.addClass('dNone')
+    }  
 
+
+    // ANIMATION CASES
     let caseContainer = $('.case__container')
     $.each(caseContainer, function(key){
         let counter = key / 5
         $(this).css('animation-delay', `${counter}` + 's')
-        console.log(counter)
     })
-   
+
+
 });
