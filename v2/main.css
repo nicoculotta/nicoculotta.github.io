@@ -631,6 +631,7 @@ header {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 50vh;
 }
 
 .no__cases--container .ilus-emptyCase{
