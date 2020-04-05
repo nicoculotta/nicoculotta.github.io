@@ -18,13 +18,13 @@
     </head>
     <body>
         <div class="remodal-bg">
-        <header>
+        <header class="hideHeader">
             <div class="container header__container">
                 <div class="brand">CaseManager</div>
                 <ul class="filter__list">
-                    <li class="filter__list--item">Yesterday</li>
-                    <li class="filter__list--item">Today</li>
-                    <li class="filter__list--item">All cases</li>
+                    <li class="filter__list--item" data-filter="yesterday">Yesterday</li>
+                    <li class="filter__list--item" data-filter="today">Today</li>
+                    <li class="filter__list--item" data-filter="all">All cases</li>
                 </ul>
                 <div class="button__modal">
                     <a href="#" data-remodal-target="modal">New Case</a>
@@ -70,7 +70,7 @@
                         <input type="number" id="idCaseInput" autocomplete="off" placeholder="435679">
                     </div>
                     <div class="field">
-                        <label for="caseStatusInput">Status</label>
+                        <label for="caseStatusInput">Workflow step</label>
                         <select id="caseStatusInput">
                             <option value="A">Queue for Dev</option>
                             <option value="B">Sent to Case Owner</option>

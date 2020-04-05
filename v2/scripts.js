@@ -12,88 +12,11 @@ $(document).ready(function () {
     let caseContainerAll = $('.cases__container--all')
     let casesHeaderSpan = $('.cases__header span')
     let noCasesContainer = $('.no__cases--container')
+    let header = $('header')
+
+    let allFilters = $('.filter__list')
     let modal = $('.remodal').remodal()
 
-    
-   // WHEN CLICK CREATE A CASE FROM MODAL
-    $('#buttonCreate').click( function(){
-
-        let caseInfo = {
-            client: clientNameInput.val(),
-            status: caseStatusInput.val(),
-            type: typeNameInput.val(),
-            id: idCaseInput.val(),
-            note: caseNoteInput.val(),
-            date: moment().format("DD/MM")
-        }
-
-        let isValid = validateForm()
-        if (isValid) {
-            modal.close()
-            casesArray.push(caseInfo)
-            caseContainerAll.append(printCase(caseInfo))
-            noCasesContainer.addClass('dNone')
-            saveInLocalStorage()
-        }
-        if (casesArray.length > 0) {
-            casesHeaderSpan.removeClass('dNone')
-        }
-    })
-
-    // SHOW/HIDE NOTE
-    caseContainerAll.on('click', '.case__buttons--icon--note', function(){
-        let target = $(this).attr("data-id")
-        let noteContainer = $(`.case__note[data-id=${target}]`)
-        noteContainer.toggle("swing")
-    })
-
-    // DELETE CASE
-    caseContainerAll.on('click', '.case__buttons--icon--remove', function(){
-        let target = $(this).attr("data-id")
-        let caseToRemove = caseContainerAll.children(`.case__container[data-id=${target}]`)
-        caseToRemove.remove()
-
-        removeElementFromArray(target, casesArray)
-        if (casesArray.length === 0){
-            noCasesContainer.removeClass('dNone')
-            casesHeaderSpan.addClass('dNone')
-        }  
-    })
-
-    // UPADATE CLIENTE
-    caseContainerAll.on('change', '.clientInput', function(){
-        let target = $(this).attr("data-id")
-        let newClient = $(this).val()
-        updateClientInArray(target, newClient)
-        saveInLocalStorage()
-    })
-
-    // UPADATE PORTAL TYPE
-    caseContainerAll.on('change', '.typeInput', function(){
-        let target = $(this).attr("data-id")
-        let newType = $(this).val()
-        updateTypeInArray(target, newType)
-        saveInLocalStorage()
-    })
-
-    // UPDATE NOTE
-    caseContainerAll.on('change','.noteInput', function(){
-        let target = $(this).attr("data-id")
-        let newNote = $(this).val()
-        updateNoteInArray(target, newNote)
-        saveInLocalStorage()
-    })
-
-    // UPDATE DATE
-    caseContainerAll.on('click','.case__item--date', function(){
-        let targetData = $(this).attr('data-id')
-        let target = $(this)
-        updateDate(target)
-
-        let targetTextValue = target.text()
-        updateDateInArray(targetData, targetTextValue)
-        saveInLocalStorage()
-    })
 
     function updateClientInArray(target, client) {
         for ( let i = 0; i < casesArray.length; i++){
@@ -250,18 +173,46 @@ $(document).ready(function () {
             
             caseContainerAll.append(printCase(caseInfo))
         }
+
+        if (casesArray.length === 0){
+            casesHeaderSpan.addClass('dNone')
+        } else {
+            noCasesContainer.addClass('dNone')
+            header.removeClass('hideHeader')
+            allFilters.children('.filter__list--item[data-filter="all"]').addClass('selected')
+        }
+        
     }
-  
+
+      
     loadLocalStorage()
     showCases()
+    
+   // WHEN CLICK CREATE A CASE FROM MODAL
+    $('#buttonCreate').click( function(){
 
-        
-    if (casesArray.length === 0){
-        casesHeaderSpan.addClass('dNone')
-    } else {
-        noCasesContainer.addClass('dNone')
-    }
+        let caseInfo = {
+            client: clientNameInput.val(),
+            status: caseStatusInput.val(),
+            type: typeNameInput.val(),
+            id: idCaseInput.val(),
+            note: caseNoteInput.val(),
+            date: moment().format("DD/MM")
+        }
 
+        let isValid = validateForm()
+        if (isValid) {
+            modal.close()
+            casesArray.push(caseInfo)
+            caseContainerAll.append(printCase(caseInfo))
+            noCasesContainer.addClass('dNone')
+            header.removeClass('hideHeader')
+            saveInLocalStorage()
+        }
+        if (casesArray.length > 0) {
+            casesHeaderSpan.removeClass('dNone')
+        }
+    })
 
     // ANIMATION CASES
     let caseContainer = $('.case__container')
@@ -270,5 +221,71 @@ $(document).ready(function () {
         $(this).css('animation-delay', `${counter}` + 's')
     })
 
+    // SHOW/HIDE NOTE
+    caseContainerAll.on('click', '.case__buttons--icon--note', function(){
+        let target = $(this).attr("data-id")
+        let noteContainer = $(`.case__note[data-id=${target}]`)
+        noteContainer.toggle("swing")
+    })
+
+    // DELETE CASE
+    caseContainerAll.on('click', '.case__buttons--icon--remove', function(){
+        let target = $(this).attr("data-id")
+        let caseToRemove = caseContainerAll.children(`.case__container[data-id=${target}]`)
+        caseToRemove.remove()
+
+        removeElementFromArray(target, casesArray)
+        if (casesArray.length === 0){
+            noCasesContainer.removeClass('dNone')
+            casesHeaderSpan.addClass('dNone')
+            header.addClass('hideHeader')
+        } 
+    })
+
+    // UPADATE CLIENTE
+    caseContainerAll.on('change', '.clientInput', function(){
+        let target = $(this).attr("data-id")
+        let newClient = $(this).val()
+        updateClientInArray(target, newClient)
+        saveInLocalStorage()
+    })
+
+    // UPADATE PORTAL TYPE
+    caseContainerAll.on('change', '.typeInput', function(){
+        let target = $(this).attr("data-id")
+        let newType = $(this).val()
+        updateTypeInArray(target, newType)
+        saveInLocalStorage()
+    })
+
+    // UPDATE NOTE
+    caseContainerAll.on('change','.noteInput', function(){
+        let target = $(this).attr("data-id")
+        let newNote = $(this).val()
+        updateNoteInArray(target, newNote)
+        saveInLocalStorage()
+    })
+
+    // UPDATE DATE
+    caseContainerAll.on('click','.case__item--date', function(){
+        let targetData = $(this).attr('data-id')
+        let target = $(this)
+        updateDate(target)
+
+        let targetTextValue = target.text()
+        updateDateInArray(targetData, targetTextValue)
+        saveInLocalStorage()
+    })
+
+    allFilters.on('click', '.filter__list--item', function(){
+        let target = $(this)
+        
+        if (target.hasClass('selected')) {
+            target.removeClass('selected');
+        } else {
+            $(".filter__list--item").removeClass('selected');
+            target.addClass('selected');
+        } 
+    })
 
 });
