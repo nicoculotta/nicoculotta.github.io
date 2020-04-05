@@ -69,7 +69,7 @@ $(document).ready(function () {
             isValid = false
             addErrorClass(typeNameInput)
         }
-        if (idCaseInput.val() === ''){
+        if (idCaseInput.val() === '') {
             isValid = false
             addErrorClass(idCaseInput)
         }
