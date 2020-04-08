@@ -385,7 +385,6 @@ header {
 
 .case__container:hover {
     border-left: 5px solid var(--c-accent);
-    margin-left: -4px;
 }
 
 .case {
@@ -461,7 +460,7 @@ header {
     right: 5px;
 }
 
-.case__item--status select,
+.case__item--workflow select,
 .field select {
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -480,7 +479,7 @@ header {
     color: var(--c-primary);
 }
 
-.case__item--status select:focus,
+.case__item--workflow select:focus,
 .field select:focus {
     border: 1px solid var(--c-border);
 }

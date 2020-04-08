@@ -6,7 +6,6 @@ $(document).ready(function () {
     let clientNameInput = $('#clientNameInput')
     let typeNameInput = $('#typeNameInput')
     let idCaseInput = $('#idCaseInput')
-    let caseStatusInput = $('#caseStatusInput')
     let caseNoteInput = $('#caseNoteInput')
 
     let caseContainerAll = $('.cases__container--all')
@@ -16,6 +15,47 @@ $(document).ready(function () {
 
     let allFilters = $('.filter__list')
     let modal = $('.remodal').remodal()
+
+    let modalWorkflowSelect = $('.selectField')
+
+    const workflowArray = [
+        {
+            'id':'1',
+            'value': 'Queue for Dev'
+        },
+        {
+            'id':'2',
+            'value': 'Sent to Case Owner'
+        },
+        {
+            'id':'3',
+            'value': 'Development'
+        },
+        {
+            'id':'4',
+            'value': 'Code Review'
+        },
+        {
+            'id':'5',
+            'value': 'First Review'
+        },
+        {
+            'id':'6',
+            'value': 'In QA'
+        },
+        {
+            'id':'7',
+            'value': 'Changes and Feedback'
+        },
+        {
+            'id':'8',
+            'value': 'Bugfixing'
+        },
+        {
+            'id':'9',
+            'value': 'Merged'
+        }
+    ]
 
 
     function updateClientInArray(target, client) {
@@ -85,6 +125,7 @@ $(document).ready(function () {
     }
 
 
+
     function printCase(caseInfo){
 
         let iconNoteTemplate = `<div  class="case__buttons--icon--note has-note" data-id="${caseInfo.id}">
@@ -104,18 +145,8 @@ $(document).ready(function () {
                                         <input type="text" name="type" class="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
                                     </div>
                                     <div class="case__item--date" data-id="${caseInfo.id}">${caseInfo.date}</div>
-                                    <div class="case__item--status">
-                                        <select id="caseStatus">
-                                            <option value="A">Queue for Dev</option>
-                                            <option value="B">Sent to Case Owner</option>
-                                            <option value="C">Development</option>
-                                            <option value="D">Code Review</option>
-                                            <option value="E">First Review</option>
-                                            <option value="F">In QA</option>
-                                            <option value="G">Changes and Feedback</option>
-                                            <option value="H">Bugfixing</option>
-                                            <option value="I">Merged</option>
-                                        </select>
+                                    <div class="case__item--workflow selectField">
+
                                     </div>
                                     <div class="case__buttons">
                                         ${iconNoteTemplate}
@@ -131,8 +162,18 @@ $(document).ready(function () {
                                 </div>
                                 ${noteTemplate}
                             </div>`;
-        
+                            
         return caseTemplate
+    }
+
+    function createSelectWorkflow(optionsWorkflow) {
+        let options = ''
+        let select = $('<select id="workflowSelect"></select>')
+        for(let i = 0; i < optionsWorkflow.length; i++){
+            options = `<option value="${optionsWorkflow[i].id}">${optionsWorkflow[i].value}</option>`
+            select.append(options)
+        }
+        modalWorkflowSelect.append(select)
     }
 
     
@@ -164,7 +205,7 @@ $(document).ready(function () {
             
             const caseInfo = {
                 client : casesArray[i].client,
-                status : casesArray[i].status,
+                workflow : casesArray[i].workflow,
                 type : casesArray[i].type,
                 id : casesArray[i].id,
                 note: casesArray[i].note,
@@ -173,6 +214,7 @@ $(document).ready(function () {
             
             caseContainerAll.append(printCase(caseInfo))
         }
+        
 
         if (casesArray.length === 0){
             casesHeaderSpan.addClass('dNone')
@@ -183,17 +225,17 @@ $(document).ready(function () {
         }
         
     }
-
-      
+ 
     loadLocalStorage()
     showCases()
+    createSelectWorkflow(workflowArray)
+    
     
    // WHEN CLICK CREATE A CASE FROM MODAL
     $('#buttonCreate').click( function(){
 
         let caseInfo = {
             client: clientNameInput.val(),
-            status: caseStatusInput.val(),
             type: typeNameInput.val(),
             id: idCaseInput.val(),
             note: caseNoteInput.val(),
@@ -275,6 +317,15 @@ $(document).ready(function () {
         let targetTextValue = target.text()
         updateDateInArray(targetData, targetTextValue)
         saveInLocalStorage()
+    })
+
+    //SELECT WORKFLOW 
+    modalWorkflowSelect.on('change', '#workflowSelect', function(){
+       
+        let selectedOption = $(this).find('option:selected');
+        $('option').not(selectedOption).removeAttr('selected');
+        selectedOption.attr("selected",true);
+
     })
 
     allFilters.on('click', '.filter__list--item', function(){
