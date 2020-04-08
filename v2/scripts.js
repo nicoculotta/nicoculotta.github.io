@@ -7,6 +7,7 @@ $(document).ready(function () {
     let typeNameInput = $('#typeNameInput')
     let idCaseInput = $('#idCaseInput')
     let caseNoteInput = $('#caseNoteInput')
+    let caseWorkflowInput = $('#caseWorkflowInput')
 
     let caseContainerAll = $('.cases__container--all')
     let casesHeaderSpan = $('.cases__header span')
@@ -16,7 +17,6 @@ $(document).ready(function () {
     let allFilters = $('.filter__list')
     let modal = $('.remodal').remodal()
 
-    let modalWorkflowSelect = $('.selectField')
 
     const workflowArray = [
         {
@@ -145,8 +145,19 @@ $(document).ready(function () {
                                         <input type="text" name="type" class="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
                                     </div>
                                     <div class="case__item--date" data-id="${caseInfo.id}">${caseInfo.date}</div>
-                                    <div class="case__item--workflow selectField">
-
+                                    <div class="case__item--workflow">
+                                        <select data-id="${caseInfo.id}">
+                                            <option value="0">${caseInfo.workflow}</option>
+                                            <option value="1">Queue for Dev</option>	
+                                            <option value="2">Sent to Case Owner</option>	
+                                            <option value="3">Development</option>	
+                                            <option value="4">Code Review</option>	
+                                            <option value="5">First Review</option>	
+                                            <option value="6">In QA</option>	
+                                            <option value="7">Changes and Feedback</option>	
+                                            <option value="8">Bugfixing</option>	
+                                            <option value="9">Merged</option>	
+                                        </select>
                                     </div>
                                     <div class="case__buttons">
                                         ${iconNoteTemplate}
@@ -164,16 +175,6 @@ $(document).ready(function () {
                             </div>`;
                             
         return caseTemplate
-    }
-
-    function createSelectWorkflow(optionsWorkflow) {
-        let options = ''
-        let select = $('<select id="workflowSelect"></select>')
-        for(let i = 0; i < optionsWorkflow.length; i++){
-            options = `<option value="${optionsWorkflow[i].id}">${optionsWorkflow[i].value}</option>`
-            select.append(options)
-        }
-        modalWorkflowSelect.append(select)
     }
 
     
@@ -213,6 +214,7 @@ $(document).ready(function () {
             }
             
             caseContainerAll.append(printCase(caseInfo))
+            
         }
         
 
@@ -228,7 +230,6 @@ $(document).ready(function () {
  
     loadLocalStorage()
     showCases()
-    createSelectWorkflow(workflowArray)
     
     
    // WHEN CLICK CREATE A CASE FROM MODAL
@@ -237,6 +238,7 @@ $(document).ready(function () {
         let caseInfo = {
             client: clientNameInput.val(),
             type: typeNameInput.val(),
+            workflow: $('#caseWorkflowInput option:selected').text(),
             id: idCaseInput.val(),
             note: caseNoteInput.val(),
             date: moment().format("DD/MM")
@@ -247,6 +249,7 @@ $(document).ready(function () {
             modal.close()
             casesArray.push(caseInfo)
             caseContainerAll.append(printCase(caseInfo))
+            
             noCasesContainer.addClass('dNone')
             header.removeClass('hideHeader')
             saveInLocalStorage()
@@ -284,7 +287,7 @@ $(document).ready(function () {
         } 
     })
 
-    // UPADATE CLIENTE
+    // UPDATE CLIENTE
     caseContainerAll.on('change', '.clientInput', function(){
         let target = $(this).attr("data-id")
         let newClient = $(this).val()
@@ -292,7 +295,7 @@ $(document).ready(function () {
         saveInLocalStorage()
     })
 
-    // UPADATE PORTAL TYPE
+    // UPDATE PORTAL TYPE
     caseContainerAll.on('change', '.typeInput', function(){
         let target = $(this).attr("data-id")
         let newType = $(this).val()
@@ -319,14 +322,7 @@ $(document).ready(function () {
         saveInLocalStorage()
     })
 
-    //SELECT WORKFLOW 
-    modalWorkflowSelect.on('change', '#workflowSelect', function(){
-       
-        let selectedOption = $(this).find('option:selected');
-        $('option').not(selectedOption).removeAttr('selected');
-        selectedOption.attr("selected",true);
-
-    })
+    //SELECT WORKFLOW
 
     allFilters.on('click', '.filter__list--item', function(){
         let target = $(this)
