@@ -22,47 +22,47 @@ $(document).ready(function () {
         {
             'id':'1',
             'value': 'Queue for Dev',
-            'cssClass': 'case__container--queue'
+            'cssClass': 'workflow--queue'
         },
         {
             'id':'2',
             'value': 'Sent to Case Owner',
-            'cssClass': 'case__container--co'
+            'cssClass': 'workflow--co'
         },
         {
             'id':'3',
             'value': 'Development',
-            'cssClass': 'case__container--dev'
+            'cssClass': 'workflow--dev'
         },
         {
             'id':'4',
             'value': 'Code Review',
-            'cssClass': 'case__container--cr'
+            'cssClass': 'workflow--cr'
         },
         {
             'id':'5',
             'value': 'First Review',
-            'cssClass': 'case__container--fr'
+            'cssClass': 'workflow--fr'
         },
         {
             'id':'6',
             'value': 'In QA',
-            'cssClass': 'case__container--qa'
+            'cssClass': 'workflow--qa'
         },
         {
             'id':'7',
             'value': 'Changes and Feedback',
-            'cssClass': 'case__container--cf'
+            'cssClass': 'workflow--cf'
         },
         {
             'id':'8',
             'value': 'Bugfixing',
-            'cssClass': 'case__container--bug'
+            'cssClass': 'workflow--bug'
         },
         {
             'id':'9',
             'value': 'Merged',
-            'cssClass': 'case__container--merge'
+            'cssClass': 'workflow--merge'
         }
     ]
 
@@ -174,7 +174,7 @@ $(document).ready(function () {
                                         <input type="text" name="type" class="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
                                     </div>
                                     <div class="case__item--date" data-id="${caseInfo.id}">${caseInfo.date}</div>
-                                    <div class="case__item--workflow">
+                                    <div class="case__item--workflow ">
                                         <select data-id="${caseInfo.id}" class="workflowInput">
                                             ${options}
                                         </select>

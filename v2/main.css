@@ -9,6 +9,16 @@
     --c-green: #64DE64;
     --c-border:  #8295B5;
     --text: 14px;
+
+    --c-que: #DCEDFD;
+    --c-co: #f58f3b;
+    --c-dev: #50cc2a;
+    --c-cr: #25af6f;
+    --c-fr: #1489EF;
+    --c-qa: #14d5ef;
+    --c-cf: #cbdb39;
+    --c-bug: #EC5B5B;
+    --c-merge: #923bf5;
 }
 
 /* DOCUMENT CONFIG */
@@ -383,8 +393,33 @@ header {
     animation-fill-mode: backwards;
 }
 
-.case__container:hover {
-    border-left: 5px solid var(--c-accent);
+.workflow--queue {
+    border-left: 5px solid var(--c-border);
+}
+.workflow--co {
+    border-left: 5px solid var(--c-co);
+}
+.workflow--dev {
+    border-left: 5px solid var(--c-dev);
+}
+.workflow--cr {
+    border-left: 5px solid var(--c-cr);
+}
+.workflow--fr {
+    border-left: 5px solid var(--c-fr);
+}
+.workflow--qa {
+    border-left: 5px solid var(--c-qa);
+}
+.workflow--cf {
+    border-left: 5px solid var(--c-cf);
+}
+.workflow--bug {
+    border-left: 5px solid var(--c-bug);
+}
+
+.workflow--merge {
+    border-left: 5px solid var(--c-bug);
 }
 
 .case {
