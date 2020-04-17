@@ -21,39 +21,48 @@ $(document).ready(function () {
     const workflowArray = [
         {
             'id':'1',
-            'value': 'Queue for Dev'
+            'value': 'Queue for Dev',
+            'cssClass': 'case__container--queue'
         },
         {
             'id':'2',
-            'value': 'Sent to Case Owner'
+            'value': 'Sent to Case Owner',
+            'cssClass': 'case__container--co'
         },
         {
             'id':'3',
-            'value': 'Development'
+            'value': 'Development',
+            'cssClass': 'case__container--dev'
         },
         {
             'id':'4',
-            'value': 'Code Review'
+            'value': 'Code Review',
+            'cssClass': 'case__container--cr'
         },
         {
             'id':'5',
-            'value': 'First Review'
+            'value': 'First Review',
+            'cssClass': 'case__container--fr'
         },
         {
             'id':'6',
-            'value': 'In QA'
+            'value': 'In QA',
+            'cssClass': 'case__container--qa'
         },
         {
             'id':'7',
-            'value': 'Changes and Feedback'
+            'value': 'Changes and Feedback',
+            'cssClass': 'case__container--cf'
         },
         {
             'id':'8',
-            'value': 'Bugfixing'
+            'value': 'Bugfixing',
+            'cssClass': 'case__container--bug'
         },
         {
             'id':'9',
-            'value': 'Merged'
+            'value': 'Merged',
+            'cssClass': 'case__container--merge'
         }
     ]
 
@@ -80,6 +89,15 @@ $(document).ready(function () {
         for ( let i = 0; i < casesArray.length; i++){
             if(casesArray[i].id === target) {
                 casesArray[i].note = note
+                break;
+            }
+        }
+    }
+
+    function updateStepInArray(target, step) {
+        for ( let i = 0; i < casesArray.length; i++){
+            if(casesArray[i].id === target) {
+                casesArray[i].workflow = step
                 break;
             }
         }
@@ -128,6 +146,17 @@ $(document).ready(function () {
 
     function printCase(caseInfo){
 
+        let options=""
+        let cssClass;
+        for (i=0 ; i<workflowArray.length;i++){
+            if (caseInfo.workflow == workflowArray[i].id){
+                options += `<option value="${workflowArray[i].id}" selected>${workflowArray[i].value}</option>`
+                cssClass = workflowArray[i].cssClass
+            }
+            else
+                options += `<option value="${workflowArray[i].id}">${workflowArray[i].value}</option>`
+        }
+
         let iconNoteTemplate = `<div  class="case__buttons--icon--note has-note" data-id="${caseInfo.id}">
                                     <img src="../assets/file-text-outline.svg" alt="note">
                                 </div>`
@@ -136,7 +165,7 @@ $(document).ready(function () {
                                 <input type="text" name="type" class="noteInput" value="${caseInfo.note}" data-id="${caseInfo.id}"></input>
                             </div>`
 
-        let caseTemplate = `<div class="case__container" data-id="${caseInfo.id}">
+        let caseTemplate = `<div class="case__container ${cssClass}" data-id="${caseInfo.id} case">
                                 <div class="case">
                                     <div class="case__item--client">
                                         <input type="text" name="client" class="clientInput" value="${caseInfo.client}" data-id="${caseInfo.id}">
@@ -146,17 +175,8 @@ $(document).ready(function () {
                                     </div>
                                     <div class="case__item--date" data-id="${caseInfo.id}">${caseInfo.date}</div>
                                     <div class="case__item--workflow">
-                                        <select data-id="${caseInfo.id}">
-                                            <option value="0">${caseInfo.workflow}</option>
-                                            <option value="1">Queue for Dev</option>	
-                                            <option value="2">Sent to Case Owner</option>	
-                                            <option value="3">Development</option>	
-                                            <option value="4">Code Review</option>	
-                                            <option value="5">First Review</option>	
-                                            <option value="6">In QA</option>	
-                                            <option value="7">Changes and Feedback</option>	
-                                            <option value="8">Bugfixing</option>	
-                                            <option value="9">Merged</option>	
+                                        <select data-id="${caseInfo.id}" class="workflowInput">
+                                            ${options}
                                         </select>
                                     </div>
                                     <div class="case__buttons">
@@ -238,7 +258,7 @@ $(document).ready(function () {
         let caseInfo = {
             client: clientNameInput.val(),
             type: typeNameInput.val(),
-            workflow: $('#caseWorkflowInput option:selected').text(),
+            workflow: $('#caseWorkflowInput option:selected').val(),
             id: idCaseInput.val(),
             note: caseNoteInput.val(),
             date: moment().format("DD/MM")
@@ -308,6 +328,14 @@ $(document).ready(function () {
         let target = $(this).attr("data-id")
         let newNote = $(this).val()
         updateNoteInArray(target, newNote)
+        saveInLocalStorage()
+    })
+
+    // UPDATE WORKFLOW
+    caseContainerAll.on('change','.workflowInput', function(){
+        let target = $(this).attr("data-id")
+        let newStep = $(this).val()
+        updateStepInArray(target, newStep)
         saveInLocalStorage()
     })
 
