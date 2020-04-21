@@ -157,6 +157,7 @@ $(document).ready(function () {
                 options += `<option value="${workflowArray[i].id}">${workflowArray[i].value}</option>`
         }
 
+
         let iconNoteTemplate = `<div  class="case__buttons--icon--note has-note" data-id="${caseInfo.id}">
                                     <img src="../assets/file-text-outline.svg" alt="note">
                                 </div>`
@@ -165,7 +166,7 @@ $(document).ready(function () {
                                 <input type="text" name="type" class="noteInput" value="${caseInfo.note}" data-id="${caseInfo.id}"></input>
                             </div>`
 
-        let caseTemplate = `<div class="case__container ${cssClass}" data-id="${caseInfo.id} case">
+        let caseTemplate = `<div class="case__container ${cssClass}" data-id="${caseInfo.id}">
                                 <div class="case">
                                     <div class="case__item--client">
                                         <input type="text" name="client" class="clientInput" value="${caseInfo.client}" data-id="${caseInfo.id}">
@@ -335,6 +336,15 @@ $(document).ready(function () {
     caseContainerAll.on('change','.workflowInput', function(){
         let target = $(this).attr("data-id")
         let newStep = $(this).val()
+
+        // change class depends workflow step
+        let newCssClass = workflowArray[`${newStep -1 }`].cssClass
+
+        $(`.case__container[data-id=${target}]`).removeClass(function (index, css) {
+            return (css.match (/(^|\s)workflow--\S+/g) || []).join(' ');
+        });
+        $(`.case__container[data-id=${target}]`).addClass(`${newCssClass}`)
+        
         updateStepInArray(target, newStep)
         saveInLocalStorage()
     })
