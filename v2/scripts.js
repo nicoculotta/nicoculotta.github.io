@@ -182,7 +182,7 @@ $(document).ready(function () {
                                     <div class="case__buttons">
                                         ${iconNoteTemplate}
                                         <div class="case__buttons--icon--link">
-                                            <a href="https://teg.avature.net/#Cases/${caseInfo.id}" target="_blank">
+                                            <a href="https://teg.avature.net/#Case/${caseInfo.id}" target="_blank">
                                                 <img src="../assets/link-2-outline.svg" alt="link">
                                             </a>
                                         </div>
