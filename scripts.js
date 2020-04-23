@@ -1,401 +1,376 @@
+let casesArray = []
 
-// VARIABLES GLOBALES
-const body = document.body
-const gridLayout = document.querySelector('.grid-layout')
-const sectionToday = document.querySelector('.today-section')
-const sectionYesterday = document.querySelector('.yesterday-section')
-const titleCaseInput = document.getElementById('caseTitle')
-const idCaseInput = document.getElementById('caseId')
-const noteCaseInput = document.getElementById('caseNote')
-const statusCaseInput = document.getElementById('caseStatus')
-const iconClose = document.querySelector('icon-close')
-const iconChange = document.querySelector('icon-change')
-const iconEdit = document.querySelector('icon-edit')
-const buttonCancel = document.getElementById('cancelEdit')
-const buttonEdit = document.getElementById('editCase')
-const buttonAdd = document.getElementById('addCase')
+$(document).ready(function () {
 
+    /* ELEMENT FORM */
+    let clientNameInput = $('#clientNameInput')
+    let typeNameInput = $('#typeNameInput')
+    let idCaseInput = $('#idCaseInput')
+    let caseNoteInput = $('#caseNoteInput')
+    let caseWorkflowInput = $('#caseWorkflowInput')
 
+    let caseContainerAll = $('.cases__container--all')
+    let casesHeaderSpan = $('.cases__header span')
+    let noCasesContainer = $('.no__cases--container')
+    let header = $('header')
 
-let todayCasesArray = []
-let yesterdayCasesArray = []
+    let allFilters = $('.filter__list')
+    let modal = $('.remodal').remodal()
 
 
-//ELIMINAR y MOVER CARD
-body.addEventListener('click', function (e){
-    //ELIMINAR
-    if (e.target.classList.contains('icon-close')){
-        let idCase = e.target.dataset.id
-        let cards = document.querySelectorAll('.card')
-            
-        for(let i = 0; i < cards.length ; i++){
-            if (idCase === cards[i].dataset.id ){
-                if (cards[i].parentNode.classList.contains("today-section")){
-                    removeElementFromArray(idCase, todayCasesArray)
-                } else {
-                    removeElementFromArray(idCase, yesterdayCasesArray)
-                }
-                cards[i].parentNode.removeChild(cards[i])
+    const workflowArray = [
+        {
+            'id':'1',
+            'value': 'Queue for Dev',
+            'cssClass': 'workflow--queue'
+        },
+        {
+            'id':'2',
+            'value': 'Sent to Case Owner',
+            'cssClass': 'workflow--co'
+        },
+        {
+            'id':'3',
+            'value': 'Development',
+            'cssClass': 'workflow--dev'
+        },
+        {
+            'id':'4',
+            'value': 'Code Review',
+            'cssClass': 'workflow--cr'
+        },
+        {
+            'id':'5',
+            'value': 'First Review',
+            'cssClass': 'workflow--fr'
+        },
+        {
+            'id':'6',
+            'value': 'In QA',
+            'cssClass': 'workflow--qa'
+        },
+        {
+            'id':'7',
+            'value': 'Changes and Feedback',
+            'cssClass': 'workflow--cf'
+        },
+        {
+            'id':'8',
+            'value': 'Bugfixing',
+            'cssClass': 'workflow--bug'
+        },
+        {
+            'id':'9',
+            'value': 'Merged',
+            'cssClass': 'workflow--merge'
+        }
+    ]
+
+
+    function updateClientInArray(target, client) {
+        for ( let i = 0; i < casesArray.length; i++){
+            if(casesArray[i].id === target) {
+                casesArray[i].client = client
                 break;
             }
         }
     }
-    //MOVER
-    if (e.target.classList.contains('icon-change')){
-        let idCase = e.target.dataset.id
-        let cards = document.querySelectorAll('.card')
-        
-                    
-        for(let i = 0; i < cards.length ; i++){
-            if (idCase === cards[i].dataset.id ){
-                
-                if (cards[i].parentNode.classList.contains("today-section")){
-                    moveElementFromArray(idCase, todayCasesArray, yesterdayCasesArray)
-                    sectionYesterday.appendChild(cards[i])
-                    break;
-                } else {
-                    moveElementFromArray(idCase, yesterdayCasesArray, todayCasesArray)
-                    sectionToday.appendChild(cards[i])
-                    break;
-                }
+
+    function updateTypeInArray(target, type) {
+        for ( let i = 0; i < casesArray.length; i++){
+            if(casesArray[i].id === target) {
+                casesArray[i].type = type
+                break;
             }
         }
     }
-    //EDIT
-    if (e.target.classList.contains('icon-edit')){
-        let idCase = e.target.dataset.id
-        let cards = document.querySelectorAll('.card')
 
-        for(let i = 0; i < cards.length ; i++){
-            if (idCase === cards[i].dataset.id ){
-                                
-                if (cards[i].parentNode.classList.contains("today-section")){
-                    editCase(idCase, todayCasesArray)
-                    break;
-                } else {
-                    editCase(idCase, yesterdayCasesArray)
-                    break;
-                }
-                
+    function updateNoteInArray(target, note) {
+        for ( let i = 0; i < casesArray.length; i++){
+            if(casesArray[i].id === target) {
+                casesArray[i].note = note
+                break;
             }
         }
     }
-})
+
+    function updateStepInArray(target, step) {
+        for ( let i = 0; i < casesArray.length; i++){
+            if(casesArray[i].id === target) {
+                casesArray[i].workflow = step
+                break;
+            }
+        }
+    }
+    
+    function updateDateInArray(target, date) {
+        for ( let i = 0; i < casesArray.length; i++){
+            if(casesArray[i].id === target) {
+                casesArray[i].date = date
+                break;
+            }
+        }
+    }
+    function updateDate(e){
+        e.text(moment().format("DD/MM"))
+    }
+
+    function validateForm(){
+
+        let isValid = true
+
+        if (clientNameInput.val() === ''){
+            isValid = false
+            addErrorClass(clientNameInput)
+        }
+        if (typeNameInput.val() === ''){
+            isValid = false
+            addErrorClass(typeNameInput)
+        }
+        if (idCaseInput.val() === '') {
+            isValid = false
+            addErrorClass(idCaseInput)
+        }
+        if (caseNoteInput.val() === ''){
+            isValid = false
+            addErrorClass(caseNoteInput)
+        } 
+        return isValid
+    }  
+
+    function addErrorClass(e){
+        e.addClass('error');
+    }
 
 
-//FUNCION ELIMINA CLASE .ERROR DE LOS INPUT
-function removeError() {
-    this.classList.remove('error')
-}
-titleCaseInput.addEventListener('focus', removeError )
-idCaseInput.addEventListener('focus', removeError )
-noteCaseInput.addEventListener('focus', removeError)
-statusCaseInput.addEventListener('focus', removeError)
+
+    function printCase(caseInfo){
+
+        let options=""
+        let cssClass;
+        for (i=0 ; i<workflowArray.length;i++){
+            if (caseInfo.workflow == workflowArray[i].id){
+                options += `<option value="${workflowArray[i].id}" selected>${workflowArray[i].value}</option>`
+                cssClass = workflowArray[i].cssClass
+            }
+            else
+                options += `<option value="${workflowArray[i].id}">${workflowArray[i].value}</option>`
+        }
 
 
-//BOTON PARA AGREGAR CASO A LA LISTA
-buttonAdd.addEventListener('click', function () {
+        let iconNoteTemplate = `<div  class="case__buttons--icon--note has-note" data-id="${caseInfo.id}">
+                                    <img src="assets/file-text-outline.svg" alt="note">
+                                </div>`
 
-    let dateCase = new Date().toLocaleDateString("es-AR")
+        let noteTemplate = `<div class="case__note" style="display:none;" data-id="${caseInfo.id}">
+                                <input type="text" name="type" class="noteInput" value="${caseInfo.note}" data-id="${caseInfo.id}"></input>
+                            </div>`
 
-    const caseObject = {
-        title: titleCaseInput.value,
-        id: idCaseInput.value,
-        description:  noteCaseInput.value,
-        status: statusCaseInput.value,
-        date: dateCase
+        let caseTemplate = `<div class="case__container ${cssClass}" data-id="${caseInfo.id}">
+                                <div class="case">
+                                    <div class="case__item--client">
+                                        <input type="text" name="client" class="clientInput" value="${caseInfo.client}" data-id="${caseInfo.id}">
+                                    </div>
+                                    <div class="case__item--type">
+                                        <input type="text" name="type" class="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
+                                    </div>
+                                    <div class="case__item--date" data-id="${caseInfo.id}">${caseInfo.date}</div>
+                                    <div class="case__item--workflow ">
+                                        <select data-id="${caseInfo.id}" class="workflowInput">
+                                            ${options}
+                                        </select>
+                                    </div>
+                                    <div class="case__buttons">
+                                        ${iconNoteTemplate}
+                                        <div class="case__buttons--icon--link">
+                                            <a href="https://teg.avature.net/#Case/${caseInfo.id}" target="_blank">
+                                                <img src="assets/link-2-outline.svg" alt="link">
+                                            </a>
+                                        </div>
+                                        <div class="case__buttons--icon--remove" data-id="${caseInfo.id}">
+                                            <img src="assets/trash-2-outline.svg" alt="remove">
+                                        </div>
+                                    </div>     
+                                </div>
+                                ${noteTemplate}
+                            </div>`;
+                            
+        return caseTemplate
     }
 
     
-    const esValido = caseValidator(caseObject)
-    const idExiste = existeId(caseObject.id)
-    
-
-    //SI VALIDO ES "TRUE" EJECUTO LA FUNCION Q AGREGA LA INFO DEL CASO EN EL ARRAY DE CASOS
-    if (esValido && !idExiste) {
-        todayCasesArray.push(caseObject)
-        agregarCaso(caseObject, 'today')
-        clearForm()
+    function removeElementFromArray(id, array) {
+        for (let i=0; i < array.length; i++){
+            if (array[i].id === id ){
+                array.splice( i, 1)
+                break
+            }
+        }
         saveInLocalStorage()
     }
 
-})
-
-
-function agregarCaso(caseInfo, sectionName) {
-    let card = document.createElement('div')
-    card.setAttribute('class','card')
-    let statusButton = getStatusClass(caseInfo.status)
-    card.setAttribute('data-id', caseInfo.id)
-
-    card.innerHTML = `
-        <div class="card-header">
-            <h4 class="card-title"><a class="link" href="https://teg.avature.net/#Case/${caseInfo.id}" target="_blank">${caseInfo.title}</a></h4>
-            <div class="card-actions">
-                <span class="icon-action icon-edit tooltip" data-id="${caseInfo.id}">
-                    <span class="tooltiptext">Edit case</span>
-                </span>
-                <span class="icon-action icon-change tooltip" data-id="${caseInfo.id}">
-                    <span class="tooltiptext">Move case</span>
-                </span>
-                <span class="icon-action icon-close tooltip" data-id="${caseInfo.id}">
-                    <span class="tooltiptext">Delete</span>
-                </span>
-            </div>
-        </div>
-        <div class="card-content">
-            <p>${caseInfo.description}</p>
-        </div>
-        <div class="card-footer">
-            <div class="btn-status ${statusButton}">${caseInfo.status}</div>
-            <div class="">${caseInfo.date}</div>
-        </div>
-        `
-    if (sectionName === 'today'){
-        sectionToday.appendChild(card)
-    } else {
-        sectionYesterday.appendChild(card)
+    // LOCAL STORAGE
+    function saveInLocalStorage(){
+        localStorage.setItem('casesList', JSON.stringify(casesArray))
     }
 
+    function loadLocalStorage(){
+        casesArray = JSON.parse(localStorage.getItem('casesList'))     
+        if (casesArray === null){
+            casesArray = []
+        }
+    }
 
-}
-
-function mostrarCasos() {
+    function showCases() {
     
-    for (let i = 0; i < todayCasesArray.length; i++) {
+        for (let i = 0; i < casesArray.length; i++) {
+            
+            const caseInfo = {
+                client : casesArray[i].client,
+                workflow : casesArray[i].workflow,
+                type : casesArray[i].type,
+                id : casesArray[i].id,
+                note: casesArray[i].note,
+                date: casesArray[i].date
+            }
+            
+            caseContainerAll.append(printCase(caseInfo))
+            
+        }
         
-        const caseInfo = {
-            title : todayCasesArray[i].title,
-            id : todayCasesArray[i].id,
-            description : todayCasesArray[i].description,
-            status : todayCasesArray[i].status,
-            date: todayCasesArray[i].date
+
+        if (casesArray.length === 0){
+            casesHeaderSpan.addClass('dNone')
+        } else {
+            noCasesContainer.addClass('dNone')
+            header.removeClass('hideHeader')
+            allFilters.children('.filter__list--item[data-filter="all"]').addClass('selected')
         }
-
-        agregarCaso(caseInfo, 'today')
-    }
-
-    for (let i = 0; i < yesterdayCasesArray.length; i++) {
         
-        const caseInfo = {
-            title : yesterdayCasesArray[i].title,
-            id : yesterdayCasesArray[i].id,
-            description : yesterdayCasesArray[i].description,
-            status : yesterdayCasesArray[i].status,
-            date: todayCasesArray[i].date
-        }
-
-        agregarCaso(caseInfo, 'yesterday')
-    }
-}
-
-function editCase(id, array){
-    toggleButtons()
-    
-
-    for (let i=0; i < array.length; i++){
-        if (array[i].id === id ){
-
-            titleCaseInput.value = array[i].title
-            idCaseInput.value = array[i].id
-            noteCaseInput.value = array[i].description
-            statusCaseInput.value = array[i].status
-            break;
-        }
     }
  
-}
+    loadLocalStorage()
+    showCases()
+    
+    
+   // WHEN CLICK CREATE A CASE FROM MODAL
+    $('#buttonCreate').click( function(){
 
-buttonCancel.addEventListener('click', function(){
-    toggleButtons()
-    clearForm()
-})
-
-buttonEdit.addEventListener('click', function(){
-
-    let dateCase = new Date().toLocaleDateString("es-AR")
-
-    const caseObject = {
-        title: titleCaseInput.value,
-        id: idCaseInput.value,
-        description:  noteCaseInput.value,
-        status: statusCaseInput.value,
-        date: dateCase
-    }
-
-    const esValido = caseValidator(caseObject)
-
-    if (esValido){
-        let cards = document.querySelectorAll('.card')
-
-        for (let i = 0; i < cards.length; i++){
-            if (cards[i].dataset.id === caseObject.id){
-                let statusButton = getStatusClass(caseObject.status)
-
-
-                cards[i].innerHTML = `
-                    <div class="card-header">
-                        <h4 class="card-title"><a class="link" href="https://teg.avature.net/#Case/${caseObject.id}" target="_blank">${caseObject.title}</a></h4>
-                        <div class="card-actions">
-                            <span class="icon-action icon-edit tooltip" data-id="${caseObject.id}">
-                                <span class="tooltiptext">Edit case</span>
-                            </span>
-                            <span class="icon-action icon-change tooltip" data-id="${caseObject.id}">
-                                <span class="tooltiptext">Move case</span>
-                            </span>
-                            <span class="icon-action icon-close tooltip" data-id="${caseObject.id}">
-                                <span class="tooltiptext">Delete</span>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>${caseObject.description}</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="btn-status ${statusButton}">${caseObject.status}</div>
-                        <div class="">${caseObject.date}</div>
-                    </div>
-                    ` 
-
-                    if (cards[i].parentNode.classList.contains("today-section")){
-                        editElementFromArray(caseObject.id, todayCasesArray, caseObject)
-                    } else {
-                        editElementFromArray(caseObject.id, yesterdayCasesArray, caseObject)
-                    }
-                
-                break;
-                    
-            }
+        let caseInfo = {
+            client: clientNameInput.val(),
+            type: typeNameInput.val(),
+            workflow: $('#caseWorkflowInput option:selected').val(),
+            id: idCaseInput.val(),
+            note: caseNoteInput.val(),
+            date: moment().format("DD/MM")
         }
-        toggleButtons()
-        clearForm()
+
+        let isValid = validateForm()
+        if (isValid) {
+            modal.close()
+            casesArray.push(caseInfo)
+            caseContainerAll.append(printCase(caseInfo))
+            
+            noCasesContainer.addClass('dNone')
+            header.removeClass('hideHeader')
+            saveInLocalStorage()
+        }
+        if (casesArray.length > 0) {
+            casesHeaderSpan.removeClass('dNone')
+        }
+    })
+
+    // ANIMATION CASES
+    let caseContainer = $('.case__container')
+    $.each(caseContainer, function(key){
+        let counter = key / 5
+        $(this).css('animation-delay', `${counter}` + 's')
+    })
+
+    // SHOW/HIDE NOTE
+    caseContainerAll.on('click', '.case__buttons--icon--note', function(){
+        let target = $(this).attr("data-id")
+        let noteContainer = $(`.case__note[data-id=${target}]`)
+        noteContainer.toggle("swing")
+    })
+
+    // DELETE CASE
+    caseContainerAll.on('click', '.case__buttons--icon--remove', function(){
+        let target = $(this).attr("data-id")
+        let caseToRemove = caseContainerAll.children(`.case__container[data-id=${target}]`)
+        caseToRemove.remove()
+
+        removeElementFromArray(target, casesArray)
+        if (casesArray.length === 0){
+            noCasesContainer.removeClass('dNone')
+            casesHeaderSpan.addClass('dNone')
+            header.addClass('hideHeader')
+        } 
+    })
+
+    // UPDATE CLIENTE
+    caseContainerAll.on('change', '.clientInput', function(){
+        let target = $(this).attr("data-id")
+        let newClient = $(this).val()
+        updateClientInArray(target, newClient)
         saveInLocalStorage()
-    }
+    })
 
+    // UPDATE PORTAL TYPE
+    caseContainerAll.on('change', '.typeInput', function(){
+        let target = $(this).attr("data-id")
+        let newType = $(this).val()
+        updateTypeInArray(target, newType)
+        saveInLocalStorage()
+    })
 
-})
+    // UPDATE NOTE
+    caseContainerAll.on('change','.noteInput', function(){
+        let target = $(this).attr("data-id")
+        let newNote = $(this).val()
+        updateNoteInArray(target, newNote)
+        saveInLocalStorage()
+    })
 
-function caseValidator(caseObject){
+    // UPDATE WORKFLOW
+    caseContainerAll.on('change','.workflowInput', function(){
+        let target = $(this).attr("data-id")
+        let newStep = $(this).val()
 
-    let esValido = true
-    
-    // VALIDANDO SI TIENE CONTENIDO LOS INPUT
-    if (caseObject.title === ''){
-        esValido = false
-        titleCaseInput.classList.add('error');
-    }
-    if (caseObject.id === '' ){
-        esValido = false
-        idCaseInput.classList.add('error');  
-    }
-    if (caseObject.description === '') {
-        esValido = false
-        noteCaseInput.classList.add('error');    
-    }
+        // change class depends workflow step
+        let newCssClass = workflowArray[`${newStep -1 }`].cssClass
 
-    return esValido
-}
+        $(`.case__container[data-id=${target}]`).removeClass(function (index, css) {
+            return (css.match (/(^|\s)workflow--\S+/g) || []).join(' ');
+        });
+        $(`.case__container[data-id=${target}]`).addClass(`${newCssClass}`)
+        
+        updateStepInArray(target, newStep)
+        saveInLocalStorage()
+    })
 
-function toggleButtons() {
-    buttonCancel.classList.toggle('dNone')
-    buttonEdit.classList.toggle('dNone')
-    buttonAdd.classList.toggle('dNone')
-    idCaseInput.toggleAttribute('disabled')
-    gridLayout.classList.toggle('blur-disabled')
-}
+    // UPDATE DATE
+    caseContainerAll.on('click','.case__item--date', function(){
+        let targetData = $(this).attr('data-id')
+        let target = $(this)
+        updateDate(target)
 
-function getStatusClass(status) {
-    switch (status) {
-        case 'Queue for Dev' :  return 'btn-grey'
-        case 'Sent to Case Owner' :  return 'btn-pink'
-        case 'Development' :  return 'btn-blue'
-        case 'Code Review' :  return 'btn-purple'
-        case 'First Review' :  return 'btn-green'
-        case 'In QA' : return 'btn-orange'
-        case 'Changes and Feedback' : return 'btn-primary'
-        case 'Bugfixing' : return 'btn-error'
-        case 'Merged' : return 'btn-green'
-        default : return 'btn-orange'
-    }
-}
+        let targetTextValue = target.text()
+        updateDateInArray(targetData, targetTextValue)
+        saveInLocalStorage()
+    })
 
-function removeElementFromArray(id, array) {
-    for (let i=0; i < array.length; i++){
-        if (array[i].id === id ){
-            array.splice( i, 1)
-            break
-        }
-    }
-    saveInLocalStorage()
-}
+    //SELECT WORKFLOW
 
-function editElementFromArray(id, array, info) {
-    for (let i=0; i < array.length; i++){
-        if (array[i].id === id ){
-            array[i].title = info.title
-            array[i].description = info.description
-            array[i].status = info.status
-            array[i].date = info.date
-            break;
-        }
-    }
-    saveInLocalStorage()
-}
+    allFilters.on('click', '.filter__list--item', function(){
+        let target = $(this)
+        
+        if (target.hasClass('selected')) {
+            target.removeClass('selected');
+        } else {
+            $(".filter__list--item").removeClass('selected');
+            target.addClass('selected');
+        } 
+    })
 
-function moveElementFromArray(id, arrayFrom, arrayTo ) {
-    for (let i=0; i < arrayFrom.length; i++){
-        if (arrayFrom[i].id === id ){
-            let caseObj = arrayFrom[i];
-            arrayFrom.splice( i, 1)
-            arrayTo.push(caseObj)
-            break;
-        }
-    }
-    saveInLocalStorage()
-}
-
-function clearForm(){
-    titleCaseInput.value = null
-    idCaseInput.value = null
-    noteCaseInput.value = null
-    statusCaseInput.value = null
-}
-
-function saveInLocalStorage(){
-    localStorage.setItem('arregloDeHoy', JSON.stringify(todayCasesArray))
-    localStorage.setItem('arregloDeAyer', JSON.stringify(yesterdayCasesArray))
-}
-
-function loadLocalStorage(){
-    todayCasesArray = JSON.parse(localStorage.getItem('arregloDeHoy')) 
-    yesterdayCasesArray = JSON.parse(localStorage.getItem('arregloDeAyer')) 
-    if (todayCasesArray === null){
-        todayCasesArray = []
-    }
-
-    if (yesterdayCasesArray === null){
-        yesterdayCasesArray = []
-    }
-}
-
-function existeId(id){
-    for (let i=0; i < todayCasesArray.length; i++){
-        if (todayCasesArray[i].id === id ){
-            idCaseInput.classList.add('error')
-            return true
-        }
-    }
-    
-    for (let i=0; i < yesterdayCasesArray.length; i++){
-        if (yesterdayCasesArray[i].id === id ){
-            idCaseInput.classList.add('error')
-            return true
-        }
-    }
-    return false
-}
-
-loadLocalStorage()
-mostrarCasos()
-
-
+});

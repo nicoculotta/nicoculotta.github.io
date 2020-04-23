@@ -1,77 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="image/png" href="favicon.ico">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="icon" type="image/png" href="favicon.ico">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="main.css">
-    <!-- GOOGLE FONT -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+        <!-- CSS -->
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="vendor/remodal/remodal.css">
+        <link rel="stylesheet" href="vendor/remodal/remodal-default-theme.css">
+        <!-- GOOGLE FONT -->
+        <link href="https://fonts.googleapis.com/css?family=Poppins:500,600,700&display=swap" rel="stylesheet">
 
-    <title>Case Manager</title>
-</head>
-<body>
-    
-    <div class="aside--fixed">
-        <div class="aside__container">
-            <h2 class="brand">DailyCases</h2>
-            <div class="form__container">
-                <div class="field">
-                    <label for="caseTitle">Case title</label>
-                    <input type="text" id="caseTitle" autocomplete="off" placeholder="Deloitte - HM">
+        <title>Case Manager</title>
+    </head>
+    <body>
+        <div class="remodal-bg">
+        <header class="hideHeader">
+            <div class="container header__container">
+                <div class="brand">CaseManager</div>
+                <ul class="filter__list">
+                    <li class="filter__list--item" data-filter="yesterday">Yesterday</li>
+                    <li class="filter__list--item" data-filter="today">Today</li>
+                    <li class="filter__list--item" data-filter="all">All cases</li>
+                </ul>
+                <div class="button__modal">
+                    <a href="#" data-remodal-target="modal">New Case</a>
                 </div>
-                <div class="field">
-                    <label for="caseId">Case Id</label>
-                    <input type="number" id="caseId" autocomplete="off" placeholder="432455">
+            </div>
+        </header>
+
+        <section class="cases">
+            <div class="container">
+                <div class="cases__header">
+                    <span>Client</span>
+                    <span>Portal Type</span>
+                    <span>Date</span>
+                    <span>Workflow step</span>
                 </div>
-                <div class="field">
-                    <label for="caseNote">Note/Description</label>
-                    <textarea name="note" id="caseNote" autocomplete="off" placeholder="I have to do..."></textarea>
+                <div class="cases__container--all">
+                    <div class="no__cases--container">
+                        <div class="brand">CaseManager</div>
+                        <div class="ilus-emptyCase"><img src="assets/empty_case_animated.svg"></div>
+                        <h2>You don't have any case</h2>
+                        <p>Please create one with the button below</p>
+                        <div class="button__modal">
+                            <a href="#" data-remodal-target="modal">New Case</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="field">
-                    <label for="status">Status</label>
-                    <select id="caseStatus">
-                        <option value="Queue for Dev" selected>Queue for Dev</option>
-                        <option value="Sent to Case Owner">Sent to Case Owner</option>
-                        <option value="Development">Development</option>
-                        <option value="Code Review">Code Review</option>
-                        <option value="First Review">First Review</option>
-                        <option value="In Qa">In QA</option>
-                        <option value="Changes and Feedback">Changes and Feedback</option>
-                        <option value="Bugfixing">Bugfixing</option>
-                        <option value="Merged">Merged</option>
-                    </select>
+            </div>
+        </section>
+
+            <!-- MODAL CREATE CASE -->
+            <div class="remodal" data-remodal-id="modal">
+                <h1>Create a new case</h1>
+                <div class="form-col2">
+                    <div class="field">
+                        <label for="clientNameInput">Client</label>
+                        <input type="text" id="clientNameInput" autocomplete="off" placeholder="Deloitte">
+                    </div>
+                    <div class="field">
+                        <label for="typeNameInput">Portal Type</label>
+                        <input type="text" id="typeNameInput" autocomplete="off" placeholder="External Careers">
+                    </div>
+                    <div class="field">
+                        <label for="idCaseInput">Id Case</label>
+                        <input type="number" id="idCaseInput" autocomplete="off" placeholder="435679">
+                    </div>
+                    <div class="field selectField">
+                        <label for="caseWorkflowInput">Workflow step</label>
+                        <select id="caseWorkflowInput">	
+                            <option value="1">Queue for Dev</option>	
+                            <option value="2">Sent to Case Owner</option>	
+                            <option value="3">Development</option>	
+                            <option value="4">Code Review</option>	
+                            <option value="5">First Review</option>	
+                            <option value="6">In QA</option>	
+                            <option value="7">Changes and Feedback</option>	
+                            <option value="8">Bugfixing</option>	
+                            <option value="9">Merged</option>	
+                        </select>
+                    </div>
                 </div>
-                <button id="addCase" class="btn" value="Add Case">Add Case</button>
-                <button id="editCase" class="btn dNone" value="edit">Save</button>
-                <button id="cancelEdit" class="btn btn-cancel dNone" value="cancel">Cancel</button>
+                <div class="form-col1">
+                    <div class="field">
+                        <label for="caseNoteInput">Notes</label>
+                        <textarea name="note" id="caseNoteInput" value="Write a note here..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="button-bar">
+                    <button data-remodal-action="cancel" class="button--cancel">Cancel</button>
+                    <button id="buttonCreate" class="button--confirm">Create</button>
+                </div>
+
             </div>
 
-            <div class="old-cases__button"><a href="v2/v2.html">version 2</a></div>
-
         </div>
-    </div>
-
-    <div class="grid-layout">
-        <div class="empty-div"></div>  
-<!-- YESTERDAY -->
-        <div class="yesterday-section">
-            <h3>Yesterday</h3>
-        </div>
-
-<!-- TODAY -->
-        <div class="today-section">
-            <h3>Today</h3> 
-        </div>
-
-    </div>
-
-
-        <!-- JS -->
-        <script src="scripts.js"></script>
-</body>
+            <!-- JQUERY CDN -->
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+            <!-- JS MOMENT -->
+            <script src="vendor/moment.js"></script>
+            <!-- JS REMODAL -->
+            <script src="vendor/remodal/remodal.min.js"></script>
+            <!-- JS -->
+            <script src="scripts.js"></script>
+    </body>
 </html>
