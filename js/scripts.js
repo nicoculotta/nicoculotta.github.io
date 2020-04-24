@@ -102,10 +102,10 @@ $(document).ready(function () {
         }
     }
     
-    function updateDateInArray(target, date) {
+    function updateDateInArray(target) {
         for ( let i = 0; i < casesArray.length; i++){
             if(casesArray[i].id === target) {
-                casesArray[i].date = date
+                casesArray[i].date = new Date()
                 break;
             }
         }
