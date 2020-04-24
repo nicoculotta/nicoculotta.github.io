@@ -7,7 +7,6 @@ $(document).ready(function () {
     let typeNameInput = $('#typeNameInput')
     let idCaseInput = $('#idCaseInput')
     let caseNoteInput = $('#caseNoteInput')
-    let caseWorkflowInput = $('#caseWorkflowInput')
 
     let caseContainerAll = $('.cases__container--all')
     let casesHeaderSpan = $('.cases__header span')
@@ -157,6 +156,7 @@ $(document).ready(function () {
                 options += `<option value="${workflowArray[i].id}">${workflowArray[i].value}</option>`
         }
 
+        let dateF = moment(caseInfo.date).format('DD/MM')
 
         let iconNoteTemplate = `<div  class="case__buttons--icon--note has-note" data-id="${caseInfo.id}">
                                     <img src="assets/file-text-outline.svg" alt="note">
@@ -174,7 +174,7 @@ $(document).ready(function () {
                                     <div class="case__item--type">
                                         <input type="text" name="type" class="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
                                     </div>
-                                    <div class="case__item--date" data-id="${caseInfo.id}">${caseInfo.date}</div>
+                                    <div class="case__item--date" data-id="${caseInfo.id}">${dateF}</div>
                                     <div class="case__item--workflow ">
                                         <select data-id="${caseInfo.id}" class="workflowInput">
                                             ${options}
@@ -251,6 +251,7 @@ $(document).ready(function () {
  
     loadLocalStorage()
     showCases()
+    Sortable.create(casesContainerAll);
     
     
    // WHEN CLICK CREATE A CASE FROM MODAL
@@ -262,7 +263,7 @@ $(document).ready(function () {
             workflow: $('#caseWorkflowInput option:selected').val(),
             id: idCaseInput.val(),
             note: caseNoteInput.val(),
-            date: moment().format("DD/MM")
+            date: new Date()
         }
 
         let isValid = validateForm()
@@ -283,7 +284,7 @@ $(document).ready(function () {
     // ANIMATION CASES
     let caseContainer = $('.case__container')
     $.each(caseContainer, function(key){
-        let counter = key / 5
+        let counter = key / 20
         $(this).css('animation-delay', `${counter}` + 's')
     })
 
@@ -360,8 +361,7 @@ $(document).ready(function () {
         saveInLocalStorage()
     })
 
-    //SELECT WORKFLOW
-
+    //Filters
     allFilters.on('click', '.filter__list--item', function(){
         let target = $(this)
         
@@ -371,6 +371,7 @@ $(document).ready(function () {
             $(".filter__list--item").removeClass('selected');
             target.addClass('selected');
         } 
+        
     })
 
 });

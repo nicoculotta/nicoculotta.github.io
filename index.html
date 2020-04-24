@@ -9,6 +9,7 @@
         <!-- CSS -->
         <link rel="stylesheet" href="reset.css">
         <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="vendor/switcherToggle.css">
         <link rel="stylesheet" href="vendor/remodal/remodal.css">
         <link rel="stylesheet" href="vendor/remodal/remodal-default-theme.css">
         <!-- GOOGLE FONT -->
@@ -22,9 +23,8 @@
             <div class="container header__container">
                 <div class="brand">CaseManager</div>
                 <ul class="filter__list">
-                    <li class="filter__list--item" data-filter="yesterday">Yesterday</li>
-                    <li class="filter__list--item" data-filter="today">Today</li>
-                    <li class="filter__list--item" data-filter="all">All cases</li>
+                    <li id="todayFilter" class="filter__list--item" data-filter="today">Today</li>
+                    <li id="allFilter" class="filter__list--item" data-filter="all">All cases</li>
                 </ul>
                 <div class="button__modal">
                     <a href="#" data-remodal-target="modal">New Case</a>
@@ -40,7 +40,7 @@
                     <span>Date</span>
                     <span>Workflow step</span>
                 </div>
-                <div class="cases__container--all">
+                <div class="cases__container--all" id="casesContainerAll">
                     <div class="no__cases--container">
                         <div class="brand">CaseManager</div>
                         <div class="ilus-emptyCase"><img src="assets/empty_case_animated.svg"></div>
@@ -99,6 +99,14 @@
 
             </div>
 
+            <!-- TOGGLE THEME -->
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+              </label>
+            </div>
+
         </div>
             <!-- JQUERY CDN -->
             <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -106,7 +114,11 @@
             <script src="vendor/moment.js"></script>
             <!-- JS REMODAL -->
             <script src="vendor/remodal/remodal.min.js"></script>
+            <!-- JS SORTEABLE -->
+            <script src="http://SortableJS.github.io/Sortable/Sortable.js"></script>
+            <!-- JS DARKTHEME -->
+            <script src="js/darkTheme.js"></script>
             <!-- JS -->
-            <script src="scripts.js"></script>
+            <script src="js/scripts.js"></script>
     </body>
 </html>
