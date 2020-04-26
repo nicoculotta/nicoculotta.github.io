@@ -159,20 +159,20 @@ $(document).ready(function () {
         let dateF = moment(caseInfo.date).format('DD/MM')
 
         let iconNoteTemplate = `<div  class="case__buttons--icon--note has-note" data-id="${caseInfo.id}">
-                                    <img src="assets/file-text-outline.svg" alt="note">
+                                    <img class="icon-note" src="assets/file-text-outline.svg" alt="note">
                                 </div>`
 
         let noteTemplate = `<div class="case__note" style="display:none;" data-id="${caseInfo.id}">
-                                <input type="text" name="type" class="noteInput" value="${caseInfo.note}" data-id="${caseInfo.id}"></input>
+                                <input type="text" autocomplete="off" name="type" class="noteInput" value="${caseInfo.note}" data-id="${caseInfo.id}"></input>
                             </div>`
 
         let caseTemplate = `<div class="case__container ${cssClass}" data-id="${caseInfo.id}">
                                 <div class="case">
                                     <div class="case__item--client">
-                                        <input type="text" name="client" class="clientInput" value="${caseInfo.client}" data-id="${caseInfo.id}">
+                                        <input type="text" name="client" autocomplete="off" class="clientInput" value="${caseInfo.client}" data-id="${caseInfo.id}">
                                     </div>
                                     <div class="case__item--type">
-                                        <input type="text" name="type" class="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
+                                        <input type="text" name="type" autocomplete="off" class="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
                                     </div>
                                     <div class="case__item--date" data-id="${caseInfo.id}">${dateF}</div>
                                     <div class="case__item--workflow ">
@@ -184,11 +184,11 @@ $(document).ready(function () {
                                         ${iconNoteTemplate}
                                         <div class="case__buttons--icon--link">
                                             <a href="https://teg.avature.net/#Case/${caseInfo.id}" target="_blank">
-                                                <img src="assets/link-2-outline.svg" alt="link">
+                                                <img class="icon-link" src="assets/link-2-outline.svg" alt="link">
                                             </a>
                                         </div>
                                         <div class="case__buttons--icon--remove" data-id="${caseInfo.id}">
-                                            <img src="assets/trash-2-outline.svg" alt="remove">
+                                            <img class="icon-trash" src="assets/trash-2-outline.svg" alt="remove">
                                         </div>
                                     </div>     
                                 </div>

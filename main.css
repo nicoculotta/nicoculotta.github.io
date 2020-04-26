@@ -2,14 +2,23 @@
 /* Variables */
 :root{
     --c-primary: #17263E;
+    --c-dark-color: #8295B5;
     --c-accent: #1489EF;
     --c-accent-hover: #0b76d4;
     --c-lightblue: #DCEDFD;
     --c-lightblueHover: #c9e0f7;
     --c-alert: #EC5B5B;
-    --c-green: #64DE64;
     --c-border:  #8295B5;
+    --c-border-case: #8295B5;
     --c-bg: #ffffff;
+    --c-text-white: #ffffff;
+    --c-bg-dark: #ffffff;
+    --c-input: #ffffff;
+    --c-input-text: #17263E;
+    --c-input-focus: #DCEDFD;
+    --c-select-bg: #DCEDFD;
+    --chev-img: url(assets/chevron-down-outline_light.svg);
+    --refresh-icon: url(assets/refresh-outline.svg);
     --text: 14px;
 
     --c-que: #DCEDFD;
@@ -25,14 +34,21 @@
 
 [data-theme="dark"] {
     --c-primary: #fff;
-    --c-accent: #50cc2a;
+    --c-dark-color: #17263E;
+    --c-accent: #2499ff;
     --c-accent-hover: #25af6f;
-    --c-lightblue: #DCEDFD;
-    --c-lightblueHover: #c9e0f7;
+    --c-input-focus: #17263E;
+    --c-lightblueHover: #17263E;
     --c-alert: #EC5B5B;
-    --c-green: #64DE64;
     --c-border:  #8295B5;
-    --c-bg: #17263E;
+    --c-border-case: #203453;
+    --c-bg: #203453;
+    --c-bg-dark: #17263E;
+    --c-input: #203453;
+    --c-select-bg: #17263E;
+    --c-input-text: #ffffff;
+    --chev-img: url(assets/chevron-down-outline_dark.svg);
+    --refresh-icon: url(assets/refresh-outline_dark.svg);
 }
 
 
@@ -46,7 +62,7 @@ html {
 body {
     font-family: 'Poppins', sans-serif;
     font-size: var(--text);
-    background-color: var(--c-bg);
+    background-color: var(--c-bg-dark);
     color: var(--c-primary);
     margin: 0;
     padding: 0;
@@ -214,7 +230,7 @@ header {
 .button--confirm {
     border: 1px solid var(--c-border);
     background-color: var(--c-border);
-    color: var(--c-bg);
+    color: var(--c-text-white);
     text-transform: uppercase;
     text-decoration: none;
     padding: 0.5em 3em;
@@ -392,7 +408,8 @@ header {
 
 /* CASE CARD */
 .case__container {
-    border: 1px solid var(--c-border);
+    border: 1px solid var(--c-border-case);
+    background-color: var(--c-bg);
     display: flex;
     flex-direction: column;
     padding: 1em;
@@ -459,7 +476,8 @@ header {
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
     width: 100%;
-    color: var(--c-primary);
+    background-color: var(--c-input);
+    color: var(--c-input-text);
     border: 1px solid transparent;
     -webkit-transition: all .4s ease-in-out;
     -moz-transition: all .4s ease-in-out;
@@ -473,7 +491,7 @@ header {
 
 [class^="case__item"] input:focus,
 .case__note input:focus {
-    background-color: var(--c-lightblue);
+    background-color: var(--c-input-focus);
     cursor: text;  
 }
 
@@ -497,14 +515,14 @@ header {
     transition: all .4s ease-in-out;
 }
 .case__item--date:hover {
-    background-color: var(--c-lightblue);
+    background-color: var(--c-select-bg);
 }
 
 .case__item--date::after{
     content: '';
     width: 1.1em;
     height: 1.1em;
-    background: url(assets/refresh-outline.svg) no-repeat center;
+    background: var(--refresh-icon) no-repeat center;
     position: absolute;
     top: 10px;
     right: 5px;
@@ -520,18 +538,18 @@ header {
     padding: .5em;
     margin-right: 1em;
     border: none;
-    background: url(assets/chevron-down-outline.svg) no-repeat right var(--c-lightblue);
-    border: 1px solid var(--c-lightblue);
+    background: var(--chev-img) no-repeat right var(--c-select-bg);
+    border: 1px solid var(--c-select-bg);
+    color: var(--c-input-text);
     -webkit-appearance: none;
     background-position-x: calc(100% - 5px);
     background-size: 24px;
     width: 100%;
-    color: var(--c-primary);
 }
 
 .case__item--workflow select:focus,
 .field select:focus {
-    border: 1px solid var(--c-border);
+    border: 1px solid var(--c-select-bg);
 }
 
 .form-col1 {
@@ -611,7 +629,7 @@ header {
     align-items: center;
     width: 2.3em;
     height: 2.3em;
-    background-color: var(--c-lightblue);
+    background-color: var(--c-select-bg);
     border-radius: 50%;
     cursor: pointer;
     transition: all .1s ease-in-out ;
