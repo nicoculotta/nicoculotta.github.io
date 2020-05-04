@@ -1,377 +1,431 @@
 let casesArray = []
 
-$(document).ready(function () {
+/* Mejor crear objetos asi, asi no tenes la estructura escondida en el codigo y podes crear funciones como la de getURL */
+function Case(client,workflow,type,id,note,date){
+    this.client = client
+    this.workflow = workflow
+    this.type = type
+    this.id = id
+    this.note = note
+    this.date = date
 
-    /* ELEMENT FORM */
-    let clientNameInput = $('#clientNameInput')
-    let typeNameInput = $('#typeNameInput')
-    let idCaseInput = $('#idCaseInput')
-    let caseNoteInput = $('#caseNoteInput')
+    this.setClient = (client) => this.client = client
+    this.getURL = () => `https://teg.avature.net/#Case/${this.id}`
+    this.getDateFormatted = () => moment(this.date).format("DD/MM")
+    this.hasNote = () => !!this.note
+}
 
-    let caseContainerAll = $('.cases__container--all')
-    let casesHeaderSpan = $('.cases__header span')
-    let noCasesContainer = $('.no__cases--container')
-    let header = $('header')
+/* Alpedo esto, si pones el script al final del body ya lo esta cargando ultimo, solo sirve cuando haces alguna llamada por ajax o algo raro */
+//$(document).ready(function () {
 
-    let allFilters = $('.filter__list')
-    let modal = $('.remodal').remodal()
+/* ELEMENT FORM */
+let clientNameInput = $('#clientNameInput')
+let typeNameInput = $('#typeNameInput')
+let idCaseInput = $('#idCaseInput')
+let caseNoteInput = $('#caseNoteInput')
+
+let caseContainerAll = $('.cases__container--all')
+let casesHeaderSpan = $('.cases__header span')
+let noCasesContainer = $('.no__cases--container')
+let header = $('header')
+
+let allFilters = $('.filter__list')
+let modal = $('.remodal').remodal()
+
+const workflowArray = [
+    {
+        'id':'1',
+        'value': 'Queue for Dev',
+        'cssClass': 'workflow--queue'
+    },
+    {
+        'id':'2',
+        'value': 'Sent to Case Owner',
+        'cssClass': 'workflow--co'
+    },
+    {
+        'id':'3',
+        'value': 'Development',
+        'cssClass': 'workflow--dev'
+    },
+    {
+        'id':'4',
+        'value': 'Code Review',
+        'cssClass': 'workflow--cr'
+    },
+    {
+        'id':'5',
+        'value': 'First Review',
+        'cssClass': 'workflow--fr'
+    },
+    {
+        'id':'6',
+        'value': 'In QA',
+        'cssClass': 'workflow--qa'
+    },
+    {
+        'id':'7',
+        'value': 'Changes and Feedback',
+        'cssClass': 'workflow--cf'
+    },
+    {
+        'id':'8',
+        'value': 'Bugfixing',
+        'cssClass': 'workflow--bug'
+    },
+    {
+        'id':'9',
+        'value': 'Merged',
+        'cssClass': 'workflow--merge'
+    }
+]
+
+loadLocalStorage()
+showCases()
+Sortable.create(casesContainerAll,{
+    onEnd: (e) => updateArrayPosition(e.item.attributes.getNamedItem("data-id").value,e.newIndex-1)
+});
 
 
-    const workflowArray = [
-        {
-            'id':'1',
-            'value': 'Queue for Dev',
-            'cssClass': 'workflow--queue'
-        },
-        {
-            'id':'2',
-            'value': 'Sent to Case Owner',
-            'cssClass': 'workflow--co'
-        },
-        {
-            'id':'3',
-            'value': 'Development',
-            'cssClass': 'workflow--dev'
-        },
-        {
-            'id':'4',
-            'value': 'Code Review',
-            'cssClass': 'workflow--cr'
-        },
-        {
-            'id':'5',
-            'value': 'First Review',
-            'cssClass': 'workflow--fr'
-        },
-        {
-            'id':'6',
-            'value': 'In QA',
-            'cssClass': 'workflow--qa'
-        },
-        {
-            'id':'7',
-            'value': 'Changes and Feedback',
-            'cssClass': 'workflow--cf'
-        },
-        {
-            'id':'8',
-            'value': 'Bugfixing',
-            'cssClass': 'workflow--bug'
-        },
-        {
-            'id':'9',
-            'value': 'Merged',
-            'cssClass': 'workflow--merge'
-        }
-    ]
+function updateArrayPosition(id,newPosition){
+    let caseToMove;
 
-
-    function updateClientInArray(target, client) {
-        for ( let i = 0; i < casesArray.length; i++){
-            if(casesArray[i].id === target) {
-                casesArray[i].client = client
-                break;
-            }
+    for ( let i = 0; i < casesArray.length; i++){
+        if(casesArray[i].id === id) {
+            caseToMove = casesArray[i]
+            casesArray.splice(i, 1)
+            casesArray.splice(newPosition, 0, caseToMove)
+            break;
         }
     }
-
-    function updateTypeInArray(target, type) {
-        for ( let i = 0; i < casesArray.length; i++){
-            if(casesArray[i].id === target) {
-                casesArray[i].type = type
-                break;
-            }
-        }
-    }
-
-    function updateNoteInArray(target, note) {
-        for ( let i = 0; i < casesArray.length; i++){
-            if(casesArray[i].id === target) {
-                casesArray[i].note = note
-                break;
-            }
-        }
-    }
-
-    function updateStepInArray(target, step) {
-        for ( let i = 0; i < casesArray.length; i++){
-            if(casesArray[i].id === target) {
-                casesArray[i].workflow = step
-                break;
-            }
-        }
-    }
+    saveInLocalStorage()
     
-    function updateDateInArray(target) {
-        for ( let i = 0; i < casesArray.length; i++){
-            if(casesArray[i].id === target) {
-                casesArray[i].date = new Date()
-                break;
-            }
+}
+/* Un solo metodo podias usar para actualizar cualquier key del array */
+function updateArray(key,id,newValue){
+    for ( let i = 0; i < casesArray.length; i++){
+        if(casesArray[i].id === id) {
+            casesArray[i][key] = newValue
+            break;
         }
     }
-    function updateDate(e){
-        e.text(moment().format("DD/MM"))
+}
+
+//#region Useless code
+function updateClientInArray(target, client) {
+    for ( let i = 0; i < casesArray.length; i++){
+        if(casesArray[i].id === target) {
+            casesArray[i].client = client
+            break;
+        }
+    }
+}
+
+function updateTypeInArray(target, type) {
+    for ( let i = 0; i < casesArray.length; i++){
+        if(casesArray[i].id === target) {
+            casesArray[i].type = type
+            break;
+        }
+    }
+}
+
+function updateNoteInArray(target, note) {
+    for ( let i = 0; i < casesArray.length; i++){
+        if(casesArray[i].id === target) {
+            casesArray[i].note = note
+            break;
+        }
+    }
+}
+
+function updateStepInArray(target, step) {
+    for ( let i = 0; i < casesArray.length; i++){
+        if(casesArray[i].id === target) {
+            casesArray[i].workflow = step
+            break;
+        }
+    }
+}
+
+function updateDateInArray(target) {
+    for ( let i = 0; i < casesArray.length; i++){
+        if(casesArray[i].id === target) {
+            casesArray[i].date = new Date()
+            break;
+        }
+    }
+}
+//#endregion
+
+
+function updateDate(e){
+    e.text(moment().format("DD/MM"))
+}
+
+/* La nota no era opcional? Y te falto validar el id que no exista ya */
+function validateForm(){
+
+    let isValid = true
+
+    if (clientNameInput.val() === ''){
+        isValid = false
+        addErrorClass(clientNameInput)
+    }
+    if (typeNameInput.val() === ''){
+        isValid = false
+        addErrorClass(typeNameInput)
+    }
+    if (idCaseInput.val() === '' || idExist(idCaseInput.val())) {
+        isValid = false
+        addErrorClass(idCaseInput)
+    }
+    /*
+    if (caseNoteInput.val() === ''){
+        isValid = false
+        addErrorClass(caseNoteInput)
+    } */
+    return isValid
+}  
+
+function addErrorClass(e){
+    e.addClass('error');
+}
+
+function idExist(id){
+    for ( let i = 0; i < casesArray.length; i++){
+        if(casesArray[i].id === id) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function printCase(caseInfo){
+
+    let options=""
+    let cssClass;
+    for (i=0 ; i<workflowArray.length;i++){
+        if (caseInfo.workflow == workflowArray[i].id){
+            options += `<option value="${workflowArray[i].id}" selected>${workflowArray[i].value}</option>`
+            cssClass = workflowArray[i].cssClass
+        }
+        else
+            options += `<option value="${workflowArray[i].id}">${workflowArray[i].value}</option>`
     }
 
-    function validateForm(){
-
-        let isValid = true
-
-        if (clientNameInput.val() === ''){
-            isValid = false
-            addErrorClass(clientNameInput)
-        }
-        if (typeNameInput.val() === ''){
-            isValid = false
-            addErrorClass(typeNameInput)
-        }
-        if (idCaseInput.val() === '') {
-            isValid = false
-            addErrorClass(idCaseInput)
-        }
-        if (caseNoteInput.val() === ''){
-            isValid = false
-            addErrorClass(caseNoteInput)
-        } 
-        return isValid
-    }  
-
-    function addErrorClass(e){
-        e.addClass('error');
-    }
-
-
-
-    function printCase(caseInfo){
-
-        let options=""
-        let cssClass;
-        for (i=0 ; i<workflowArray.length;i++){
-            if (caseInfo.workflow == workflowArray[i].id){
-                options += `<option value="${workflowArray[i].id}" selected>${workflowArray[i].value}</option>`
-                cssClass = workflowArray[i].cssClass
-            }
-            else
-                options += `<option value="${workflowArray[i].id}">${workflowArray[i].value}</option>`
-        }
-
-        let dateF = moment(caseInfo.date).format('DD/MM')
-
-        let iconNoteTemplate = `<div  class="case__buttons--icon--note has-note" data-id="${caseInfo.id}">
-                                    <img src="assets/file-text-outline.svg" alt="note">
-                                </div>`
-
-        let noteTemplate = `<div class="case__note" style="display:none;" data-id="${caseInfo.id}">
-                                <input type="text" name="type" class="noteInput" value="${caseInfo.note}" data-id="${caseInfo.id}"></input>
+    hasNote = caseInfo.hasNote() ? "has-note" : "";
+    let iconNoteTemplate = `<div  class="case__buttons--icon--note ${hasNote}" data-id="${caseInfo.id}">
+                                <img class="icon-note" src="assets/file-text-outline.svg" alt="note">
                             </div>`
 
-        let caseTemplate = `<div class="case__container ${cssClass}" data-id="${caseInfo.id}">
-                                <div class="case">
-                                    <div class="case__item--client">
-                                        <input type="text" name="client" class="clientInput" value="${caseInfo.client}" data-id="${caseInfo.id}">
-                                    </div>
-                                    <div class="case__item--type">
-                                        <input type="text" name="type" class="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
-                                    </div>
-                                    <div class="case__item--date" data-id="${caseInfo.id}">${dateF}</div>
-                                    <div class="case__item--workflow ">
-                                        <select data-id="${caseInfo.id}" class="workflowInput">
-                                            ${options}
-                                        </select>
-                                    </div>
-                                    <div class="case__buttons">
-                                        ${iconNoteTemplate}
-                                        <div class="case__buttons--icon--link">
-                                            <a href="https://teg.avature.net/#Case/${caseInfo.id}" target="_blank">
-                                                <img src="assets/link-2-outline.svg" alt="link">
-                                            </a>
-                                        </div>
-                                        <div class="case__buttons--icon--remove" data-id="${caseInfo.id}">
-                                            <img src="assets/trash-2-outline.svg" alt="remove">
-                                        </div>
-                                    </div>     
+    let noteTemplate = `<div class="case__note" style="display:none;" data-id="${caseInfo.id}">
+                            <input type="text" autocomplete="off" name="type" class="noteInput" value="${caseInfo.note}" data-id="${caseInfo.id}"></input>
+                        </div>`
+
+    let caseTemplate = `<div class="case__container ${cssClass}" data-id="${caseInfo.id}">
+                            <div class="case">
+                                <div class="case__item--client">
+                                    <input type="text" name="client" autocomplete="off" class="clientInput" value="${caseInfo.client}" data-id="${caseInfo.id}">
                                 </div>
-                                ${noteTemplate}
-                            </div>`;
-                            
-        return caseTemplate
-    }
+                                <div class="case__item--type">
+                                    <input type="text" name="type" autocomplete="off" class="typeInput" value="${caseInfo.type}" data-id="${caseInfo.id}">
+                                </div>
+                                <div class="case__item--date" data-id="${caseInfo.id}">${caseInfo.getDateFormatted()}</div>
+                                <div class="case__item--workflow ">
+                                    <select data-id="${caseInfo.id}" class="workflowInput">
+                                        ${options}
+                                    </select>
+                                </div>
+                                <div class="case__buttons">
+                                    ${iconNoteTemplate}
+                                    <div class="case__buttons--icon--link">
+                                        <a href="${caseInfo.getURL()}" target="_blank">
+                                            <img class="icon-link" src="assets/link-2-outline.svg" alt="link">
+                                        </a>
+                                    </div>
+                                    <div class="case__buttons--icon--remove" data-id="${caseInfo.id}">
+                                        <img class="icon-trash" src="assets/trash-2-outline.svg" alt="remove">
+                                    </div>
+                                </div>     
+                            </div>
+                            ${noteTemplate}
+                        </div>`;
+                        
+    return caseTemplate
+}
 
-    
-    function removeElementFromArray(id, array) {
-        for (let i=0; i < array.length; i++){
-            if (array[i].id === id ){
-                array.splice( i, 1)
-                break
-            }
+
+function removeElementFromArray(id, array) {
+    for (let i=0; i < array.length; i++){
+        if (array[i].id === id ){
+            array.splice( i, 1)
+            break
         }
-        saveInLocalStorage()
     }
+    saveInLocalStorage()
+}
 
-    // LOCAL STORAGE
-    function saveInLocalStorage(){
-        localStorage.setItem('casesList', JSON.stringify(casesArray))
+// LOCAL STORAGE
+function saveInLocalStorage(){
+    localStorage.setItem('casesList', JSON.stringify(casesArray))
+}
+
+/* Cambie como es el load en local storage, asi se crean objetos "Case" */
+function loadLocalStorage(){
+    localStorageData = JSON.parse(localStorage.getItem('casesList'));
+    for (i=0 ; i< localStorageData.length;i++){
+        casesArray.push(new Case(
+            localStorageData[i].client,
+            localStorageData[i].workflow,
+            localStorageData[i].type,
+            localStorageData[i].id,
+            localStorageData[i].note,
+            localStorageData[i].date
+        ))
+    }     
+    if (casesArray === null){
+        casesArray = []
     }
+}
 
-    function loadLocalStorage(){
-        casesArray = JSON.parse(localStorage.getItem('casesList'))     
-        if (casesArray === null){
-            casesArray = []
-        }
-    }
-
-    function showCases() {
-    
+function showCases() {
+    if (casesArray.length === 0){
+        casesHeaderSpan.addClass('dNone')
+    } else {
+        noCasesContainer.addClass('dNone')
+        header.removeClass('hideHeader')
+        allFilters.children('.filter__list--item[data-filter="all"]').addClass('selected')
         for (let i = 0; i < casesArray.length; i++) {
-            
-            const caseInfo = {
-                client : casesArray[i].client,
-                workflow : casesArray[i].workflow,
-                type : casesArray[i].type,
-                id : casesArray[i].id,
-                note: casesArray[i].note,
-                date: casesArray[i].date
-            }
-            
-            caseContainerAll.append(printCase(caseInfo))
+            caseContainerAll.append(printCase(casesArray[i]))
             
         }
-        
-
-        if (casesArray.length === 0){
-            casesHeaderSpan.addClass('dNone')
-        } else {
-            noCasesContainer.addClass('dNone')
-            header.removeClass('hideHeader')
-            allFilters.children('.filter__list--item[data-filter="all"]').addClass('selected')
-        }
-        
     }
- 
-    loadLocalStorage()
-    showCases()
-    Sortable.create(casesContainerAll);
+}
+
+
+
+
+// WHEN CLICK CREATE A CASE FROM MODAL
+$('#buttonCreate').click( function(){
+    // Primero valida el form 
+    let isValid = validateForm()
+    if (isValid) {
+        let caseToAdd = new Case(
+            clientNameInput.val(),
+            typeNameInput.val(),
+            $('#caseWorkflowInput option:selected').val(),
+            idCaseInput.val(),
+            caseNoteInput.val(),
+            new Date()
+        )
+        modal.close()
+        casesArray.push(caseToAdd)
+        caseContainerAll.append(printCase(caseToAdd))
+        noCasesContainer.addClass('dNone')
+        header.removeClass('hideHeader')
+        saveInLocalStorage()
+    }
+
+    if (casesArray.length > 0) {
+        casesHeaderSpan.removeClass('dNone')
+    }
+})
+
+// ANIMATION CASES
+let caseContainer = $('.case__container')
+$.each(caseContainer, function(key){
+    let counter = key / 20
+    $(this).css('animation-delay', `${counter}` + 's')
+})
+
+// SHOW/HIDE NOTE
+caseContainerAll.on('click', '.case__buttons--icon--note', function(){
+    let target = $(this).attr("data-id")
+    let noteContainer = $(`.case__note[data-id=${target}]`)
+    noteContainer.toggle("swing")
+})
+
+// DELETE CASE
+caseContainerAll.on('click', '.case__buttons--icon--remove', function(){
+    let target = $(this).attr("data-id")
+    let caseToRemove = caseContainerAll.children(`.case__container[data-id=${target}]`)
+    caseToRemove.remove()
+
+    removeElementFromArray(target, casesArray)
+    if (casesArray.length === 0){
+        noCasesContainer.removeClass('dNone')
+        casesHeaderSpan.addClass('dNone')
+        header.addClass('hideHeader')
+    } 
+})
+
+// UPDATE CLIENTE
+caseContainerAll.on('change', '.clientInput', function(){
+    let target = $(this).attr("data-id")
+    let newClient = $(this).val()
+    updateArray("client",target, newClient)
+    saveInLocalStorage()
+})
+
+// UPDATE PORTAL TYPE
+caseContainerAll.on('change', '.typeInput', function(){
+    let target = $(this).attr("data-id")
+    let newType = $(this).val()
+    updateArray("type",target, newType)
+    saveInLocalStorage()
+})
+
+// UPDATE NOTE
+/*Aca agregue para la nota opcional que muestre el punto rojo */ 
+caseContainerAll.on('change','.noteInput', function(){
+    let target = $(this).attr("data-id")
+    let newNote = $(this).val()
+
+    if (newNote)
+        $(`.case__buttons--icon--note[data-id=${target}]`).addClass("has-note")
+    else
+        $(`.case__buttons--icon--note[data-id=${target}]`).removeClass("has-note")
+
+    updateArray("note",target, newNote)
+    saveInLocalStorage()
+})
+
+// UPDATE WORKFLOW
+caseContainerAll.on('change','.workflowInput', function(){
+    let target = $(this).attr("data-id")
+    let newStep = $(this).val()
+
+    // change class depends workflow step
+    let newCssClass = workflowArray[`${newStep -1 }`].cssClass
+
+    $(`.case__container[data-id=${target}]`).removeClass(function (index, css) {
+        return (css.match (/(^|\s)workflow--\S+/g) || []).join(' ');
+    });
+    $(`.case__container[data-id=${target}]`).addClass(`${newCssClass}`)
     
+    updateArray("workflow",target, newStep)
+    saveInLocalStorage()
+})
+
+// UPDATE DATE
+caseContainerAll.on('click','.case__item--date', function(){
+    let targetData = $(this).attr('data-id')
+    let target = $(this)
+    updateDate(target)
+    updateArray("date",targetData, new Date())
+    saveInLocalStorage()
+})
+
+//Filters
+allFilters.on('click', '.filter__list--item', function(){
+    let target = $(this)
     
-   // WHEN CLICK CREATE A CASE FROM MODAL
-    $('#buttonCreate').click( function(){
-
-        let caseInfo = {
-            client: clientNameInput.val(),
-            type: typeNameInput.val(),
-            workflow: $('#caseWorkflowInput option:selected').val(),
-            id: idCaseInput.val(),
-            note: caseNoteInput.val(),
-            date: new Date()
-        }
-
-        let isValid = validateForm()
-        if (isValid) {
-            modal.close()
-            casesArray.push(caseInfo)
-            caseContainerAll.append(printCase(caseInfo))
-            
-            noCasesContainer.addClass('dNone')
-            header.removeClass('hideHeader')
-            saveInLocalStorage()
-        }
-        if (casesArray.length > 0) {
-            casesHeaderSpan.removeClass('dNone')
-        }
-    })
-
-    // ANIMATION CASES
-    let caseContainer = $('.case__container')
-    $.each(caseContainer, function(key){
-        let counter = key / 20
-        $(this).css('animation-delay', `${counter}` + 's')
-    })
-
-    // SHOW/HIDE NOTE
-    caseContainerAll.on('click', '.case__buttons--icon--note', function(){
-        let target = $(this).attr("data-id")
-        let noteContainer = $(`.case__note[data-id=${target}]`)
-        noteContainer.toggle("swing")
-    })
-
-    // DELETE CASE
-    caseContainerAll.on('click', '.case__buttons--icon--remove', function(){
-        let target = $(this).attr("data-id")
-        let caseToRemove = caseContainerAll.children(`.case__container[data-id=${target}]`)
-        caseToRemove.remove()
-
-        removeElementFromArray(target, casesArray)
-        if (casesArray.length === 0){
-            noCasesContainer.removeClass('dNone')
-            casesHeaderSpan.addClass('dNone')
-            header.addClass('hideHeader')
-        } 
-    })
-
-    // UPDATE CLIENTE
-    caseContainerAll.on('change', '.clientInput', function(){
-        let target = $(this).attr("data-id")
-        let newClient = $(this).val()
-        updateClientInArray(target, newClient)
-        saveInLocalStorage()
-    })
-
-    // UPDATE PORTAL TYPE
-    caseContainerAll.on('change', '.typeInput', function(){
-        let target = $(this).attr("data-id")
-        let newType = $(this).val()
-        updateTypeInArray(target, newType)
-        saveInLocalStorage()
-    })
-
-    // UPDATE NOTE
-    caseContainerAll.on('change','.noteInput', function(){
-        let target = $(this).attr("data-id")
-        let newNote = $(this).val()
-        updateNoteInArray(target, newNote)
-        saveInLocalStorage()
-    })
-
-    // UPDATE WORKFLOW
-    caseContainerAll.on('change','.workflowInput', function(){
-        let target = $(this).attr("data-id")
-        let newStep = $(this).val()
-
-        // change class depends workflow step
-        let newCssClass = workflowArray[`${newStep -1 }`].cssClass
-
-        $(`.case__container[data-id=${target}]`).removeClass(function (index, css) {
-            return (css.match (/(^|\s)workflow--\S+/g) || []).join(' ');
-        });
-        $(`.case__container[data-id=${target}]`).addClass(`${newCssClass}`)
-        
-        updateStepInArray(target, newStep)
-        saveInLocalStorage()
-    })
-
-    // UPDATE DATE
-    caseContainerAll.on('click','.case__item--date', function(){
-        let targetData = $(this).attr('data-id')
-        let target = $(this)
-        updateDate(target)
-
-        let targetTextValue = target.text()
-        updateDateInArray(targetData, targetTextValue)
-        saveInLocalStorage()
-    })
-
-    //Filters
-    allFilters.on('click', '.filter__list--item', function(){
-        let target = $(this)
-        
-        if (target.hasClass('selected')) {
-            target.removeClass('selected');
-        } else {
-            $(".filter__list--item").removeClass('selected');
-            target.addClass('selected');
-        } 
-        
-    })
-
-});
+    if (target.hasClass('selected')) {
+        target.removeClass('selected');
+    } else {
+        $(".filter__list--item").removeClass('selected');
+        target.addClass('selected');
+    } 
+    
+})
