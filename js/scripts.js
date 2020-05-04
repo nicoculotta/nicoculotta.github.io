@@ -313,8 +313,8 @@ $('#buttonCreate').click( function(){
     if (isValid) {
         let caseToAdd = new Case(
             clientNameInput.val(),
-            typeNameInput.val(),
             $('#caseWorkflowInput option:selected').val(),
+            typeNameInput.val(),
             idCaseInput.val(),
             caseNoteInput.val(),
             new Date()
