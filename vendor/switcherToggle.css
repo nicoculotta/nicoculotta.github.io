@@ -1,3 +1,14 @@
+
+
+/* Variables */
+:root{
+  --c-accent: #1489EF;
+}
+
+[data-theme="dark"] {
+  --c-accent: #2499ff;
+}
+
 /*Simple css to style it like a toggle switch*/
 .theme-switch-wrapper {
     display: flex;
@@ -14,9 +25,9 @@
 
   .theme-switch {
     display: inline-block;
-    height: 34px;
+    height: 20px;
     position: relative;
-    width: 60px;
+    width: 35px;
   }
   
   .theme-switch input {
@@ -38,20 +49,24 @@
     background-color: #fff;
     bottom: 4px;
     content: "";
-    height: 26px;
+    height: 12px;
     left: 4px;
     position: absolute;
     transition: .4s;
-    width: 26px;
+    width: 12px;
   }
   
   input:checked + .slider {
-    background-color: #66bb6a;
+    background-color: var(--c-accent);
   }
   
   input:checked + .slider:before {
-    transform: translateX(26px);
-  }
+    transform: translateX(16px);
+    -webkit-transform: translateX(16px);
+    -moz-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    -o-transform: translateX(16px);
+}
   
   .slider.round {
     border-radius: 34px;

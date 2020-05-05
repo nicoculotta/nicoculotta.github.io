@@ -4,11 +4,11 @@
 	 viewBox="0 0 344 219" style="enable-background:new 0 0 344 219;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:url(#SVGID_1_);}
-	.st1{fill:#DCEDFD;}
+	.st1{fill:#ffffff;}
 	.st2{fill:#1489EF;}
-	.st3{fill:#17263E;}
+	.st3{fill:#ffffff;}
 	.st4{fill:none;}
-	.st5{fill:#FFFFFF;}
+	.st5{fill:#17263E;}
 
 
 	@keyframes moveX {
@@ -53,8 +53,8 @@
 
 <g class="floor">
 		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="172" y1="-789" x2="172" y2="-719" gradientTransform="matrix(1 0 0 -1 0 -584)">
-		<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0"/>
-		<stop  offset="1" style="stop-color:#DCEDFD"/>
+		<stop  offset="0" style="stop-color:#152032;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#152032"/>
 	</linearGradient>
 	<path class="st0" d="M341,205c0-38.7-75.7-70-169-70S3,166.3,3,205"/>
 </g>

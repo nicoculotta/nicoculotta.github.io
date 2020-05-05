@@ -17,8 +17,12 @@
     --c-input-text: #17263E;
     --c-input-focus: #DCEDFD;
     --c-select-bg: #DCEDFD;
+    --c-btn-cancel: #DCEDFD;
     --chev-img: url(assets/chevron-down-outline_light.svg);
     --refresh-icon: url(assets/refresh-outline.svg);
+    --note-icon: url(assets/file-text-outline.svg);
+    --link-icon: url(assets/link-2-outline.svg);
+    --trash-icon: url(assets/trash-2-outline.svg);
     --text: 14px;
 
     --c-que: #DCEDFD;
@@ -47,8 +51,12 @@
     --c-input: #203453;
     --c-select-bg: #17263E;
     --c-input-text: #ffffff;
+    --c-btn-cancel: #17263E;
     --chev-img: url(assets/chevron-down-outline_dark.svg);
     --refresh-icon: url(assets/refresh-outline_dark.svg);
+    --note-icon: url(assets/file-text-outline_dark.svg);
+    --link-icon: url(assets/link-2-outline_dark.svg);
+    --trash-icon: url(assets/trash-2-outline_dark.svg);
 }
 
 
@@ -303,8 +311,8 @@ header {
 
 
 .button--cancel {
-    border: 1px solid var(--c-lightblue);
-    background-color: var(--c-lightblue);
+    border: 1px solid var(--c-btn-cancel);
+    background-color: var(--c-btn-cancel);
     color: var(--c-border);
     text-transform: uppercase;
     text-decoration: none;
@@ -352,9 +360,9 @@ header {
 }
 
 .button--cancel:hover {
-    background:  var(--c-lightblueHover);
-    border-color:  var(--c-lightblueHover);
-    color: var(--c-accent)
+    background:  var(--c-border);
+    border-color:  var(--c-border);
+    color: #fff;
 }
 
 .button--cancel:hover:before {
@@ -575,8 +583,8 @@ header {
 .field textarea {
     border: none;
     display: block;
-    background-color: var(--c-lightblue);
-    border: 1px solid var(--c-lightblue);
+    background-color: var(--c-select-bg);
+    border: 1px solid var(--c-select-bg);
     padding: .5em;
     width: 100%;
     border-radius: 4px;
@@ -627,9 +635,6 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 2.3em;
-    height: 2.3em;
-    background-color: var(--c-select-bg);
     border-radius: 50%;
     cursor: pointer;
     transition: all .1s ease-in-out ;
@@ -637,6 +642,8 @@ header {
     -moz-transition: all .1s ease-in-out ;
     -ms-transition: all .1s ease-in-out ;
     -o-transition: all .1s ease-in-out ;
+    width: 2.3em;
+    height: 2.3em;
 }
 .case__buttons--icon--note:hover,
 .case__buttons--icon--link:hover,
@@ -649,10 +656,22 @@ header {
     -o-transform: scale(1.1);
 }
 
-.case__buttons img {
-    width: 1.4em;
-    height: 1.4em;
+.case__buttons--icon--note {
+    background: var(--note-icon) no-repeat center;
+    background-color: var(--c-select-bg);
+    background-size: 1.4em;
 }
+.case__buttons--icon--link {
+    background: var(--link-icon) no-repeat center;
+    background-color: var(--c-select-bg);
+    background-size: 1.4em;
+}
+.case__buttons--icon--remove {
+    background: var(--trash-icon) no-repeat center;
+    background-color: var(--c-select-bg);
+    background-size: 1.4em;
+}
+
 
 .has-note{
     position: relative;
@@ -781,3 +800,14 @@ header {
 
 }
 
+
+.remodal {
+    color: var(--c-primary) !important;
+    background: var(--c-bg) !important;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+.remodal-overlay {
+    background: var(--c-bg-dark) !important;
+}

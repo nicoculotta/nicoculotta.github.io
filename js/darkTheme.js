@@ -1,11 +1,18 @@
 const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
 const currentTheme = localStorage.getItem('theme');
+const ilusContainer = document.querySelector('.ilus-emptyCase')
+let img = document.createElement('IMG')
 
 if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
     
     if (currentTheme === 'dark') {
         toggleSwitch.checked = true;
+        img.src = 'assets/empty_case_animated_dark.svg'
+        ilusContainer.appendChild(img)
+    } else {
+        img.src = 'assets/empty_case_animated.svg'
+        ilusContainer.appendChild(img)
     }
 }
 
@@ -17,19 +24,13 @@ function switchTheme(e) {
     if (e.target.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
         localStorage.setItem('theme', 'dark'); 
-      
-        for (let i = 0; i < iconNote.length; i++) {
-            iconNote[i].src = 'assets/file-text-outline_dark.svg'
-            iconLink[i].src = 'assets/link-2-outline_dark.svg'
-            iconTrash[i].src = 'assets/trash-2-outline_dark.svg'
-        }
+        img.src = 'assets/empty_case_animated_dark.svg'
+
     }
     else {
         document.documentElement.setAttribute('data-theme', 'light')
         localStorage.setItem('theme', 'light');
-        for (let i = 0; i < iconNote.length; i++) {
-            iconNote[i].src = 'assets/file-text-outline.svg'
-        }
+        img.src = 'assets/empty_case_animated.svg'
     }    
 }
 

@@ -30,6 +30,8 @@ let noCasesContainer = $('.no__cases--container')
 let header = $('header')
 
 let allFilters = $('.filter__list')
+let todayFilter = $('#todayFilter')
+let allFilter = $('#allFilter')
 let modal = $('.remodal').remodal()
 
 const workflowArray = [
@@ -111,53 +113,6 @@ function updateArray(key,id,newValue){
     }
 }
 
-//#region Useless code
-function updateClientInArray(target, client) {
-    for ( let i = 0; i < casesArray.length; i++){
-        if(casesArray[i].id === target) {
-            casesArray[i].client = client
-            break;
-        }
-    }
-}
-
-function updateTypeInArray(target, type) {
-    for ( let i = 0; i < casesArray.length; i++){
-        if(casesArray[i].id === target) {
-            casesArray[i].type = type
-            break;
-        }
-    }
-}
-
-function updateNoteInArray(target, note) {
-    for ( let i = 0; i < casesArray.length; i++){
-        if(casesArray[i].id === target) {
-            casesArray[i].note = note
-            break;
-        }
-    }
-}
-
-function updateStepInArray(target, step) {
-    for ( let i = 0; i < casesArray.length; i++){
-        if(casesArray[i].id === target) {
-            casesArray[i].workflow = step
-            break;
-        }
-    }
-}
-
-function updateDateInArray(target) {
-    for ( let i = 0; i < casesArray.length; i++){
-        if(casesArray[i].id === target) {
-            casesArray[i].date = new Date()
-            break;
-        }
-    }
-}
-//#endregion
-
 
 function updateDate(e){
     e.text(moment().format("DD/MM"))
@@ -215,9 +170,7 @@ function printCase(caseInfo){
     }
 
     hasNote = caseInfo.hasNote() ? "has-note" : "";
-    let iconNoteTemplate = `<div  class="case__buttons--icon--note ${hasNote}" data-id="${caseInfo.id}">
-                                <img class="icon-note" src="assets/file-text-outline.svg" alt="note">
-                            </div>`
+    let iconNoteTemplate = `<div  class="case__buttons--icon--note ${hasNote}" data-id="${caseInfo.id}"></div>`
 
     let noteTemplate = `<div class="case__note" style="display:none;" data-id="${caseInfo.id}">
                             <input type="text" autocomplete="off" name="type" class="noteInput" value="${caseInfo.note}" data-id="${caseInfo.id}"></input>
@@ -239,13 +192,12 @@ function printCase(caseInfo){
                                 </div>
                                 <div class="case__buttons">
                                     ${iconNoteTemplate}
-                                    <div class="case__buttons--icon--link">
-                                        <a href="${caseInfo.getURL()}" target="_blank">
-                                            <img class="icon-link" src="assets/link-2-outline.svg" alt="link">
-                                        </a>
-                                    </div>
+
+                                    <a href="${caseInfo.getURL()}" target="_blank">
+                                        <div class="case__buttons--icon--link"></div>
+                                    </a>
+                                    
                                     <div class="case__buttons--icon--remove" data-id="${caseInfo.id}">
-                                        <img class="icon-trash" src="assets/trash-2-outline.svg" alt="remove">
                                     </div>
                                 </div>     
                             </div>
@@ -427,5 +379,23 @@ allFilters.on('click', '.filter__list--item', function(){
         $(".filter__list--item").removeClass('selected');
         target.addClass('selected');
     } 
+
+})
+
+todayFilter.on('click', function(){
+    let hoyFormatted = moment().format("DD/MM")
     
+    for (let i = 0; i < casesArray.length; i++) {
+       
+        let dateCases = moment(casesArray[i].date).format("DD/MM")
+        
+        if ( hoyFormatted !== dateCases){
+            let todayCases = caseContainerAll.children(`.case__container[data-id=${casesArray[i].id}]`)
+            todayCases.addClass('dNone')
+        }
+    }
+})
+
+allFilter.on('click', function(){
+    caseContainerAll.children(`.case__container`).removeClass('dNone')
 })
