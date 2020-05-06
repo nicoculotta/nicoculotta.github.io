@@ -19,9 +19,6 @@ if (currentTheme) {
 }
 
 function switchTheme(e) {
-    let iconNote = document.querySelectorAll('.icon-note');
-    let iconLink = document.querySelectorAll('.icon-link');
-    let iconTrash = document.querySelectorAll('.icon-trash');
     
     if (e.target.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
