@@ -226,16 +226,19 @@ function saveInLocalStorage(){
 /* Cambie como es el load en local storage, asi se crean objetos "Case" */
 function loadLocalStorage(){
     localStorageData = JSON.parse(localStorage.getItem('casesList'));
-    for (i=0 ; i< localStorageData.length;i++){
-        casesArray.push(new Case(
-            localStorageData[i].client,
-            localStorageData[i].workflow,
-            localStorageData[i].type,
-            localStorageData[i].id,
-            localStorageData[i].note,
-            localStorageData[i].date
-        ))
-    }     
+    if (localStorageData) {
+        for (i=0 ; i< localStorageData.length;i++){
+            casesArray.push(new Case(
+                localStorageData[i].client,
+                localStorageData[i].workflow,
+                localStorageData[i].type,
+                localStorageData[i].id,
+                localStorageData[i].note,
+                localStorageData[i].date
+            ))
+        }    
+    }
+    
     if (casesArray === null){
         casesArray = []
     }
