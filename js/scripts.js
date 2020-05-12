@@ -252,13 +252,10 @@ function showCases() {
         header.removeClass('hideHeader')
         allFilters.children('.filter__list--item[data-filter="all"]').addClass('selected')
         for (let i = 0; i < casesArray.length; i++) {
-            caseContainerAll.prepend(printCase(casesArray[i]))
-            
+            caseContainerAll.append(printCase(casesArray[i]))
         }
     }
 }
-
-
 
 
 // WHEN CLICK CREATE A CASE FROM MODAL

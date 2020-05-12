@@ -1,6 +1,7 @@
 const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
 const currentTheme = localStorage.getItem('theme');
 const ilusContainer = document.querySelector('.ilus-emptyCase')
+
 let img = document.createElement('IMG')
 img.src = 'assets/empty_case_animated.svg'
 ilusContainer.appendChild(img)
