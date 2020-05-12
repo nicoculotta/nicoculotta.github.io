@@ -252,7 +252,7 @@ function showCases() {
         header.removeClass('hideHeader')
         allFilters.children('.filter__list--item[data-filter="all"]').addClass('selected')
         for (let i = 0; i < casesArray.length; i++) {
-            caseContainerAll.append(printCase(casesArray[i]))
+            caseContainerAll.prepend(printCase(casesArray[i]))
             
         }
     }
@@ -275,8 +275,8 @@ $('#buttonCreate').click( function(){
             new Date()
         )
         modal.close()
-        casesArray.push(caseToAdd)
-        caseContainerAll.append(printCase(caseToAdd))
+        casesArray.unshift(caseToAdd)
+        caseContainerAll.preend(printCase(caseToAdd))
         noCasesContainer.addClass('dNone')
         header.removeClass('hideHeader')
         saveInLocalStorage()
