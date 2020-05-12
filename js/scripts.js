@@ -276,7 +276,7 @@ $('#buttonCreate').click( function(){
         )
         modal.close()
         casesArray.unshift(caseToAdd)
-        caseContainerAll.preend(printCase(caseToAdd))
+        caseContainerAll.prepend(printCase(caseToAdd))
         noCasesContainer.addClass('dNone')
         header.removeClass('hideHeader')
         saveInLocalStorage()
