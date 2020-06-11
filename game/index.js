@@ -2,7 +2,7 @@ const emojis = [ "🤖","🤡","🎩","🐵","🐶","🐣","🍓","🏀","⚽","
 const allEmojis = emojis.concat(emojis)
 
 const cardBoardDOM = document.querySelector('.cardboard')
-//cardBoardDOM.innerHTML = ''
+
 
 
 const dealCards = () => {
@@ -14,8 +14,19 @@ const dealCards = () => {
         `
         cardBoardDOM.appendChild(cardDOM)
     })
-
 }
 
 dealCards()
+
+
+const allCardsDOM = document.querySelectorAll('.card__container')
+
+function revealCard() {
+    this.classList.add('show')
+}
+
+allCardsDOM.forEach( elem => {
+    elem.addEventListener('click', revealCard )
+})
+
 
