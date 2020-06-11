@@ -1,22 +1,21 @@
-const allEmojis = [ "🤖","🤡","🎩","🐵","🐶","🐣","🍓","🏀","⚽","🚗","⚒️","💊","💸","❤️","🏴‍☠️","🇦🇷","😎","😍","🤮","💪" ]
+const emojis = [ "🤖","🤡","🎩","🐵","🐶","🐣","🍓","🏀","⚽","🚗","⚒️","💊","💸","❤️","🏴‍☠️","🇦🇷","😎","😍","🤮","💪" ]
+const allEmojis = emojis.concat(emojis)
+
+const cardBoardDOM = document.querySelector('.cardboard')
+//cardBoardDOM.innerHTML = ''
 
 
-const randomNumber = (min, max) => {
-    return Math.floor(Math.random() * (max - min)) + min;
+const dealCards = () => {
+    allEmojis.forEach( elem => {
+        let cardDOM = document.createElement('div')
+        cardDOM.classList.add('card__container')
+        cardDOM.innerHTML = `
+            <div class="card__emoji">${elem}</div>
+        `
+        cardBoardDOM.appendChild(cardDOM)
+    })
+
 }
 
-const createCardBoard = () => {
-    for( let i = 0; i <  allEmojis.length; i++){
-        let number = randomNumber(0, 20)
-
-        if (number === number) {
-            let cardEmoji = document.createElement('span')
-            cardEmoji.innerHTML = allEmojis[number]
-            document.body.append(cardEmoji);
-        }
-
-    }
-}
-
-createCardBoard()
+dealCards()
 

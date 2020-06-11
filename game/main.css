@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.cardboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1140px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.card__container {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+    border-radius: 16px;
+    margin: 5px;
+}
+
+.card__emoji {
+    font-size: 40px;
+}
