@@ -35,10 +35,14 @@
     box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
     transform: rotateY(180deg);
     background-color: #fff;
-    padding: 20px;
+    padding: 20px 20px 40px;
     border-radius: 16px;
 }
 
 .card__container.show {
     transform: rotateY(180deg);
+}
+
+.card__container.arrow{
+    
 }

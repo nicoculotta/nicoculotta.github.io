@@ -1,6 +1,6 @@
 //SET CONFIG HOW MANY ITEMS IN THE ARRAY
 let config = {
-    totalCards : 20
+    totalCards : 8
 }
 const emojis = [ "🤖","🤡","🎩","🐵","🐶","🐣","🍓","🏀","⚽","🚗","⚒️","💊","💸","❤️","🏴‍☠️","🇦🇷","😎","😍","🤮","💪" ]
 
@@ -13,10 +13,7 @@ const spliceCards = (num, array) => {
 let totalCardsInBoard = config.totalCards
 let arrayOfEmojis = spliceCards(totalCardsInBoard, emojis)
 
-
 const allEmojis = arrayOfEmojis.concat(arrayOfEmojis)
-console.log(allEmojis)
-
 
 const cardBoardDOM = document.querySelector('.cardboard')
 
@@ -38,7 +35,7 @@ const dealCards = () => {
         let cardDOM = document.createElement('div')
         cardDOM.classList.add('card__container')
         cardDOM.innerHTML = `
-            <div class="card__emoji">${elem}</div>
+            <div class="card__emoji" data-value="${elem}">${elem}</div>
         `
         cardBoardDOM.appendChild(cardDOM)
     })
@@ -52,8 +49,44 @@ dealCards()
 const allCardsDOM = document.querySelectorAll('.card__container')
 
 function revealCard() {
+    let reveledCards;
+    let totalRevealedCards = document.querySelectorAll('.show:not(.match)')
+
+    if (totalRevealedCards.length > 1) {
+        return;
+    }
+
     this.classList.add('show')
+
+    reveledCards = document.querySelectorAll('.show:not(.match)')
+
+    if (reveledCards.length < 2) {
+        return;
+    }
+    compareSelectedCards(reveledCards)
 }
+
+function compareSelectedCards(listOfCardsToCompare) {
+    if (listOfCardsToCompare[0].children[0].dataset.value === listOfCardsToCompare[1].children[0].dataset.value) {
+        successMatch(listOfCardsToCompare)
+
+    } else {
+        errorMatch(listOfCardsToCompare)
+    }
+}
+
+function successMatch(cards) {
+    cards[1].classList.add('arrow')
+}
+
+function errorMatch(cards){
+    cards.forEach( elem => {
+        elem.classList.remove('show')
+    })
+}
+
+
+
 
 allCardsDOM.forEach( elem => {
     elem.addEventListener('click', revealCard )
