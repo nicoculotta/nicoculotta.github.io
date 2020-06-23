@@ -1,6 +1,7 @@
 //SET CONFIG HOW MANY ITEMS IN THE ARRAY
 let config = {
-    totalCards : 8
+    totalCards : 6,
+    revealTime : 2000
 }
 const emojis = [ "🤖","🤡","🎩","🐵","🐶","🐣","🍓","🏀","⚽","🚗","⚒️","💊","💸","❤️","🏴‍☠️","🇦🇷","😎","😍","🤮","💪" ]
 
@@ -9,8 +10,9 @@ const spliceCards = (num, array) => {
     let arraySpliced = array.slice(0, num);
     return arraySpliced
 }
-
+let revealTime = config.revealTime
 let totalCardsInBoard = config.totalCards
+
 let arrayOfEmojis = spliceCards(totalCardsInBoard, emojis)
 
 const allEmojis = arrayOfEmojis.concat(arrayOfEmojis)
@@ -39,9 +41,24 @@ const dealCards = () => {
         `
         cardBoardDOM.appendChild(cardDOM)
     })
+    
+}
+
+function showAndHideInBoard(time) {
+    let timer;
+    let cardsInBoard = document.querySelectorAll('.card__container')
+    cardsInBoard.forEach( elem => {
+        elem.classList.add('show')
+    })
+    timer = setTimeout(() => {
+        cardsInBoard.forEach( elem => {
+            elem.classList.remove('show')
+        })
+    }, time)
 }
 
 dealCards()
+showAndHideInBoard(revealTime)
 // show cards END
 
 
@@ -76,7 +93,10 @@ function compareSelectedCards(listOfCardsToCompare) {
 }
 
 function successMatch(cards) {
-    cards[1].classList.add('arrow')
+    cards[0].classList.add('arrow')
+    cards.forEach( elem => {
+        elem.classList.add('match')
+    })
 }
 
 function errorMatch(cards){
