@@ -1,7 +1,7 @@
 //SET CONFIG HOW MANY ITEMS IN THE ARRAY
 let config = {
-    totalCards : 6,
-    revealTime : 2000
+    totalCards : 4,
+    revealTime : 1000
 }
 const emojis = [ "🤖","🤡","🎩","🐵","🐶","🐣","🍓","🏀","⚽","🚗","⚒️","💊","💸","❤️","🏴‍☠️","🇦🇷","😎","😍","🤮","💪" ]
 
@@ -10,6 +10,7 @@ const spliceCards = (num, array) => {
     let arraySpliced = array.slice(0, num);
     return arraySpliced
 }
+
 let revealTime = config.revealTime
 let totalCardsInBoard = config.totalCards
 
@@ -44,6 +45,23 @@ const dealCards = () => {
     
 }
 
+function positionInCircle(){
+    // position cards in a circle
+    let cardsInBoard = document.querySelectorAll('.card__container')
+    let type = 1 //circle type - 1 whole, 0.5 half, 0.25 quarter
+    let radius = '16em' //distance from center
+    let start = -90 //shift start from 0
+    let numberOfCards = (type === 1) ?  cardsInBoard.length : cardsInBoard.length - 1 //adj for even distro of cards when not full circle
+    let slice = 360 * type / numberOfCards;
+
+    cardsInBoard.forEach((elem, index) => {
+        let rotate = slice * index + start;
+        let rotateReverse = rotate * -1;
+        elem.style.transform = `rotate(${rotate}deg) translate(${radius}) rotate(${rotateReverse}deg)`;
+    });
+}
+
+
 function showAndHideInBoard(time) {
     let timer;
     let cardsInBoard = document.querySelectorAll('.card__container')
@@ -57,13 +75,16 @@ function showAndHideInBoard(time) {
     }, time)
 }
 
+
 dealCards()
+positionInCircle()
 showAndHideInBoard(revealTime)
 // show cards END
 
 
-// Event to reveal Card
 const allCardsDOM = document.querySelectorAll('.card__container')
+// Event to reveal Card
+
 
 function revealCard() {
     let reveledCards;
