@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.cardboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1140px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    position: relative;
+    height: 100vh;
+}
+
+.card__container {
+    background-color: rgb(190, 70, 170);
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+    margin: 5px;
+    border-radius: 16px;
+    cursor: pointer;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    position: absolute;
+}
+
+.card__emoji {
+    font-size: 40px;
+    backface-visibility: hidden;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+    transform: rotateY(180deg);
+    background-color: #fff;
+    padding: 20px 20px 40px;
+    border-radius: 16px;
+}
+
+.card__container.show {
+    transform: rotateY(180deg)!important;
+    -webkit-transform: rotateY(180deg)!important;
+    -moz-transform: rotateY(180deg)!important;
+    -ms-transform: rotateY(180deg)!important;
+    -o-transform: rotateY(180deg)!important;
+}
+
+.card__container.arrow{
+    
+}
