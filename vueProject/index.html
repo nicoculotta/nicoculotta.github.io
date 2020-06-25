@@ -9,33 +9,38 @@
 <body>
     <div id="app">
         <div class="container">
-            <div class="level">
+            <div class="level section">
                 <div class="level-item has-text-centered">
-                    <div class="my-6">
+                    <div>
                         <div class="image is-128x128 mb-3">
-                            <img v-bind:src="img" v-bind:alt="name">
+                            <img 
+                                v-on:mouseover="toggleShowPrices"
+                                v-on:mouseout="toggleShowPrices" 
+                                v-bind:src="img" 
+                                v-bind:alt="name"
+                            >
                         </div>
                         <h1 class="title">{{ name }}</h1>
                         <span v-if="valorBtc > 0">{{ valorBtc }} USD</span>
                         <span v-else>No tenemos el valor</span>
-                    </div>
-                </div>
-            </div>
-            <div class="level">
-                <div class="level-item">
-                    <div class="content">
-                        <ul>
-                            <li v-for="(p, i) in precios" v-bind:key="p">{{ i }} - {{ p }}</li>
-                        </ul>
+                        <div class="mt-3">
+                            <button v-on:click="toggleShowPrices" v-bind:class="showPrices === true ? 'button is-primary' : 'button is-info'">{{ showPrices ? "Mostrar" : "Ocultar" }}</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
+
             <div class="level">
                 <div class="level-item">
                     <div class="content">
-                        <ul>
-                            <li v-for="(p, i) in pricesWithDays" v-bind:key="p.day">{{ i }} - {{ p.day }}: {{ p.value }}</li>
+                        <ul v-show=showPrices>
+                            <li 
+                                v-bind:class="{ 'has-text-primary': p.value === elPrecio, 'has-text-danger': p.value < elPrecio }"
+                                v-for="(p, i) in pricesWithDays"
+                                v-bind:key="p.day">
+                                    {{ i }} - {{ p.day }}: {{ p.value }}
+                            </li>
                         </ul>
                     </div>
                 </div>
