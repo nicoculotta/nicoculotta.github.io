@@ -4,6 +4,7 @@ new Vue({
     data() {
         return {
             name: 'Bitcoin',
+            symbol: 'BTC',
             img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png',
             valorBtc: -20,
             pricesWithDays: [
@@ -16,7 +17,28 @@ new Vue({
                 { day:'Domingo', value:10200 },
             ],
             showPrices: false,
-            elPrecio: 9000
+            elPrecio: 9000,
+            value: 0
+        }
+    },
+
+    computed: {
+        title() {
+            return `${this.name} - ${this.symbol}`
+        },
+
+        convertedValue(){
+            if (!this.value){
+                return 0
+            }
+
+            return this.value / this.elPrecio
+        }
+    },
+
+    watch:{
+        showPrices(newVal, oldVal){
+            console.log(newVal, oldVal)
         }
     },
 
