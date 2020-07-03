@@ -3,20 +3,27 @@ new Vue({
     
     data () {
       return {
-        courses: [0],
         title: '',
-        time: '',
-        totalTime: 0
+        time: null,
+        courses: [],
       }
     },
-    
-    computed: {
 
+    computed: {
+      totalTime(){
+        let total = 0;
+        this.courses.forEach(e => {
+          total += parseInt(e.time)
+        })
+        return total
+      }
     },
-    
+
     methods: {
-      addCourse(){
-        console.log(`${title} - ${time}`)
+      addCourse() {
+        this.courses.push({title: this.title, time: this.time})
+        this.title = ''
+        this.time = null
       }
     }
   })

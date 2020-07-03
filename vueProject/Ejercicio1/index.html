@@ -13,10 +13,10 @@
                 Mis Cursos de Platzi💚
             </h1>
                 <div class="field">
-                    <input class="input" type="text" placeholder="Titulo del curso" v-model="title"/>
+                    <input v-model="title" class="input" type="text" placeholder="Titulo del curso" />
                 </div>
                 <div class="field">
-                    <input class="input" type="number" placeholder="Horas" v-model="time"/>
+                    <input v-model="time" class="input" type="number" placeholder="Horas" />
                 </div>
                 <div>
                     <button v-on:click='addCourse' class="button is-info is-fullwidth">Guardar Curso</button>
@@ -24,11 +24,12 @@
 
             <div class="section">
                 <h3 class="title">Lista de Cursos</h3>
-                <p class="subtitle">Aun no has realizado cursos</p>
-                <div>
-                    <ol>
-                        <!-- Lista de cursos -->
-                    </ol>
+                <p v-if="courses <= 0" class="subtitle">Aun no has realizado cursos</p>
+                
+                <div v-else>
+                    <ul>
+                        <li v-for="c in courses">{{ c.title }} - {{ c.time }} hs</li>
+                    </ul>
                     <hr/>
                     <p>
                         Llevo <strong>{{ totalTime }}</strong> horas aprendiendo en Platzi.
