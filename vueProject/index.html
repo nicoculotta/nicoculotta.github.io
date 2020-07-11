@@ -7,54 +7,30 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
 </head>
 <body>
-    <div id="app" v-bind:class="showPrices === true ? 'has-background-grey-dark has-text-light' : 'has-background-light' ">
+    <div id="app" v-bind:style="{ background: '#' + color }" >
         <div class="container">
             <div class="level section">
                 <div class="level-item has-text-centered">
-                    <div>
-                        <div class="image is-128x128 mb-3">
-                            <img 
-                                v-on:mouseover="toggleShowPrices"
-                                v-on:mouseout="toggleShowPrices" 
-                                v-bind:src="img" 
-                                v-bind:alt="name"
-                            >
-                        </div>
-                        <h1 class="title">{{ title }}</h1>
-                        <span v-if="valorBtc > 0">{{ valorBtc }} USD</span>
-                        <span v-else>No tenemos el valor</span>
-                        <div class="mt-3">
-                            <button v-on:click="toggleShowPrices" v-bind:class="showPrices === true ? 'button is-primary' : 'button is-info'">{{ showPrices ? "Mostrar" : "Ocultar" }}</button>
-                        </div>
-                    </div>
+                    <coin-detail 
+                        v-bind:coin="btc"
+                        v-on:change-color="updateColor">
+                        
+                        <template slot="text">
+                            <p>Lorem ipsum dolor sit amet consecte nobis magni temporibus sequi!</p>
+                        </template>
+                        <template slot="link">
+                            <a href="#">Link</a>
+                        </template>
+                       
+                    </coin-detail>
                 </div>
-            </div>
-
-            <div class="box">
-                <input class="input" type="number" placeholder="Text number" v-model="value">
-                <span>{{ convertedValue }}</span>
             </div>
             
-
-            <div class="level">
-                <div class="level-item">
-                    <div class="content">
-                        <ul v-show=showPrices>
-                            <li 
-                                v-bind:class="{ 'has-text-primary': p.value === elPrecio, 'has-text-danger': p.value < elPrecio }"
-                                v-for="(p, i) in pricesWithDays"
-                                v-bind:key="p.day">
-                                    {{ i }} - {{ p.day }}: {{ p.value }}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
     <!-- VUE JS-->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
