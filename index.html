@@ -1,128 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="icon" type="image/png" href="favicon.ico">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"
+    />
+</head>
+<body>
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="reset.css">
-        <link rel="stylesheet" href="main.css">
-        <link rel="stylesheet" href="vendor/switcherToggle.css">
-        <link rel="stylesheet" href="vendor/remodal/remodal.css">
-        <link rel="stylesheet" href="vendor/remodal/remodal-default-theme.css">
-        <!-- GOOGLE FONT -->
-        <link href="https://fonts.googleapis.com/css?family=Poppins:500,600,700&display=swap" rel="stylesheet">
-
-        <title>Case Manager</title>
-    </head>
-    <body>
-        <div class="remodal-bg">
-        <header class="hideHeader">
-            <div class="container header__container">
-                <div class="brand">CaseManager</div>
-                <ul class="filter__list">
-                    <li id="todayFilter" class="filter__list--item" data-filter="today">Today</li>
-                    <li id="allFilter" class="filter__list--item" data-filter="all">All cases</li>
-                </ul>
-                <div class="button__modal">
-                    <a href="#" data-remodal-target="modal">New Case</a>
-                </div>
-            </div>
-        </header>
-
-        <section class="cases">
-            <div class="container">
-                <div class="cases__header">
-                    <span>Client</span>
-                    <span>Portal Type</span>
-                    <span>Date</span>
-                    <span>Workflow step</span>
-                </div>
-                <div class="cases__container--all" id="casesContainerAll">
-                    <div class="no__cases--container">
-                        <div class="brand">CaseManager</div>
-                        <div class="ilus-emptyCase">
-                            <!-- <img src="assets/empty_case_animated.svg"> -->
-                        </div>
-                        <h2>You don't have any case</h2>
-                        <p>Please create one with the button below</p>
-                        <div class="button__modal">
-                            <a href="#" data-remodal-target="modal">New Case</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-            <!-- MODAL CREATE CASE -->
-            <div class="remodal" data-remodal-id="modal">
-                <h1>Create a new case</h1>
-                <div class="form-col2">
-                    <div class="field">
-                        <label for="clientNameInput">Client</label>
-                        <input type="text" id="clientNameInput" autocomplete="off" placeholder="Deloitte">
-                    </div>
-                    <div class="field">
-                        <label for="typeNameInput">Portal Type</label>
-                        <input type="text" id="typeNameInput" autocomplete="off" placeholder="External Careers">
-                    </div>
-                    <div class="field">
-                        <label for="idCaseInput">Id Case</label>
-                        <input type="number" id="idCaseInput" autocomplete="off" placeholder="435679">
-                    </div>
-                    <div class="field selectField">
-                        <label for="caseWorkflowInput">Workflow step</label>
-                        <select id="caseWorkflowInput">	
-                            <option value="1">Queue for Dev</option>	
-                            <option value="2">Sent to Case Owner</option>	
-                            <option value="3">Development</option>	
-                            <option value="4">Code Review</option>	
-                            <option value="5">First Review</option>	
-                            <option value="6">In QA</option>	
-                            <option value="7">Changes and Feedback</option>	
-                            <option value="8">Bugfixing</option>	
-                            <option value="9">Merged</option>	
-                        </select>
-                    </div>
-                </div>
-                <div class="form-col1">
-                    <div class="field">
-                        <label for="caseNoteInput">Notes</label>
-                        <textarea name="note" id="caseNoteInput" autocomplete="off" value="Write a note here..."></textarea>
-                    </div>
-                </div>
-                
-                <div class="button-bar">
-                    <button data-remodal-action="cancel" class="button--cancel">Cancel</button>
-                    <button id="buttonCreate" class="button--confirm">Create</button>
-                </div>
-
-            </div>
-
-            <!-- TOGGLE THEME -->
-            <div class="theme-switch-wrapper">
-                <label class="theme-switch" for="checkbox">
-                    <input type="checkbox" id="checkbox" />
-                    <div class="slider round"></div>
-              </label>
-            </div>
-            
-
-        </div>
-            <!-- JQUERY CDN -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-            <!-- JS MOMENT -->
-            <script src="vendor/moment.js"></script>
-            <!-- JS REMODAL -->
-            <script src="vendor/remodal/remodal.min.js"></script>
-            <!-- JS SORTEABLE -->
-            <script src="https://SortableJS.github.io/Sortable/Sortable.js"></script>
-        <!-- JS DARKTHEME -->
-            <script src="js/darkTheme.js"></script>
-
-            <!-- JS -->
-            <script src="js/scripts.js"></script>
-    </body>
+    <section class="section">
+      <div class="container">
+      <h1 class="title">Projects</h1>
+      <div class="box">
+        <a href="./CryptoApi/index.html"> CryptoApi</a>
+      </div>
+      <div class="box">
+        <a href="./CaseManager/index.html">CaseManager</a>
+      </div>
+      </div>
+    </section>
+    
+</body>
 </html>

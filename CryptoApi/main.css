@@ -1,0 +1,107 @@
+body {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400 !important;
+  min-height: 100vh;
+  height: 100%;
+  background-color: #e2e2e2;
+}
+
+h2, .highlow span {
+  font-weight: 800;
+}
+
+
+.grid-columns {
+  display: grid;
+  gap: 2em;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+
+@media all and (max-width: 960px){
+  .grid-columns {
+      gap: 1em;
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media all and (max-width: 768px){
+  .grid-columns {
+      gap: 1em;
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media all and (max-width: 480px){
+  .grid-columns {
+      gap: 0.8em;
+      grid-template-columns: 1fr;
+  }
+}
+
+
+/* OVERRIDES */
+.box {
+  min-height: 100%;
+  transition: all .2s ease-in-out;
+}
+
+.box:hover {
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+}
+
+.highlow {
+  opacity: 0;
+  transform: translateY(-20px) scaleY(0);
+  -webkit-transform: translateY(-20px) scaleY(0);
+  -moz-transform: translateY(-20px) scaleY(0);
+  -ms-transform: translateY(-20px) scaleY(0);
+  -o-transform: translateY(-20px) scaleY(0);
+  transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+}
+
+.box:hover .highlow {
+  opacity: 1;
+  transform: translateY(0px) scaleY(1);
+  -webkit-transform: translateY(0px) scaleY(1);
+  -moz-transform: translateY(0px) scaleY(1);
+  -ms-transform: translateY(0px) scaleY(1);
+  -o-transform: translateY(0px) scaleY(1);
+}
+
+.upper-card {
+  transform: translateY(20px);
+  -webkit-transform: translateY(20px);
+  -moz-transform: translateY(20px);
+  -ms-transform: translateY(20px);
+  -o-transform: translateY(20px);
+}
+
+.box:hover .upper-card {
+  transition: all .2s ease-in-out;
+  transform: translateY(0px);
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  -ms-transform: translateY(0px);
+  -o-transform: translateY(0px);
+}
+
+
+.tag:not(body).is-primary {
+  background-color: #7c21f3;
+  color: #fff;
+  font-weight: 800;
+}
+
+.navbar-link.is-active, .navbar-link:focus, .navbar-link:focus-within, .navbar-link:hover, a.navbar-item.is-active, a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover {
+  background-color: #f1f1f1;
+  color: #7c21f3;
+}
