@@ -41,12 +41,12 @@ h2, .highlow span {
 
 
 /* OVERRIDES */
-.box {
+.grid .box {
   min-height: 100%;
   transition: all .2s ease-in-out;
 }
 
-.box:hover {
+.grid .box:hover {
   transform: scale(1.05);
   -webkit-transform: scale(1.05);
   -moz-transform: scale(1.05);
@@ -83,6 +83,11 @@ h2, .highlow span {
   -moz-transform: translateY(20px);
   -ms-transform: translateY(20px);
   -o-transform: translateY(20px);
+  transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
 }
 
 .box:hover .upper-card {
