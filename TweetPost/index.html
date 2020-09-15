@@ -28,42 +28,16 @@
     <section class="section">
       <div class="container level">
         <div id="printable" class="box level-item ">
-            <div class="box">
-                <article class="media">
-                    <div class="media-left">
-                    <figure class="image is-64x64">
-                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-                    </figure>
-                    </div>
-                    <div class="media-content">
-                    <div class="content">
-                        <p>
-                        <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
-                        </p>
-                    </div>
-                    <nav class="level is-mobile">
-                        <div class="level-left">
-                        <a class="level-item" aria-label="reply">
-                            <span class="icon is-small">
-                            <i class="fas fa-reply" aria-hidden="true"></i>
-                            </span>
-                        </a>
-                        <a class="level-item" aria-label="retweet">
-                            <span class="icon is-small">
-                            <i class="fas fa-retweet" aria-hidden="true"></i>
-                            </span>
-                        </a>
-                        <a class="level-item" aria-label="like">
-                            <span class="icon is-small">
-                            <i class="fas fa-heart" aria-hidden="true"></i>
-                            </span>
-                        </a>
-                        </div>
-                    </nav>
-                    </div>
-                </article>
+            <div class="background-box">
+                <div class="header-box">
+                  <div class="user-img"></div>
+                  <div class="user-data">
+                    <p class="username">Nicolas Culotta</p>
+                    <p class="usertweet">@nicoculotta</p>
+                  </div>
+                  <div class="user-text">I'm on another podcast episode! I don't enjoy listening to my own voice so you'll have to tell me what you think Cara sonriente con boca abierta y sudor frío Thanks for having me 
+@andybaldacci</div>
+                </div>
             </div>
         </div>
       </div>
@@ -80,10 +54,22 @@
         var printable = document.getElementById('printable');
         var buttonDownload = document.getElementById('downloadBtn')
 
-        domtoimage.toJpeg(printable, { quality: 0.95 })
+        var storySize = {
+           quality: 0.95,
+           width: 1080,
+           height: 1920
+        }
+
+        var squareSize = {
+           quality: 0.95,
+           width: 500,
+           height: 500
+        }
+
+        domtoimage.toPng(printable, squareSize)
             .then(function (dataUrl) {
                 var link = document.createElement('a');
-                link.download = 'my-image-name.jpeg';
+                link.download = 'my-image-name.jpg';
                 link.href = dataUrl;
                 
                 buttonDownload.addEventListener('click', function(){
