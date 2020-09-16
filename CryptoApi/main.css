@@ -53,6 +53,16 @@ h2, .highlow span {
   -ms-transform: scale(1.05);
   -o-transform: scale(1.05);
 }
+.navbar-item, .navbar-link {
+  line-height: 3;
+}
+
+.navbar-item img {
+  max-height: 2rem;
+}
+h1.title {
+  color: #c4c4c4;
+}
 
 .highlow {
   opacity: 0;
