@@ -1,0 +1,21 @@
+{
+  "name": "twityshare",
+  "version": "1.0.0",
+  "description": "Share your tweet with style",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tweet",
+    "api",
+    "share",
+    "instagram"
+  ],
+  "author": "Nicolás Culotta",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "twit": "^2.2.11"
+  }
+}
