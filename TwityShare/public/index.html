@@ -47,9 +47,9 @@
       //form variables
       const searchButton = document.getElementById('search')
       let inputSearch = document.getElementById('tweetUrl')
+      let tweetDataFromServer = ''
 
-      
-      searchButton.addEventListener('click', () => {
+      searchButton.addEventListener('click', async() => {
         let inputValue = inputSearch.value
         let tweetId = inputValue.substr(inputValue.lastIndexOf('/') + 1);
 
@@ -62,9 +62,29 @@
             id: tweetId
           })
         }
-         fetch('/api', options).then( response =>{
-           console.log(response);
-         });
+         const response = await fetch('/api', options);
+         const tweetDataFromServer = await response.json();
+         console.log(tweetDataFromServer);
+
+          const { text, name, screen_name, profile_image_url } = tweetDataFromServer;
+          
+          const createTweet = ( text, name, screen_name, profile_image_url ) => {
+            return `
+              <div class="background-box">
+                  <div class="header-box">
+                    <div class="user-img">
+                      <img src="${profile_image_url}" alt="">
+                    </div>
+                    <div class="user-data">
+                      <p class="username">${name}</p>
+                      <p class="usertweet">${screen_name}</p>
+                    </div>
+                  </div>
+                  <div class="user-text">${text}</div>
+              </div>
+            `
+          }
+          printable.innerHTML = createTweet(text, name, screen_name, profile_image_url);
       })
 
 
@@ -72,30 +92,15 @@
       let buttonDownload = document.getElementById('downloadBtn')
 
       // GET THE DATA FROM
-      async function getTweet(){
+/*       async function getTweet(){
         const response = await fetch('tweet.json');
         const tweet = await response.json()
 
         const { text, name, username, userimage } = tweet.data;
         printable.innerHTML = createTweet(text, name, username, userimage);
-      }
+      } */
 
-      const createTweet = ( text, name, username, userimage ) => {
-        return `
-          <div class="background-box">
-              <div class="header-box">
-                <div class="user-img">
-                   <img src="${userimage}" alt="">
-                </div>
-                <div class="user-data">
-                  <p class="username">${name}</p>
-                  <p class="usertweet">@${username}</p>
-                </div>
-              </div>
-              <div class="user-text">${text}</div>
-          </div>
-        `
-      }
+      
 
 
       //DOM TO IMG
@@ -110,9 +115,6 @@
           width: 500,
           height: 500
       }
-
-
-      getTweet()
 
       buttonDownload.addEventListener('click', function(){  
           domtoimage.toPng(printable, squareSize)
