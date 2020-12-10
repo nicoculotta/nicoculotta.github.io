@@ -39,7 +39,7 @@
                         </a>
                     </div>
                     <div class="flex content-end font-bold">
-                        <a class="navbar-item mr-6" href="#" target="_blank">
+                        <a id="openModalLink" class="navbar-item mr-6" href="#" target="_blank">
                             About the project
                         </a>
                     </div>
@@ -88,27 +88,37 @@
 
 
     
-<!--     <div class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="box">
-                <h2 class="title is-3">CryptoApp</h2>
-                <p class="subtitle pb-5">created by <a href="https://www.linkedin.com/in/nicolasculotta/" target="_blank">Nicolás Culotta</a></p>
-                <h3 class="title is-5">Dynamic Data from:</h3>
-                <p class="subtitle pb-5"><a href="https://min-api.cryptocompare.com/">Cryptocompare API</a></p>
-                <h3 class="title is-5">Technologies:</h3>
-                <div class="tags">
-                    <span class="tag is-danger">HTML & CSS</span>
-                    <span class="tag is-primary">Bulma CSS</span>
-                    <span class="tag is-info">Jquery</span>
-                </div>
+<div id="modal" class="fixed w-full h-full top-0 z-10 bg-white">
+    <div class="flex justify-center items-center h-full">
+        <div class="relative">
+            <h2 class="text-2xl font-bold">Bitcoinfo</h2>
+            <p class="text-lg text-indigo-400 mb-6">created by <a href="https://www.linkedin.com/in/nicolasculotta/" target="_blank">Nicolás Culotta</a></p>
+            <h3 class="text-xl font-bold">Dynamic Data from:</h3>
+            <p class="text-lg text-indigo-400 mb-6"><a href="https://min-api.cryptocompare.com/">Cryptocompare API</a></p>
+            <h3 class="text-xl font-bold">For this page I use:</h3>
+            <div class="mt-5 text-white">
+                <span class="p-2 bg-red-400 rounded mr-2">HTML & CSS</span>
+                <span class="p-2 bg-blue-300 rounded mr-2">Tailwind CSS</span>
+                <span class="p-2 bg-yellow-500 rounded ">Jquery & Javascript</span>
             </div>
+            <button id="modalBtn" class="absolute -top-20 -left-2 w-12 h-12" aria-label="close">
+                <img src="images/close-outline.svg" alt="close icon for modal">
+            </button>
         </div>
-        <button class="modal-close is-large" aria-label="close"></button>
-    </div> -->
+    </div>
+</div>
 
     <script>
         $(document).ready(function(){
+
+            $('#openModalLink').on('click', () => {
+                $('#modal').show()
+                return false
+            })
+
+            $('#modalBtn').on('click', () => {
+                $('#modal').hide()
+            })
 
             setInterval(() => {
                 $('.loader').animate({
