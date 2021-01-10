@@ -12,7 +12,6 @@ body {
   background: #87DFF0;
 }
 
-
 .font-title {
   font-family: 'Russo One', sans-serif;
 }
@@ -40,6 +39,7 @@ body {
   -moz-transition: all .2s ease-in-out;
   -ms-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
+  background-color: #ffffff;
 }
 
 .card-hover:hover {
@@ -79,4 +79,22 @@ body {
 
 #modal {
  display: none;
+}
+
+
+.img-post-container {
+  position: relative;
+}
+
+.img-post-container:after {
+    pointer-events: none;
+    content: "";
+    background: linear-gradient(130deg,#1e2947,#222bb4 76.05%);
+    mix-blend-mode: screen;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
 }
