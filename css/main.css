@@ -820,6 +820,11 @@ footer {
     .main {
         max-width: 1140px;
     }
+
+    /* menu mobile */
+    .link-menu {
+        font-size: 2rem;
+    }
     /* --------------------------------- header --------------------------------- */
     /* --------------------------------- hero --------------------------------- */
 
@@ -1026,6 +1031,9 @@ footer {
         font-size: 0.9rem;
     }
     /* --------------------------------- header --------------------------------- */
+    header {
+        margin-top: 2em;
+    }
     /* --------------------------------- hero --------------------------------- */
 
     .hero__title {
@@ -1033,7 +1041,7 @@ footer {
     }
 
     .hero__title--text {
-        font-size: 2.8rem;
+        font-size: 2.5rem;
         line-height: 3.6rem;
     }
 
@@ -1043,6 +1051,10 @@ footer {
 
 
     /* --------------------------------- projects --------------------------------- */
+
+    .shadow--title {
+        display: none;
+    }
 
     .projects__wrapper {
         margin-bottom: 3rem;
@@ -1067,11 +1079,6 @@ footer {
 
     /* --------------------------------- about --------------------------------- */
 
-    .about p.shadow--title {
-        opacity: 0.3;
-        position: absolute;
-        right: 1rem;
-    }
 
     .about__resume {
         height: 260px;
@@ -1112,6 +1119,11 @@ footer {
     .footer--icons a {
         height: 50px;
         width: 50px;
+    }
+
+    .btn__scroll {
+        right: 10px;
+        bottom: 10px;
     }
 }
 
