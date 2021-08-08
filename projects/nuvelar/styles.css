@@ -15,23 +15,23 @@
 
 @font-face {
     font-family: "PoppinsLight";
-    src: url("/assets/fonts/Poppins-Light.ttf") format("trueType");
+    src: url("./assets/fonts/Poppins-Light.ttf") format("trueType");
     font-weight: 300;
 }
 
 @font-face {
     font-family: "PoppinsRegular";
-    src: url("/assets/fonts/Poppins-Regular.ttf") format("trueType");
+    src: url("./assets/fonts/Poppins-Regular.ttf") format("trueType");
     font-weight: 400;
 }
 @font-face {
     font-family: "PoppinsSemiBold";
-    src: url("/assets/fonts/Poppins-SemiBold.ttf") format("trueType");
+    src: url("./assets/fonts/Poppins-SemiBold.ttf") format("trueType");
     font-weight: 500;
 }
 @font-face {
     font-family: "PoppinsBold";
-    src: url("/assets/fonts/Poppins-Bold.ttf") format("trueType");
+    src: url("./assets/fonts/Poppins-Bold.ttf") format("trueType");
     font-weight: 600;
 }
 
