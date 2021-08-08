@@ -374,7 +374,9 @@ p.shadow--title {
 
 .card__image__container {
     height: 20rem;
-    background-color: purple;
+    display: block;
+    text-decoration: none;
+    color: white;
 }
 
 .img--bitcoinfo {
