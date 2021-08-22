@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuvelar - Creamos experiencias digitales</title>
 
+
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     
     <link rel="stylesheet" href="styles.css">
@@ -18,31 +21,32 @@
 <header>
 
     <!-- NAV -->
-    <div class="wrapper">
-        <div class="logo">
-            <img src="assets/images/logo.png" alt="Logo Nuvelar">
+    <div class="nav-bg">
+        <div class="wrapper nav-scroll ">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="Logo Nuvelar">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#display">Display</a></li>
+                    <li><a href="#desarrollo">Desarrollo</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <a href="https://www.nuvelar.com/public/login" target="_blank" class="button--login">Ingresar</a>
+            </nav>  
         </div>
-        <nav>
-            <ul>
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#display">Display</a></li>
-                <li><a href="#desarrollo">Desarrollo</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-            <a href="https://www.nuvelar.com/public/login" target="_blank" class="button--login">Ingresar</a>
-        </nav>
-        
     </div>
     <!-- END NAV -->
 
-    <section id="home" class="wrapper hero page">
+    <section id="home" class="wrapper hero page ">
     
         <div class="hero__content">
             <h1 class="hero__title">Creamos Experiencias <span>digitales</span></h1>
             <p class="hero__description">Desde el 2014 creamos soluciones tecnológicas para ayudarte a llegar a tu público de una manera distinta e innovadora. Ofreciendo consultoría, hardware, software y diseño.</p>
-            <a href="#servicios" class="button--info">+ INFO</a>
+            <a href="#servicios" class="button--info button-scroll">+ INFO</a>
         </div>
 
     </section>
@@ -51,17 +55,17 @@
 <!-- END HEADER -->
 
 <!-- NUESTROS SERVICIOS -->
-<section id="servicios" class="services page">
+<section id="servicios" class="services page ">
     <div class="wrapper">
         <h2>Nuestros Servicios</h2>
         <div class="cards__wrapper">
-            <div class="card">
+            <div class="card card-scroll-1">
                 <img src="assets/images/nuvelar-display.png" alt="mini computadora nuvelar">
                 <h3 class="card__title">Nuvelar Display</h3>
                 <p class="card__description">Contamos con una plataforma en la nube que facilita la creación, distribución y administración de contenidos para redes de cartelería digital.</p>
                 <a href="#display" class="button--info">+ INFO</a>
             </div>
-            <div class="card">
+            <div class="card card-scroll-2">
                 <img src="assets/images/nuvelar-a-medida.png" alt="">
                 <h3 class="card__title">Nuvelar a medida</h3>
                 <p class="card__description">Llevamos adelante los proyectos que nuestros clientes necesitan para brindar experiencias memorables.</p>
@@ -91,8 +95,9 @@
     <span class="display--form"></span>
     <div class="wrapper">
         <h2>Nuvelar Display</h2>
+        <span>Software para cartelería digital</span>
         <div class="grid__container">
-            <div class="grid__card">
+            <div class="grid__card grid__card-1">
                 <div class="grid__card--content">
                     <div class="grid__card--img">
                         <img class="programacion" src="assets/images/icon-programacion.jpg" alt="">
@@ -100,7 +105,7 @@
                     <div class="grid__card--title">Programacion de contenido</div>
                 </div>
             </div>
-            <div class="grid__card">
+            <div class="grid__card grid__card-2">
                 <div class="grid__card--content">
                     <div class="grid__card--img">
                         <img class="monitoreo"  src="assets/images/icon-monitoreo.jpg" alt="">
@@ -108,7 +113,7 @@
                     <div class="grid__card--title">Monitoreo de reproductores</div>
                 </div>
             </div>
-            <div class="grid__card">
+            <div class="grid__card grid__card-3">
                 <div class="grid__card--content">
                     <div class="grid__card--img">
                         <img class="apps" src="assets/images/icon-social.jpg" alt="">
@@ -119,7 +124,7 @@
                     <p>RSS</p>
                 </div>
             </div>
-            <div class="grid__card">
+            <div class="grid__card grid__card-4">
                 <div class="grid__card--content">
                     <div class="grid__card--img">
                         <img class="plantillas" src="assets/images/icon-plantillas.jpg" alt="">
@@ -127,7 +132,7 @@
                     <div class="grid__card--title">Creador de plantillas dinámicas</div>
                 </div>
             </div>
-            <div class="grid__card">
+            <div class="grid__card grid__card-5">
                 <div class="grid__card--content">
                     <div class="grid__card--img">
                         <img class="contenido"  src="assets/images/icon-contenido.jpg" alt="">
@@ -135,7 +140,7 @@
                     <div class="grid__card--title">Contenido en multiples formatos</div>
                 </div>
             </div>
-            <div class="grid__card">
+            <div class="grid__card grid__card-6">
                 <div class="grid__card--content">
                     <div class="grid__card--img">
                         <img class="soporte" src="assets/images/icon-soporte.jpg" alt="">
@@ -260,8 +265,8 @@
                     <h4>Prisma Mesa interactiva</h4>
                     <p>Prisma contaba con una mesa interactiva en el hall de etrada de su edificio. Originalmente, estos dispositivos contaban con un software básico que no tenía grandes prestaciones. Fue entonces cuando Prisma contactó a Nuvelar para hacer un nuevo desarrollo a medida.</p>
                     <p>Se consensuó desarrollar una pantalla inicial con un menú con cuatro secciones que ordenara todas estas funciones:
-                        <strong>Información útil</strong>. Plano barrio, estado del tránsito, subte y el clima.
-                        Entretenimiento. Dos juegos realizados para los momentos ociosos o de espera. El primero es Space Balls, un estilo al clásico Arcanoid pero que puede jugarse de a una o dos personas al mismo tiempo. El segundo es el Champins Run, un juego de plataforma para un jugador. Ambos desarrollados y diseñados especialmente para la empresa. Info del Edificio y de la empresa. 
+                        <strong>Información útil.</strong> Plano barrio, estado del tránsito, subte y el clima.
+                        <strong>Entretenimiento.</strong>  Dos juegos realizados para los momentos ociosos o de espera. El primero es Space Balls, un estilo al clásico Arcanoid pero que puede jugarse de a una o dos personas al mismo tiempo. El segundo es el Champins Run, un juego de plataforma para un jugador. Ambos desarrollados y diseñados especialmente para la empresa. Info del Edificio y de la empresa. 
                     </p> 
                     <a href="#contacto" class="button--info btn-small">ESCRIBINOS</a>
                 </div>
@@ -297,7 +302,7 @@
             <div class="logo--blog"></div>
             <div class="img--blog"></div>
         </div>
-        <div class="content__wrapper">
+        <div class="content__wrapper subscribe-scroll">
             <p class="subtitle">¿Quéres saber más de Nuvelar?</p>
             <h2>Suscribete <br> a nuestro BLOG</h2>
             <p>Te contamos acerca de nuestras experiencias, proyectos y diferentes consejos acera de estrategias de comunicación y su optimización con múltiples herramientas de tecnología</p>
@@ -315,7 +320,7 @@
 
 <!-- CONTACTO -->
 <section id="contacto" class="contact page">
-    <div class="wrapper">
+    <div class="wrapper contact-scroll">
         <div class="contact--wrapper">
             <div class="contact--title">
                 <span class="line"></span><h2>¿Consultas? ¡Escribinos!</h2><span class="line"></span>
