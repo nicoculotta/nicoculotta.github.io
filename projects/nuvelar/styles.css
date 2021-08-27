@@ -145,8 +145,19 @@ header nav li a:hover {
 }
 
 @media (max-width: 760px){
+
+    header {
+        background: url("assets/images/hero_mobile.png") no-repeat #dfe0e2;
+        background-position: center 70px;
+        background-size: 90%;
+    }
     nav ul {
         display: none !important;
+    }
+
+
+    header .wrapper {
+        align-items: flex-end;
     }
 
     .logo {
@@ -206,12 +217,20 @@ header nav li a:hover {
 
 @media (max-width: 760px){
     .hero__content {
-        width: 80%;
+        width: 90%;
     }
 
     .hero__content .hero__title {
-        font-size: 36px;
+        font-size: 32px;
         line-height: 1.2;
+    }
+
+    .hero__content::before {
+        display: none;
+    }
+
+    .hero__description {
+        font-size: 14px;
     }
 }
 
@@ -699,6 +718,7 @@ header nav li a:hover {
 }
 .swiper-container {
     border-radius: 24px;
+    overflow: hidden;
 }
 
 .swiper-slide {
