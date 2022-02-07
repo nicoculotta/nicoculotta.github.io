@@ -370,6 +370,7 @@ p.shadow--title {
 
 .card {
     width: 32%;
+    margin-top: 2rem;
 }
 
 .card__image__container {
@@ -377,6 +378,11 @@ p.shadow--title {
     display: block;
     text-decoration: none;
     color: white;
+}
+
+.img--twicky {
+    background: url('../assets/twicky_portada.png') no-repeat center;
+    background-size: cover;
 }
 
 .img--bitcoinfo {
@@ -603,6 +609,7 @@ p.shadow--title {
     font-size: 1.1rem;
     font-family: var(--font-text-bold);
     padding: 1rem 0;
+    cursor: default;
 }
 
 .box p:hover {
@@ -776,7 +783,8 @@ footer {
 .footer--icons {
     display: flex;
     justify-content: space-between;
-    margin: 3rem 0;
+    margin: 3rem auto;
+    max-width: 300px;
 }
 
 .footer--icons a {
