@@ -181,11 +181,13 @@
                 const allPost = $('a[type="post"]');
                 allPost.remove();
             }
+/* 
+            ebc4eeb97d54978810176288c2f38c601040c95439f370a632ccf07e0258a1d8 */
 
             /* GETTING POSTS FROM API AND CREATE THE CARDS */
             const loadPost = () => {
                 $.ajax({
-                    url: "https://min-api.cryptocompare.com/data/v2/news/?lang="+language+"&categories=BTC&api_key=2854a5c3399c288c9183d204216c9c5d706e7d55bb64cd5a67eda10db684a574",
+                    url: "https://min-api.cryptocompare.com/data/v2/news/?lang="+language+"&categories=BTC&api_key=8dd5a1a4a2e217c2bcff80ba9fc1fe114518aa7be79fff7a74877d46307532cd",
                     success: function (response) {
                         const dataNews = response.Data
                         const news = dataNews.slice(0,12)
